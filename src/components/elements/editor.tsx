@@ -34,13 +34,13 @@ const formatters: Record<string, MarkdownFormatFunction> = {
 };
 
 export const Editor: Component<MarkdownEditorProps> = props => {
-    const [markdown, setMarkdown] = createSignal(props.initialValue || "");
-    const [preview, setPreview] = createSignal("");
+    const [markdown, setMarkdown] = createSignal<string>(props.initialValue || "");
+    const [preview, setPreview] = createSignal<string>("");
 
-    let textareaRef: HTMLTextAreaElement;
+    let textareaRef!: HTMLTextAreaElement;
 
     createEffect(() => {
-        const html = DOMPurify.sanitize(marked(markdown()));
+        const html = DOMPurify.sanitize(marked(markdown()) as string);
         setPreview(html);
         props.onChange?.(markdown());
     });
