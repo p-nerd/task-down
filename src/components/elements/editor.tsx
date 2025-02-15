@@ -1,26 +1,14 @@
 import { marked } from "marked";
-import { Component, createEffect, createSignal } from "solid-js";
+import { createEffect, createSignal } from "solid-js";
 
 import DOMPurify from "dompurify";
 
-interface MarkdownEditorProps {
-    initialValue?: string;
-    onChange?: (value: string) => void;
-    className?: string;
-    minHeight?: number;
-}
-
-interface TextSelection {
-    start: number;
-    end: number;
-}
-
-type MarkdownFormatFunction = (selection: string) => {
+type TFormatFn = (selection: string) => {
     prefix: string;
     suffix?: string;
 };
 
-const formatters: Record<string, MarkdownFormatFunction> = {
+const formatters: Record<string, TFormatFn> = {
     bold: () => ({ prefix: "**", suffix: "**" }),
     italic: () => ({ prefix: "_", suffix: "_" }),
     code: () => ({ prefix: "`", suffix: "`" }),
@@ -33,7 +21,12 @@ const formatters: Record<string, MarkdownFormatFunction> = {
     orderedList: () => ({ prefix: "1. " }),
 };
 
-export const Editor: Component<MarkdownEditorProps> = props => {
+const Editor = (props: {
+    initialValue?: string;
+    onChange?: (value: string) => void;
+    className?: string;
+    minHeight?: number;
+}) => {
     const [markdown, setMarkdown] = createSignal<string>(props.initialValue || "");
     const [preview, setPreview] = createSignal<string>("");
 
@@ -45,7 +38,7 @@ export const Editor: Component<MarkdownEditorProps> = props => {
         props.onChange?.(markdown());
     });
 
-    const insertMarkdown = (format: MarkdownFormatFunction): void => {
+    const insertMarkdown = (format: TFormatFn): void => {
         const start = textareaRef.selectionStart;
         const end = textareaRef.selectionEnd;
         const text = markdown();
@@ -95,7 +88,7 @@ export const Editor: Component<MarkdownEditorProps> = props => {
         e.preventDefault();
         const files = e.dataTransfer?.files;
 
-        if (files?.length > 0) {
+        if (files && files.length > 0) {
             const file = files[0];
             if (file.type.startsWith("image/")) {
                 const reader = new FileReader();
@@ -113,11 +106,7 @@ export const Editor: Component<MarkdownEditorProps> = props => {
         }
     };
 
-    const renderToolbarButton = (
-        label: string,
-        title: string,
-        formatter: MarkdownFormatFunction,
-    ): JSX.Element => (
+    const renderToolbarButton = (label: string, title: string, formatter: TFormatFn) => (
         <button
             onClick={() => insertMarkdown(formatter)}
             title={title}
@@ -165,3 +154,5 @@ export const Editor: Component<MarkdownEditorProps> = props => {
         </div>
     );
 };
+
+export { Editor };
