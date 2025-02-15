@@ -1,7 +1,7 @@
 import { Title } from "@solidjs/meta";
 import { HttpStatusCode } from "@solidjs/start";
 
-export default function NotFound() {
+const NotFound = () => {
     return (
         <main>
             <Title>Not Found</Title>
@@ -16,4 +16,6 @@ export default function NotFound() {
             </p>
         </main>
     );
-}
+};
+
+export default NotFound;

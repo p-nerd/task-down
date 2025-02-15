@@ -1,32 +1,29 @@
-# SolidStart
+# TaskDown
 
-Everything you need to build a Solid project, powered by [`solid-start`](https://start.solidjs.com);
+Where Markdown Meets Productivity
 
-## Creating a project
+## Overview
 
-```bash
-# create a new project in the current directory
-npm init solid@latest
+TaskDown is a sleek, powerful application that seamlessly combines the simplicity
+of Markdown with intuitive task management. Perfect for developers, writers, and
+productivity enthusiasts, TaskDown lets you organize your thoughts and tasks in clean,
+formatted text while maintaining a powerful todo system.
 
-# create a new project in my-app
-npm init solid@latest my-app
-```
+## Features
 
-## Developing
+- Write and format notes using simple Markdown syntax
+- Create, organize, and track todos within your notes
+- Smart task detection that automatically recognizes todo items in your Markdown
+- Real-time Markdown preview as you type
+- Easy export options to HTML, PDF, and other formats
+- Dark and light themes for comfortable viewing
+- Tags and categories for better organization
+- Customizable keyboard shortcuts
+- Cross-platform synchronization
+- Minimalist, distraction-free interface
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Why
 
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-Solid apps are built with _presets_, which optimise your project for deployment to different environments.
-
-By default, `npm run build` will generate a Node app that you can run with `npm start`. To use a different preset, add it to the `devDependencies` in `package.json` and specify in your `app.config.js`.
-
-## This project was created with the [Solid CLI](https://solid-cli.netlify.app)
+Whether you're managing personal projects, taking meeting notes, or organizing your daily tasks,
+TaskDown provides the perfect balance of simplicity and functionality. Experience the power of
+structured note-taking combined with efficient task management in one seamless application.
