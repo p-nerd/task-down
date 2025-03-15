@@ -1,4 +1,10 @@
 resources/js/components/ui/*
 resources/js/ziggy.js
 resources/views/mail/*
+
+node_modules/*
+public/*
+storage/*
+vendor/*
+composer.lock
 pnpm-lock.yaml
