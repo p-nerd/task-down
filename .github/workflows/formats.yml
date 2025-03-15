@@ -38,6 +38,9 @@ jobs:
       - name: PHP Format
         run: composer run-script format
 
+      - name: TypeScript Lint
+        run: pnpm run lint
+
       - name: TypeScript Format
         run: pnpm run format
 
