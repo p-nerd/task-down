@@ -1,3 +1,5 @@
+import type { TNote } from "@/types/models";
+
 import {
     headingsPlugin,
     linkPlugin,
@@ -10,8 +12,6 @@ import {
 } from "@mdxeditor/editor";
 
 import { useCallback, useRef } from "react";
-import { useUpdateNoteContent } from "~/queries/notes";
-import { useNote } from "~/states/notes";
 
 const plugins = [
     // basic
@@ -30,10 +30,16 @@ const plugins = [
     markdownShortcutPlugin(),
 ];
 
-const Editor = ({ id, content }: { id?: string; content: string }) => {
+const Editor = ({
+    id,
+    content,
+    onUpdate,
+}: {
+    id?: string;
+    content: string;
+    onUpdate: (content: string) => void;
+}) => {
     const timeoutRef = useRef<any>(null);
-
-    const { mutate } = useUpdateNoteContent();
 
     const handleContentChange = useCallback(
         (content: string) => {
@@ -47,11 +53,11 @@ const Editor = ({ id, content }: { id?: string; content: string }) => {
             // Set a new timeout for debouncing
             timeoutRef.current = setTimeout(() => {
                 if (content) {
-                    mutate({ id, content });
+                    onUpdate(content);
                 }
             }, 500); // Debounce for 500ms
         },
-        [id, mutate],
+        [id, onUpdate],
     );
 
     if (!id) return null;
@@ -67,12 +73,16 @@ const Editor = ({ id, content }: { id?: string; content: string }) => {
     );
 };
 
-export const Content = () => {
-    const note = useNote();
-
+export const Content = ({
+    note,
+    onUpdate,
+}: {
+    note: TNote;
+    onUpdate: (content: string) => void;
+}) => {
     return (
         <main className="bg-background flex-1 overflow-auto">
-            <Editor id={note?.id} content={note?.content || ""} />
+            <Editor id={note?.id} content={note?.content || ""} onUpdate={onUpdate} />
         </main>
     );
 };

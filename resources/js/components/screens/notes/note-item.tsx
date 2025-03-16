@@ -1,5 +1,3 @@
-import type { TNote } from "~/types/models";
-
 import { useEffect, useRef } from "react";
 import { time } from "~/lib/time";
 import { cn } from "~/lib/utils";
