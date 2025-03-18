@@ -1,3 +1,5 @@
+import type { TNote } from "@/types/models";
+
 import { cn } from "@/lib/utils";
 import { useNotes } from "@/states/notes";
 
@@ -7,7 +9,7 @@ import { DeleteNote } from "@/components/screens/notes/delete-note";
 import { NotesListing } from "@/components/screens/notes/notes-listing";
 import { ViewModeToggle } from "@/components/screens/notes/view-mode-toggle";
 
-const Notes = () => {
+const Notes = ({ notes }: { notes: TNote[] }) => {
     const { viewMode } = useNotes();
 
     return (
@@ -21,9 +23,9 @@ const Notes = () => {
                     <CreateNote />
                     {viewMode === "list" && <DeleteNote />}
                 </div>
-                <NotesListing />
+                <NotesListing notes={notes} setNotes={() => {}} />
             </aside>
-            {viewMode === "list" && <Content />}
+            {viewMode === "list" && <Content note={notes[0]} onUpdate={() => {}} />}
             <div className="py-2">
                 <ViewModeToggle />
             </div>

@@ -1,8 +1,60 @@
-import { useEffect, useRef } from "react";
-import { time } from "~/lib/time";
-import { cn } from "~/lib/utils";
-import { useUpdateNoteName } from "~/queries/notes";
-import { useNotes } from "~/states/notes";
+import type { TNote } from "@/types/models";
+
+import { time } from "@/lib/time";
+import { cn } from "@/lib/utils";
+import { useNotes } from "@/states/notes";
+import { useEffect, useRef, useState } from "react";
+
+const useUpdateNoteName = (note: TNote) => {
+    const [isEditing, setIsEditing] = useState(false);
+    const [editedName, setEditedName] = useState(note.name);
+
+    // const { mutate, isPending } = useMutation<
+    //     TNote,
+    //     TError<{ message?: string }>,
+    //     { id: string; name: string },
+    //     { previousName: string }
+    // >({
+    //     mutationFn: ({ id, name }) => updateNote({ id, name }),
+    //     onMutate: async ({ id, name }) => {
+    //         await queryClient.cancelQueries({ queryKey: ["notes"] });
+    //
+    //         const previousName = note.name;
+    //
+    //         queryClient.setQueryData<TNote[]>(["notes"], (oldNotes) => {
+    //             return oldNotes?.map((n) => (n.id === id ? { ...n, name } : n));
+    //         });
+    //
+    //         return { previousName };
+    //     },
+    //     onError: (e, __, context) => {
+    //         if (context) {
+    //             queryClient.setQueryData<TNote[]>(["notes"], (oldNotes = []) => {
+    //                 return oldNotes.map((n) =>
+    //                     n.id === note.id ? { ...n, name: context.previousName } : n,
+    //                 );
+    //             });
+    //             setEditedName(context.previousName);
+    //         }
+    //         toast.error(e?.response?.data?.message || "Error updating note name");
+    //     },
+    //     onSuccess: () => {
+    //         setIsEditing(false);
+    //     },
+    // });
+    const mutate = (props: { id: string; name: string }) => {};
+
+    const isPending = false;
+
+    return {
+        mutate,
+        isPending,
+        isEditing,
+        setIsEditing,
+        editedName,
+        setEditedName,
+    };
+};
 
 export const NoteItem = ({ note }: { note: TNote }) => {
     const inputRef = useRef<HTMLTextAreaElement>(null);

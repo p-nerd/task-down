@@ -1,7 +1,7 @@
-import { useNotes } from "~/states/notes";
+import { useNotes } from "@/states/notes";
 
-import { LayoutGridIcon, LayoutListIcon } from "~/components/composite/icons";
-import { Button } from "~/components/ui/button";
+import { Button } from "@/components/ui/button";
+import { LayoutGridIcon, LayoutListIcon } from "lucide-react";
 
 export const ViewModeToggle = () => {
     const { viewMode, setViewMode, setActiveNoteId } = useNotes();

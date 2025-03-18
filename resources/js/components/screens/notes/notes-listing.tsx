@@ -1,12 +1,39 @@
+import type { TNote } from "@/types/models";
+
+import { cn } from "@/lib/utils";
+import { useNotes } from "@/states/notes";
 import { useState } from "react";
-import { cn } from "~/lib/utils";
-import { useUpdateNoteOrder } from "~/queries/notes";
-import { useNotes } from "~/states/notes";
 
 import { NoteItem } from "./note-item";
 
-export const NotesListing = () => {
-    const { notes, setNotes, viewMode } = useNotes();
+const useUpdateNoteOrder = () => {
+    // const { mutate, isPending } = useMutation<
+    //     void,
+    //     TError<{ message?: string }>,
+    //     { id: string; order: number }[]
+    // >({
+    //     mutationFn: (notes) => axios.patch("/api/notes/reorder", { notes }),
+    //     onError: (e) => toast.error(e?.response?.data?.message || "Error reordering notes"),
+    // });
+    //
+    // return {
+    //     mutate,
+    //     isPending,
+    // };
+    return {
+        mutate: (notes: { id: string; order: number }[]) => {},
+        isPending: false,
+    };
+};
+
+export const NotesListing = ({
+    notes,
+    setNotes,
+}: {
+    notes: TNote[];
+    setNotes: (notes: TNote[]) => void;
+}) => {
+    const { viewMode } = useNotes();
 
     const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
 
