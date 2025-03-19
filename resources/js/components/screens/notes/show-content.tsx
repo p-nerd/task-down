@@ -13,19 +13,24 @@ import type { ChangeEvent } from "react";
 
 import { time } from "@/lib/time";
 import { router } from "@inertiajs/react";
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { MDXEditor } from "@mdxeditor/editor";
 
 const ShowContent = ({ note }: { note: TNote }) => {
+    const [noteName, setNoteName] = useState(note.name);
+
     const timeoutRef = useRef<any>(null);
-    const titleInputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        setNoteName(note.name);
+    }, [note.id, note.name]);
 
     const handleTitleChange = useCallback(
         (event: ChangeEvent<HTMLInputElement>) => {
             if (!note.id) return;
-
             const name = event.target.value;
+            setNoteName(name);
 
             if (timeoutRef.current) {
                 clearTimeout(timeoutRef.current);
@@ -39,7 +44,7 @@ const ShowContent = ({ note }: { note: TNote }) => {
                         { preserveScroll: true, preserveState: true },
                     );
                 }
-            }, 500); // Debounce for 500ms
+            }, 250);
         },
         [note.id],
     );
@@ -47,29 +52,27 @@ const ShowContent = ({ note }: { note: TNote }) => {
     const handleContentChange = useCallback(
         (content: string) => {
             if (!note.id) return;
-            // Clear any existing timeout
             if (timeoutRef.current) {
                 clearTimeout(timeoutRef.current);
             }
-            // Set a new timeout for debouncing
             timeoutRef.current = setTimeout(() => {
                 if (content) {
                     //
                 }
-            }, 500); // Debounce for 500ms
+            }, 250);
         },
         [note.id],
     );
 
     if (!note.id) return null;
-
     return (
         <div className="flex w-full flex-col">
             <div className="border-border mb-4 flex items-center justify-between border-b py-2">
                 <input
-                    ref={titleInputRef}
+                    id="name"
+                    name="name"
                     type="text"
-                    defaultValue={note.name}
+                    value={noteName}
                     onChange={handleTitleChange}
                     className="mr-4 w-full bg-transparent text-2xl font-bold focus:outline-none"
                     placeholder="Note Title"
