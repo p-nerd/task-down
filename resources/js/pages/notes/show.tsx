@@ -10,7 +10,7 @@ import { App2Layout } from "@/layouts/app2-layout";
 import { Link } from "@inertiajs/react";
 import { LayoutGridIcon, Trash2Icon } from "lucide-react";
 
-const Notes = ({ note, notes }: { note: TNote; notes: TNote[] }) => {
+const Note = ({ note, notes }: { note: TNote; notes: TNote[] }) => {
     return (
         <App2Layout>
             <div className="flex h-full w-full flex-row">
@@ -34,25 +34,23 @@ const Notes = ({ note, notes }: { note: TNote; notes: TNote[] }) => {
                         <ul className="space-y-1">
                             {notes.map((n) => (
                                 <li key={n.id}>
-                                    <div
-                                        className={cn(
-                                            "cursor-pointer rounded-md px-2.5 py-3 transition-colors duration-75",
-                                            "bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground",
-                                            {
-                                                "bg-primary text-primary-foreground":
-                                                    n.id === note.id,
-                                            },
-                                        )}
-                                    >
-                                        <h3 className="mb-1">
-                                            <div className="line-clamp-2 w-full font-bold break-words">
-                                                {n.name}
-                                            </div>
-                                        </h3>
-                                        <span className="text-xs font-light">
-                                            {time.format.shortt(n.created_at)}
-                                        </span>
-                                    </div>
+                                    <Link key={n.id} href={route("notes.show", n)}>
+                                        <li
+                                            className={cn(
+                                                "bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground",
+                                                "w-full cursor-pointer rounded-md px-2.5 py-3 transition-colors duration-75",
+                                                {
+                                                    "bg-primary text-primary-foreground":
+                                                        n.id === note.id,
+                                                },
+                                            )}
+                                        >
+                                            <h3 className="mb-1 w-full font-bold">{n.name}</h3>
+                                            <span className="text-xs font-light">
+                                                {time.format.shortt(n.created_at)}
+                                            </span>
+                                        </li>
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
@@ -71,4 +69,4 @@ const Notes = ({ note, notes }: { note: TNote; notes: TNote[] }) => {
     );
 };
 
-export default Notes;
+export default Note;
