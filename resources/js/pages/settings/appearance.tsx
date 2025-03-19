@@ -1,11 +1,10 @@
+import { SettingsLayout } from "@/layouts/settings-layout";
 import { Head } from "@inertiajs/react";
 
 import AppearanceTabs from "@/components/appearance-tabs";
 import HeadingSmall from "@/components/heading-small";
 
-import SettingsLayout from "@/layouts/settings/layout";
-
-export default function Appearance() {
+const Appearance = () => {
     return (
         <SettingsLayout>
             <Head title="Appearance settings" />
@@ -18,4 +17,6 @@ export default function Appearance() {
             </div>
         </SettingsLayout>
     );
-}
+};
+
+export default Appearance;
