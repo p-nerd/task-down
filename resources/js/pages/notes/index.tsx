@@ -1,36 +1,39 @@
 import type { TNote } from "@/types/models";
 
-import { cn } from "@/lib/utils";
-import { useNotes } from "@/states/notes";
+import { time } from "@/lib/time";
 
-import { Content } from "@/components/screens/notes/content";
 import { CreateNote } from "@/components/screens/notes/create-note";
-import { DeleteNote } from "@/components/screens/notes/delete-note";
-import { NotesListing } from "@/components/screens/notes/notes-listing";
-import { ViewModeToggle } from "@/components/screens/notes/view-mode-toggle";
+import { Button } from "@/components/ui/button";
 import { App2Layout } from "@/layouts/app2-layout";
+import { LayoutListIcon } from "lucide-react";
 
 const Notes = ({ notes }: { notes: TNote[] }) => {
-    const { viewMode } = useNotes();
-
     return (
         <App2Layout>
-            <div className="flex h-full w-full flex-row">
-                <aside
-                    className={cn("bg-card h-[100vh+10px] w-full space-y-4 overflow-auto py-2", {
-                        "w-[262px] pr-3": viewMode === "list",
-                    })}
-                >
-                    <div className="flex justify-between">
-                        <CreateNote />
-                        {viewMode === "list" && <DeleteNote />}
-                    </div>
-                    <NotesListing notes={notes} setNotes={() => {}} />
-                </aside>
-                {viewMode === "list" && <Content note={notes[0]} onUpdate={() => {}} />}
-                <div className="py-2">
-                    <ViewModeToggle />
+            <div className="flex h-full w-full flex-col space-y-4">
+                <div className="flex justify-between">
+                    <CreateNote />
+                    <Button size="icon" variant="outline" className="group" onClick={() => {}}>
+                        <LayoutListIcon className="h-4 w-4" />
+                    </Button>
                 </div>
+                {notes.length === 0 ? (
+                    <div className="text-muted-foreground pt-4 text-center">No Notes Yet!</div>
+                ) : (
+                    <ul className="grid w-full grid-cols-4 gap-3 px-10">
+                        {notes.map((note) => (
+                            <li
+                                key={note.id}
+                                className="bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground w-full cursor-pointer rounded-md px-2.5 py-3 transition-colors duration-75"
+                            >
+                                <h3 className="mb-1 w-full font-bold">{note.name}</h3>
+                                <span className="text-xs font-light">
+                                    {time.format.shortt(note.created_at)}
+                                </span>
+                            </li>
+                        ))}
+                    </ul>
+                )}
             </div>
         </App2Layout>
     );
