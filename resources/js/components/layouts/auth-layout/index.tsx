@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import AuthLayoutTemplate from "@/components/screens/auth/auth-simple-layout";
+import AuthLayoutTemplate from "./auth-simple-layout";
 
 const AuthLayout = ({
     children,
