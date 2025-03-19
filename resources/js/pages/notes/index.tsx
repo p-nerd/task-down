@@ -10,7 +10,7 @@ import { LayoutListIcon, NotebookPenIcon } from "lucide-react";
 const Notes = ({ notes }: { notes: TNote[] }) => {
     return (
         <App2Layout className="flex h-full w-full flex-col space-y-4">
-            <div className="flex justify-between">
+            <div className="flex justify-between pt-6">
                 <Button size="icon" variant="outline" className="group">
                     <NotebookPenIcon className="h-4 w-4 transition-colors" />
                 </Button>
