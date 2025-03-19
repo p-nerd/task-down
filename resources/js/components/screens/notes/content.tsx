@@ -81,8 +81,8 @@ export const Content = ({
     onUpdate: (content: string) => void;
 }) => {
     return (
-        <main className="bg-background flex-1 overflow-auto">
+        <div className="bg-background flex-1 overflow-auto">
             <Editor id={note?.id} content={note?.content || ""} onUpdate={onUpdate} />
-        </main>
+        </div>
     );
 };

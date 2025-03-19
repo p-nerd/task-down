@@ -8,7 +8,13 @@ import { Navigation } from "./app2/navigation";
 import { Profile } from "./app2/profile";
 import { ThemeSwitcher } from "./app2/theme-switcher";
 
-export const App2Layout = ({ children, className }: { children: ReactNode; className: string }) => {
+export const App2Layout = ({
+    children,
+    className,
+}: {
+    children: ReactNode;
+    className?: string;
+}) => {
     const { user } = usePage<SharedData>().props.auth;
 
     return (

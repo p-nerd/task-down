@@ -12,57 +12,54 @@ import { LayoutGridIcon, Trash2Icon } from "lucide-react";
 
 const Note = ({ note, notes }: { note: TNote; notes: TNote[] }) => {
     return (
-        <App2Layout>
-            <div className="flex h-full w-full flex-row">
-                <aside className="bg-card h-[100vh+10px] w-[262px] space-y-4 overflow-auto py-2 pr-3">
-                    <div className="flex justify-between">
-                        <CreateNote />
-                        <Button size="icon" variant="outline" className="group" onClick={() => {}}>
-                            <Trash2Icon
-                                className={cn(
-                                    "h-4 w-4 transition-colors group-hover:text-red-500",
-                                    {
-                                        "animate-pulse text-red-500": false,
-                                    },
-                                )}
-                            />
-                        </Button>
-                    </div>
+        <App2Layout className="flex h-full w-full flex-col">
+            <div className="flex w-full justify-between">
+                <div className="flex w-[300px] justify-between">
+                    <CreateNote />
+                    <Button size="icon" variant="outline" className="group" onClick={() => {}}>
+                        <Trash2Icon
+                            className={cn("h-4 w-4 transition-colors group-hover:text-red-500", {
+                                "animate-pulse text-red-500": false,
+                            })}
+                        />
+                    </Button>
+                </div>
+                <Link href={route("notes.index")}>
+                    <Button size="icon" variant="outline" className="group">
+                        <LayoutGridIcon className="h-4 w-4" />
+                    </Button>
+                </Link>
+            </div>
+            <div className="flex h-full w-full">
+                <div className="h-[100vh+10px] w-[300px] space-y-4 overflow-auto py-2">
                     {notes.length === 0 ? (
                         <div className="text-muted-foreground pt-4 text-center">No Notes Yet!</div>
                     ) : (
-                        <ul className="space-y-1">
+                        <ul className="flex flex-col space-y-2">
                             {notes.map((n) => (
-                                <li key={n.id}>
-                                    <Link key={n.id} href={route("notes.show", n)}>
-                                        <li
-                                            className={cn(
-                                                "bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground",
-                                                "w-full cursor-pointer rounded-md px-2.5 py-3 transition-colors duration-75",
-                                                {
-                                                    "bg-primary text-primary-foreground":
-                                                        n.id === note.id,
-                                                },
-                                            )}
-                                        >
-                                            <h3 className="mb-1 w-full font-bold">{n.name}</h3>
-                                            <span className="text-xs font-light">
-                                                {time.format.shortt(n.created_at)}
-                                            </span>
-                                        </li>
-                                    </Link>
-                                </li>
+                                <Link key={n.id} href={route("notes.show", n)}>
+                                    <li
+                                        className={cn(
+                                            "bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground",
+                                            "w-full cursor-pointer rounded-md px-2.5 py-3 transition-colors duration-75",
+                                            {
+                                                "bg-primary text-primary-foreground":
+                                                    n.id === note.id,
+                                            },
+                                        )}
+                                    >
+                                        <h3 className="mb-1 w-full font-bold">{n.name}</h3>
+                                        <span className="text-xs font-light">
+                                            {time.format.shortt(n.created_at)}
+                                        </span>
+                                    </li>
+                                </Link>
                             ))}
                         </ul>
                     )}
-                </aside>
-                <Content note={note} onUpdate={() => {}} />
-                <div className="py-2">
-                    <Link href={route("notes.index")}>
-                        <Button size="icon" variant="outline" className="group">
-                            <LayoutGridIcon className="h-4 w-4" />
-                        </Button>
-                    </Link>
+                </div>
+                <div className="h-full w-full">
+                    <Content note={note} onUpdate={() => {}} />
                 </div>
             </div>
         </App2Layout>
