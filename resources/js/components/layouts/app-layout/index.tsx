@@ -4,8 +4,8 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { usePage } from "@inertiajs/react";
 
-import { HeaderNavigation } from "@/components/screens/app/header-navigation";
-import { ProfileDropdown } from "@/components/screens/app/profile-dropdown";
+import { HeaderNavigation } from "./header-navigation";
+import { ProfileDropdown } from "./profile-dropdown";
 
 const AppLayout = ({ children, className }: { children: ReactNode; className?: string }) => {
     const { user } = usePage<SharedData>().props.auth;
