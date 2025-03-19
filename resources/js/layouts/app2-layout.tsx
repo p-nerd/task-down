@@ -1,4 +1,5 @@
 import type { SharedData } from "@/types";
+import type { ReactNode } from "react";
 
 import { usePage } from "@inertiajs/react";
 
@@ -6,7 +7,7 @@ import { Navigation } from "./app2/navigation";
 import { Profile } from "./app2/profile";
 import { ThemeSwitcher } from "./app2/theme-switcher";
 
-export const App2Layout = () => {
+export const App2Layout = ({ children }: { children: ReactNode }) => {
     const { user } = usePage<SharedData>().props.auth;
 
     return (
@@ -16,7 +17,7 @@ export const App2Layout = () => {
                 <ThemeSwitcher />
                 <Profile user={user} />
             </nav>
-            <main className="bg-background flex-1 overflow-auto pt-4"></main>
+            <main className="bg-background flex-1 overflow-auto pt-4">{children}</main>
         </div>
     );
 };

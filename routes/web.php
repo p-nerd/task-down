@@ -31,3 +31,11 @@ Route::prefix('/notes')->middleware(['auth', 'verified'])->group(function () {
 
     Route::delete('/{note}', [NoteController::class, 'destroy']);
 });
+
+Route::prefix('/todos')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', fn () => inertia('todos/index'))->name('todos.index');
+});
+
+Route::prefix('/pomodoro')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', fn () => inertia('pomodoro/index'))->name('pomodoro.index');
+});
