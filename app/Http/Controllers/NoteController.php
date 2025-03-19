@@ -38,10 +38,10 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        $note = $request->user()->notes()->create([
-            'name' => '',
-            'content' => '',
-        ]);
+        $note = $request
+            ->user()
+            ->notes()
+            ->create(['name' => '', 'content' => '']);
 
         return redirect()->route('notes.show', $note);
     }
@@ -107,7 +107,11 @@ class NoteController extends Controller
 
         $note->delete();
 
-        return redirect()->route('notes.index');
+        if ($request->has('show') && $request->show) {
+            return redirect()->route('notes.show', $this->fetchNotes($request)[0]);
+        } else {
+            return redirect()->route('notes.index');
+        }
     }
 
     private function fetchNotes(Request $request)

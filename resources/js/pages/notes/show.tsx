@@ -16,11 +16,12 @@ import { time } from "@/lib/time";
 import { cn } from "@/lib/utils";
 
 import { CreateNote } from "@/components/screens/notes/create-note";
+import { DeleteNote } from "@/components/screens/notes/delete-note";
 import { Button } from "@/components/ui/button";
 import { App2Layout } from "@/layouts/app2-layout";
 import { Link } from "@inertiajs/react";
 import { MDXEditor } from "@mdxeditor/editor";
-import { LayoutGridIcon, Trash2Icon } from "lucide-react";
+import { LayoutGridIcon } from "lucide-react";
 
 const plugins = [
     // basic
@@ -90,18 +91,7 @@ const Note = ({ note, notes }: { note: TNote; notes: TNote[] }) => {
             <div className="flex w-full justify-between pt-6">
                 <div className="flex w-[300px] justify-between">
                     <CreateNote />
-                    <Button
-                        size="icon"
-                        variant="outline"
-                        className="cursor-pointer"
-                        onClick={() => {}}
-                    >
-                        <Trash2Icon
-                            className={cn("h-4 w-4 transition-colors group-hover:text-red-500", {
-                                "animate-pulse text-red-500": false,
-                            })}
-                        />
-                    </Button>
+                    <DeleteNote noteId={note.id} />
                 </div>
                 <Link href={route("notes.index")}>
                     <Button size="icon" variant="outline" className="cursor-pointer">
