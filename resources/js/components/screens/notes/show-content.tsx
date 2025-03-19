@@ -27,9 +27,11 @@ const ShowContent = ({ note }: { note: TNote }) => {
     }, [note.id, note.name]);
 
     const handleTitleChange = useCallback(
-        (event: ChangeEvent<HTMLInputElement>) => {
+        (e: ChangeEvent<HTMLInputElement>) => {
             if (!note.id) return;
-            const name = event.target.value;
+
+            const name = e.target.value;
+
             setNoteName(name);
 
             if (timeoutRef.current) {
@@ -52,12 +54,16 @@ const ShowContent = ({ note }: { note: TNote }) => {
     const handleContentChange = useCallback(
         (content: string) => {
             if (!note.id) return;
-            if (timeoutRef.current) {
-                clearTimeout(timeoutRef.current);
-            }
+
+            if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
             timeoutRef.current = setTimeout(() => {
                 if (content) {
-                    //
+                    router.patch(
+                        route("notes.update", note),
+                        { content },
+                        { preserveScroll: true, preserveState: true },
+                    );
                 }
             }, 250);
         },
