@@ -1,4 +1,4 @@
-import type { BreadcrumbItem } from "@/types";
+import type { TBreadcrumbItem } from "@/types";
 import type { ReactNode } from "react";
 
 import { AdminShell } from "./admin-shell";
@@ -11,7 +11,7 @@ export const AdminSidebarLayout = ({
     breadcrumbs = [],
 }: {
     children: ReactNode;
-    breadcrumbs?: BreadcrumbItem[];
+    breadcrumbs?: TBreadcrumbItem[];
 }) => {
     return (
         <AdminShell variant="sidebar">

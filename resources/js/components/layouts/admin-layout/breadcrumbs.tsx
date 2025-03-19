@@ -7,7 +7,7 @@ import {
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-import type { BreadcrumbItem as BreadcrumbItemType } from "@/types";
+import type { TBreadcrumbItem as BreadcrumbItemType } from "@/types";
 
 import { Link } from "@inertiajs/react";
 import { Fragment } from "react";

@@ -10,7 +10,7 @@ import {
     NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 
-import type { BreadcrumbItem, NavItem, SharedData } from "@/types";
+import type { TBreadcrumbItem, TNavItem, TSharedData } from "@/types";
 import type { ReactNode } from "react";
 
 import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
@@ -33,7 +33,7 @@ import { Content } from "./content";
 import { Icon } from "./icon";
 import { UserMenuContent } from "./user-menu-content";
 
-const mainNavItems: NavItem[] = [
+const mainNavItems: TNavItem[] = [
     {
         title: "Dashboard",
         href: "/dashboard",
@@ -41,7 +41,7 @@ const mainNavItems: NavItem[] = [
     },
 ];
 
-const rightNavItems: NavItem[] = [
+const rightNavItems: TNavItem[] = [
     {
         title: "Repository",
         href: "https://github.com/laravel/react-starter-kit",
@@ -56,8 +56,8 @@ const rightNavItems: NavItem[] = [
 
 const activeItemStyles = "text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100";
 
-const Header = ({ breadcrumbs = [] }: { breadcrumbs?: BreadcrumbItem[] }) => {
-    const page = usePage<SharedData>();
+const Header = ({ breadcrumbs = [] }: { breadcrumbs?: TBreadcrumbItem[] }) => {
+    const page = usePage<TSharedData>();
     const getInitials = useInitials();
 
     const { auth } = page.props;
@@ -240,7 +240,7 @@ export const AdminHeaderLayout = ({
     breadcrumbs,
 }: {
     children: ReactNode;
-    breadcrumbs?: BreadcrumbItem[];
+    breadcrumbs?: TBreadcrumbItem[];
 }) => {
     return (
         <AdminShell>

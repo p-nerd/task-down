@@ -1,4 +1,4 @@
-import type { BreadcrumbItem } from "@/types";
+import type { TBreadcrumbItem } from "@/types";
 import type { ReactNode } from "react";
 
 import { AdminSidebarLayout } from "./sidebar";
@@ -8,7 +8,7 @@ const AdminLayout = ({
     breadcrumbs,
 }: {
     children: ReactNode;
-    breadcrumbs?: BreadcrumbItem[];
+    breadcrumbs?: TBreadcrumbItem[];
 }) => {
     return <AdminSidebarLayout breadcrumbs={breadcrumbs}>{children}</AdminSidebarLayout>;
 };

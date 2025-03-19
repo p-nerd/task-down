@@ -8,7 +8,7 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-import type { NavItem } from "@/types";
+import type { TNavItem } from "@/types";
 
 import { Link } from "@inertiajs/react";
 import { BookOpenIcon, FolderIcon, LayoutGridIcon } from "lucide-react";
@@ -18,7 +18,7 @@ import { NavFooter } from "./nav-footer";
 import { NavMain } from "./nav-main";
 import { NavUser } from "./nav-user";
 
-const mainNavItems: NavItem[] = [
+const mainNavItems: TNavItem[] = [
     {
         title: "Dashboard",
         href: "/dashboard",
@@ -26,7 +26,7 @@ const mainNavItems: NavItem[] = [
     },
 ];
 
-const footerNavItems: NavItem[] = [
+const footerNavItems: TNavItem[] = [
     {
         title: "Repository",
         href: "https://github.com/laravel/react-starter-kit",

@@ -1,4 +1,4 @@
-import type { SharedData } from "@/types";
+import type { TSharedData } from "@/types";
 import type { ReactNode } from "react";
 
 import { usePage } from "@inertiajs/react";
@@ -15,7 +15,7 @@ const AuthSplitLayout = ({
     title?: string;
     description?: string;
 }) => {
-    const { name, quote } = usePage<SharedData>().props;
+    const { name, quote } = usePage<TSharedData>().props;
 
     return (
         <div className="relative grid h-dvh flex-col items-center justify-center px-8 sm:px-0 lg:max-w-none lg:grid-cols-2 lg:px-0">

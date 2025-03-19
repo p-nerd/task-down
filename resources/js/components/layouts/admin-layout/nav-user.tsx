@@ -4,7 +4,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { type SharedData } from "@/types";
+import { type TSharedData } from "@/types";
 
 import { useSidebar } from "@/components/ui/sidebar";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -17,7 +17,7 @@ import { UserInfo } from "@/components/elements/user-info";
 import { UserMenuContent } from "./user-menu-content";
 
 export function NavUser() {
-    const { auth } = usePage<SharedData>().props;
+    const { auth } = usePage<TSharedData>().props;
     const { state } = useSidebar();
     const isMobile = useIsMobile();
 
