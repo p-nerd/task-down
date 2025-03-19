@@ -13,16 +13,18 @@ const Notes = ({ notes }: { notes: TNote[] }) => {
         <App2Layout className="flex h-full w-full flex-col space-y-4">
             <div className="flex justify-between pt-6">
                 <CreateNote />
-                <Link href={route("notes.show", notes[0])}>
-                    <Button
-                        size="icon"
-                        variant="outline"
-                        className="cursor-pointer"
-                        onClick={() => {}}
-                    >
-                        <LayoutListIcon className="h-4 w-4" />
-                    </Button>
-                </Link>
+                {notes.length !== 0 && (
+                    <Link href={route("notes.show", notes[0])}>
+                        <Button
+                            size="icon"
+                            variant="outline"
+                            className="cursor-pointer"
+                            onClick={() => {}}
+                        >
+                            <LayoutListIcon className="h-4 w-4" />
+                        </Button>
+                    </Link>
+                )}
             </div>
             {notes.length === 0 ? (
                 <div className="text-muted-foreground pt-4 text-center">No Notes Yet!</div>

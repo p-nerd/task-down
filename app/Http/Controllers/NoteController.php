@@ -107,11 +107,15 @@ class NoteController extends Controller
 
         $note->delete();
 
-        if ($request->has('show') && $request->show) {
-            return redirect()->route('notes.show', $this->fetchNotes($request)[0]);
-        } else {
-            return redirect()->route('notes.index');
+        $validated = $request->validate(['show' => ['boolean', 'nullable']]);
+        if ($validated['show'] ?? false) {
+            $notes = $this->fetchNotes($request);
+            if ($notes->count() > 0) {
+                return redirect()->route('notes.show', $notes[0]);
+            }
         }
+
+        return redirect()->route('notes.index');
     }
 
     private function fetchNotes(Request $request)
