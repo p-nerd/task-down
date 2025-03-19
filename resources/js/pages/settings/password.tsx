@@ -4,10 +4,10 @@ import { Head, useForm } from "@inertiajs/react";
 import { FormEventHandler, useRef } from "react";
 
 import { HeadingSmall } from "@/components/elements/heading-small";
+import { SettingsLayout } from "@/components/layouts/settings-layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { SettingsLayout } from "@/layouts/settings-layout";
 
 export default function Password() {
     const passwordInput = useRef<HTMLInputElement>(null);

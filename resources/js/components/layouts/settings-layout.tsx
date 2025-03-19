@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "@inertiajs/react";
 import { ArrowLeftIcon, LockIcon, PaletteIcon, UserIcon } from "lucide-react";
-import { App2Layout } from "./app2-layout";
+import { AppLayout } from "./app-layout";
 
 const links: { title: string; route: string; icon: LucideIcon }[] = [
     {
@@ -30,7 +30,7 @@ const links: { title: string; route: string; icon: LucideIcon }[] = [
 
 const SettingsLayout = ({ children }: { children: ReactNode }) => {
     return (
-        <App2Layout>
+        <AppLayout>
             <div className="px-4 py-6">
                 <div className="mb-6 flex items-center justify-between">
                     <Heading
@@ -80,7 +80,7 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
                     </div>
                 </div>
             </div>
-        </App2Layout>
+        </AppLayout>
     );
 };
 

@@ -5,7 +5,7 @@ import { useAppearance } from "@/hooks/use-appearance";
 import { cn } from "@/lib/utils";
 
 import { HeadingSmall } from "@/components/elements/heading-small";
-import { SettingsLayout } from "@/layouts/settings-layout";
+import { SettingsLayout } from "@/components/layouts/settings-layout";
 import { Head } from "@inertiajs/react";
 import { MonitorIcon, MoonIcon, SunIcon } from "lucide-react";
 

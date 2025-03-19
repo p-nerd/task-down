@@ -15,10 +15,10 @@ import { useCallback, useRef } from "react";
 import { time } from "@/lib/time";
 import { cn } from "@/lib/utils";
 
+import { AppLayout } from "@/components/layouts/app-layout";
 import { CreateNote } from "@/components/screens/notes/create-note";
 import { DeleteNote } from "@/components/screens/notes/delete-note";
 import { Button } from "@/components/ui/button";
-import { App2Layout } from "@/layouts/app2-layout";
 import { Link } from "@inertiajs/react";
 import { MDXEditor } from "@mdxeditor/editor";
 import { LayoutGridIcon } from "lucide-react";
@@ -87,7 +87,7 @@ const Note = ({ note, notes }: { note: TNote; notes: TNote[] }) => {
     const contentHeight = "calc(100vh - 130px)";
 
     return (
-        <App2Layout className="flex h-full w-full flex-col">
+        <AppLayout className="flex h-full w-full flex-col">
             <div className="flex w-full justify-between pt-6">
                 <div className="flex w-[300px] justify-between">
                     <CreateNote />
@@ -134,7 +134,7 @@ const Note = ({ note, notes }: { note: TNote; notes: TNote[] }) => {
                     <Editor id={note?.id} content={note?.content || ""} onUpdate={() => {}} />
                 </div>
             </div>
-        </App2Layout>
+        </AppLayout>
     );
 };
 

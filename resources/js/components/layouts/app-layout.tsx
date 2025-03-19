@@ -4,16 +4,10 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { usePage } from "@inertiajs/react";
 
-import { HeaderNavigation } from "@/components/screens/app2/header-navigation";
-import { ProfileDropdown } from "@/components/screens/app2/profile-dropdown";
+import { HeaderNavigation } from "@/components/screens/app/header-navigation";
+import { ProfileDropdown } from "@/components/screens/app/profile-dropdown";
 
-export const App2Layout = ({
-    children,
-    className,
-}: {
-    children: ReactNode;
-    className?: string;
-}) => {
+const AppLayout = ({ children, className }: { children: ReactNode; className?: string }) => {
     const { user } = usePage<SharedData>().props.auth;
 
     return (
@@ -26,3 +20,5 @@ export const App2Layout = ({
         </div>
     );
 };
+
+export { AppLayout };

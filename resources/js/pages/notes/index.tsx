@@ -2,15 +2,15 @@ import type { TNote } from "@/types/models";
 
 import { time } from "@/lib/time";
 
+import { AppLayout } from "@/components/layouts/app-layout";
 import { CreateNote } from "@/components/screens/notes/create-note";
 import { Button } from "@/components/ui/button";
-import { App2Layout } from "@/layouts/app2-layout";
 import { Link } from "@inertiajs/react";
 import { LayoutListIcon } from "lucide-react";
 
 const Notes = ({ notes }: { notes: TNote[] }) => {
     return (
-        <App2Layout className="flex h-full w-full flex-col space-y-4">
+        <AppLayout className="flex h-full w-full flex-col space-y-4">
             <div className="flex justify-between pt-6">
                 <CreateNote />
                 {notes.length !== 0 && (
@@ -42,7 +42,7 @@ const Notes = ({ notes }: { notes: TNote[] }) => {
                     ))}
                 </ul>
             )}
-        </App2Layout>
+        </AppLayout>
     );
 };
 
