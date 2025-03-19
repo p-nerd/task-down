@@ -34,29 +34,16 @@ class NoteController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        $payload = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'content' => ['nullable', 'string'],
+        $note = $request->user()->notes()->create([
+            'name' => '',
+            'content' => '',
         ]);
 
-        $request->user()->notes()->create([
-            'name' => $payload['name'],
-            'content' => $payload['content'] ?? '',
-        ]);
-
-        return redirect()->route('notes.index');
+        return redirect()->route('notes.show', $note);
     }
 
     /**

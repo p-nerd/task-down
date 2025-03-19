@@ -15,11 +15,12 @@ import { useCallback, useRef } from "react";
 import { time } from "@/lib/time";
 import { cn } from "@/lib/utils";
 
+import { CreateNote } from "@/components/screens/notes/create-note";
 import { Button } from "@/components/ui/button";
 import { App2Layout } from "@/layouts/app2-layout";
 import { Link } from "@inertiajs/react";
 import { MDXEditor } from "@mdxeditor/editor";
-import { LayoutGridIcon, NotebookPenIcon, Trash2Icon } from "lucide-react";
+import { LayoutGridIcon, Trash2Icon } from "lucide-react";
 
 const plugins = [
     // basic
@@ -88,9 +89,7 @@ const Note = ({ note, notes }: { note: TNote; notes: TNote[] }) => {
         <App2Layout className="flex h-full w-full flex-col">
             <div className="flex w-full justify-between pt-6">
                 <div className="flex w-[300px] justify-between">
-                    <Button size="icon" variant="outline" className="cursor-pointer">
-                        <NotebookPenIcon className="h-4 w-4 transition-colors" />
-                    </Button>
+                    <CreateNote />
                     <Button
                         size="icon"
                         variant="outline"
