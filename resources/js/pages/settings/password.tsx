@@ -1,15 +1,18 @@
-import InputError from "@/components/input-error";
-import { Transition } from "@headlessui/react";
-import { Head, useForm } from "@inertiajs/react";
-import { FormEventHandler, useRef } from "react";
+import type { FormEventHandler } from "react";
+
+import { useForm } from "@inertiajs/react";
+import { useRef } from "react";
 
 import { HeadingSmall } from "@/components/elements/heading-small";
+import { Messsage } from "@/components/elements/message";
 import { SettingsLayout } from "@/components/layouts/settings-layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Transition } from "@headlessui/react";
+import { Head } from "@inertiajs/react";
 
-export default function Password() {
+const Password = () => {
     const passwordInput = useRef<HTMLInputElement>(null);
     const currentPasswordInput = useRef<HTMLInputElement>(null);
 
@@ -63,7 +66,7 @@ export default function Password() {
                             placeholder="Current password"
                         />
 
-                        <InputError message={errors.current_password} />
+                        <Messsage error={errors.current_password} />
                     </div>
 
                     <div className="grid gap-2">
@@ -80,7 +83,7 @@ export default function Password() {
                             placeholder="New password"
                         />
 
-                        <InputError message={errors.password} />
+                        <Messsage error={errors.password} />
                     </div>
 
                     <div className="grid gap-2">
@@ -96,7 +99,7 @@ export default function Password() {
                             placeholder="Confirm password"
                         />
 
-                        <InputError message={errors.password_confirmation} />
+                        <Messsage error={errors.password_confirmation} />
                     </div>
 
                     <div className="flex items-center gap-4">
@@ -116,4 +119,6 @@ export default function Password() {
             </div>
         </SettingsLayout>
     );
-}
+};
+
+export default Password;

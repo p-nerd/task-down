@@ -1,28 +1,25 @@
-import { Head, useForm } from "@inertiajs/react";
-import { LoaderCircle } from "lucide-react";
-import { FormEventHandler } from "react";
+import type { FormEventHandler } from "react";
 
-import InputError from "@/components/input-error";
-import AuthLayout from "@/components/layouts/auth-layout";
-import TextLink from "@/components/text-link";
+import { useForm } from "@inertiajs/react";
+
+import { Messsage } from "@/components/elements/message";
+import { TextLink } from "@/components/elements/text-link";
+import { AuthLayout } from "@/components/layouts/auth-layout";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Head } from "@inertiajs/react";
+import { LoaderCircleIcon } from "lucide-react";
 
-type LoginForm = {
-    email: string;
-    password: string;
-    remember: boolean;
-};
-
-interface LoginProps {
-    status?: string;
-    canResetPassword: boolean;
-}
-
-export default function Login({ status, canResetPassword }: LoginProps) {
-    const { data, setData, post, processing, errors, reset } = useForm<Required<LoginForm>>({
+const Login = ({ status, canResetPassword }: { status?: string; canResetPassword: boolean }) => {
+    const { data, setData, post, processing, errors, reset } = useForm<
+        Required<{
+            email: string;
+            password: string;
+            remember: boolean;
+        }>
+    >({
         email: "",
         password: "",
         remember: false,
@@ -57,7 +54,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             onChange={(e) => setData("email", e.target.value)}
                             placeholder="email@example.com"
                         />
-                        <InputError message={errors.email} />
+                        <Messsage error={errors.email} />
                     </div>
 
                     <div className="grid gap-2">
@@ -83,7 +80,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             onChange={(e) => setData("password", e.target.value)}
                             placeholder="Password"
                         />
-                        <InputError message={errors.password} />
+                        <Messsage error={errors.password} />
                     </div>
 
                     <div className="flex items-center space-x-3">
@@ -103,7 +100,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                         tabIndex={4}
                         disabled={processing}
                     >
-                        {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                        {processing && <LoaderCircleIcon className="h-4 w-4 animate-spin" />}
                         Log in
                     </Button>
                 </div>
@@ -121,4 +118,6 @@ export default function Login({ status, canResetPassword }: LoginProps) {
             )}
         </AuthLayout>
     );
-}
+};
+
+export default Login;

@@ -77,8 +77,8 @@ class NoteController extends Controller
         Gate::allowIf(fn (User $user) => $user->id === $note->user_id);
 
         $payload = $request->validate([
-            'name' => ['sometimes', 'required', 'string', 'max:255'],
-            'content' => ['sometimes', 'required', 'string'],
+            'name' => ['sometimes', 'string', 'max:255'],
+            'content' => ['sometimes', 'string'],
         ]);
 
         $note->update($payload);

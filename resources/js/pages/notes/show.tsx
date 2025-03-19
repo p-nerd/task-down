@@ -1,93 +1,20 @@
-import {
-    headingsPlugin,
-    linkPlugin,
-    listsPlugin,
-    markdownShortcutPlugin,
-    quotePlugin,
-    tablePlugin,
-    thematicBreakPlugin,
-} from "@mdxeditor/editor";
-
 import type { TNote } from "@/types/models";
-
-import { useCallback, useRef } from "react";
-
-import { time } from "@/lib/time";
-import { cn } from "@/lib/utils";
 
 import { AppLayout } from "@/components/layouts/app-layout";
 import { CreateNote } from "@/components/screens/notes/create-note";
 import { DeleteNote } from "@/components/screens/notes/delete-note";
+import { ShowContent } from "@/components/screens/notes/show-content";
+import { ShowListing } from "@/components/screens/notes/show-listing";
 import { Button } from "@/components/ui/button";
-import { Link } from "@inertiajs/react";
-import { MDXEditor } from "@mdxeditor/editor";
+import { Head, Link } from "@inertiajs/react";
 import { LayoutGridIcon } from "lucide-react";
-
-const plugins = [
-    // basic
-    headingsPlugin(),
-    quotePlugin(),
-    listsPlugin(),
-    thematicBreakPlugin(),
-
-    // links
-    linkPlugin(),
-
-    // tables
-    tablePlugin(),
-
-    // markdown shortcuts
-    markdownShortcutPlugin(),
-];
-
-const Editor = ({
-    id,
-    content,
-    onUpdate,
-}: {
-    id?: string;
-    content: string;
-    onUpdate: (content: string) => void;
-}) => {
-    const timeoutRef = useRef<any>(null);
-
-    const handleContentChange = useCallback(
-        (content: string) => {
-            if (!id) return;
-
-            // Clear any existing timeout
-            if (timeoutRef.current) {
-                clearTimeout(timeoutRef.current);
-            }
-
-            // Set a new timeout for debouncing
-            timeoutRef.current = setTimeout(() => {
-                if (content) {
-                    onUpdate(content);
-                }
-            }, 500); // Debounce for 500ms
-        },
-        [id, onUpdate],
-    );
-
-    if (!id) return null;
-
-    return (
-        <MDXEditor
-            key={id}
-            markdown={content}
-            onChange={handleContentChange}
-            contentEditableClassName="w-full h-full text-lg outline-hidden prose dark:prose-invert text-foreground bg-background"
-            plugins={plugins}
-        />
-    );
-};
 
 const Note = ({ note, notes }: { note: TNote; notes: TNote[] }) => {
     const contentHeight = "calc(100vh - 130px)";
 
     return (
         <AppLayout className="flex h-full w-full flex-col">
+            <Head title={note.name} />
             <div className="flex w-full justify-between pt-6">
                 <div className="flex w-[300px] justify-between">
                     <CreateNote />
@@ -107,31 +34,11 @@ const Note = ({ note, notes }: { note: TNote; notes: TNote[] }) => {
                     {notes.length === 0 ? (
                         <div className="text-muted-foreground pt-4 text-center">No Notes Yet!</div>
                     ) : (
-                        <ul className="flex flex-col space-y-2">
-                            {notes.map((n) => (
-                                <Link key={n.id} href={route("notes.show", n)}>
-                                    <li
-                                        className={cn(
-                                            "bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground",
-                                            "w-full cursor-pointer rounded-md px-2.5 py-3 transition-colors duration-75",
-                                            {
-                                                "bg-primary text-primary-foreground":
-                                                    n.id === note.id,
-                                            },
-                                        )}
-                                    >
-                                        <h3 className="mb-1 w-full font-bold">{n.name}</h3>
-                                        <span className="text-xs font-light">
-                                            {time.format.shortt(n.created_at)}
-                                        </span>
-                                    </li>
-                                </Link>
-                            ))}
-                        </ul>
+                        <ShowListing notes={notes} note={note} />
                     )}
                 </div>
                 <div className="flex-1 overflow-y-auto px-8" style={{ height: contentHeight }}>
-                    <Editor id={note?.id} content={note?.content || ""} onUpdate={() => {}} />
+                    <ShowContent note={note} />
                 </div>
             </div>
         </AppLayout>

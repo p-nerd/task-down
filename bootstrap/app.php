@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->encryptCookies(except: ['appearance']);
+        $middleware->trimStrings(except: ['name', 'content']);
 
         $middleware->web(append: [
             HandleAppearance::class,
