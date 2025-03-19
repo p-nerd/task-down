@@ -48,6 +48,7 @@ const ShowContent = ({ note }: { note: TNote }) => {
     const handleTitleChange = useCallback(
         (e: ChangeEvent<HTMLInputElement>) => {
             const name = e.target.value;
+            console.log(name, name.length);
             setNoteName(name);
             debouncedUpdateName(name);
         },
