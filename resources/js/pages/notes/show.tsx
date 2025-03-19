@@ -4,18 +4,19 @@ import { time } from "@/lib/time";
 import { cn } from "@/lib/utils";
 
 import { Content } from "@/components/screens/notes/content";
-import { CreateNote } from "@/components/screens/notes/create-note";
 import { Button } from "@/components/ui/button";
 import { App2Layout } from "@/layouts/app2-layout";
 import { Link } from "@inertiajs/react";
-import { LayoutGridIcon, Trash2Icon } from "lucide-react";
+import { LayoutGridIcon, NotebookPenIcon, Trash2Icon } from "lucide-react";
 
 const Note = ({ note, notes }: { note: TNote; notes: TNote[] }) => {
     return (
         <App2Layout className="flex h-full w-full flex-col">
             <div className="flex w-full justify-between">
                 <div className="flex w-[300px] justify-between">
-                    <CreateNote />
+                    <Button size="icon" variant="outline" className="group">
+                        <NotebookPenIcon className="h-4 w-4 transition-colors" />
+                    </Button>
                     <Button size="icon" variant="outline" className="group" onClick={() => {}}>
                         <Trash2Icon
                             className={cn("h-4 w-4 transition-colors group-hover:text-red-500", {

@@ -67,7 +67,7 @@ const Editor = ({
             key={id}
             markdown={content}
             onChange={handleContentChange}
-            contentEditableClassName="min-h-screen max-w-none px-8 py-5 text-lg outline-hidden prose dark:prose-invert text-foreground bg-background"
+            contentEditableClassName="w-full h-full text-lg outline-hidden prose dark:prose-invert text-foreground bg-background"
             plugins={plugins}
         />
     );
@@ -80,9 +80,5 @@ export const Content = ({
     note: TNote;
     onUpdate: (content: string) => void;
 }) => {
-    return (
-        <div className="bg-background flex-1 overflow-auto">
-            <Editor id={note?.id} content={note?.content || ""} onUpdate={onUpdate} />
-        </div>
-    );
+    return <Editor id={note?.id} content={note?.content || ""} onUpdate={onUpdate} />;
 };

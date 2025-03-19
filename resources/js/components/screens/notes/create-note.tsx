@@ -1,5 +1,3 @@
-import { cn } from "@/lib/utils";
-
 import { Button } from "@/components/ui/button";
 import { NotebookPenIcon } from "lucide-react";
 
@@ -14,11 +12,7 @@ export const CreateNote = () => {
             disabled={pending}
             onClick={() => {}}
         >
-            <NotebookPenIcon
-                className={cn("h-4 w-4 transition-colors", {
-                    "animate-pulse": pending,
-                })}
-            />
+            <NotebookPenIcon className="h-4 w-4 transition-colors" />
         </Button>
     );
 };
