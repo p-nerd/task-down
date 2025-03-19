@@ -7,7 +7,7 @@ import { Heading } from "@/components/elements/heading";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "@inertiajs/react";
-import { LockIcon, PaletteIcon, UserIcon } from "lucide-react";
+import { ArrowLeftIcon, LockIcon, PaletteIcon, UserIcon } from "lucide-react";
 import { App2Layout } from "./app2-layout";
 
 const links: { title: string; route: string; icon: LucideIcon }[] = [
@@ -32,7 +32,23 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
     return (
         <App2Layout>
             <div className="px-4 py-6">
-                <Heading title="Settings" description="Manage your profile and account settings" />
+                <div className="mb-6 flex items-center justify-between">
+                    <Heading
+                        title="Settings"
+                        description="Manage your profile and account settings"
+                    />
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        asChild
+                        className="text-muted-foreground hover:text-foreground flex items-center"
+                    >
+                        <Link href={route("notes.index")}>
+                            <ArrowLeftIcon className="size-4" />
+                            Got Back
+                        </Link>
+                    </Button>
+                </div>
                 <div className="flex flex-col space-y-8 lg:flex-row lg:space-y-0 lg:space-x-12">
                     <aside className="w-full max-w-xl lg:w-48">
                         <nav className="flex flex-col space-y-1 space-x-0">
