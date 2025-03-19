@@ -1,17 +1,8 @@
-import {
-    headingsPlugin,
-    linkPlugin,
-    listsPlugin,
-    markdownShortcutPlugin,
-    quotePlugin,
-    tablePlugin,
-    thematicBreakPlugin,
-} from "@mdxeditor/editor";
-
 import type { TNote } from "@/types/models";
 import type { ChangeEvent } from "react";
 
 import { useDebounce } from "@/hooks/use-debounce";
+import { plugins } from "@/lib/plugins";
 import { time } from "@/lib/time";
 import { router } from "@inertiajs/react";
 import { useCallback, useEffect, useState } from "react";
@@ -85,15 +76,7 @@ const ShowContent = ({ note }: { note: TNote }) => {
                 markdown={note.content}
                 onChange={handleContentChange}
                 contentEditableClassName="w-full h-full min-h-[calc(100vh-196px)] text-base outline-hidden prose dark:prose-invert text-foreground bg-background"
-                plugins={[
-                    headingsPlugin(),
-                    quotePlugin(),
-                    listsPlugin(),
-                    thematicBreakPlugin(),
-                    linkPlugin(),
-                    tablePlugin(),
-                    markdownShortcutPlugin(),
-                ]}
+                plugins={plugins}
             />
         </div>
     );
