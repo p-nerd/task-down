@@ -1,10 +1,10 @@
-import { App2Layout } from "@/layouts/app2-layout";
+import { AppLayout } from "@/components/layouts/app-layout";
 
 const Todos = () => {
     return (
-        <App2Layout>
+        <AppLayout>
             <h1>Todos</h1>
-        </App2Layout>
+        </AppLayout>
     );
 };
 

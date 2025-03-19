@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Note;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 
 class NoteController extends Controller
 {
@@ -23,9 +25,7 @@ class NoteController extends Controller
      */
     public function show(Request $request, Note $note)
     {
-        if ($request->user()->id !== $note->user_id) {
-            abort(Response::HTTP_FORBIDDEN);
-        }
+        Gate::allowIf(fn (User $user) => $user->id === $note->user_id);
 
         return inertia('notes/show', [
             'note' => $note,
@@ -34,29 +34,16 @@ class NoteController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        $payload = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'content' => ['nullable', 'string'],
-        ]);
+        $note = $request
+            ->user()
+            ->notes()
+            ->create(['name' => '', 'content' => '']);
 
-        $request->user()->notes()->create([
-            'name' => $payload['name'],
-            'content' => $payload['content'] ?? '',
-        ]);
-
-        return redirect()->route('notes.index');
+        return redirect()->route('notes.show', $note);
     }
 
     /**
@@ -83,21 +70,11 @@ class NoteController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Note $note)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Note $note)
     {
-        if ($request->user()->id !== $note->user_id) {
-            abort(Response::HTTP_FORBIDDEN);
-        }
+        Gate::allowIf(fn (User $user) => $user->id === $note->user_id);
 
         $payload = $request->validate([
             'name' => ['sometimes', 'required', 'string', 'max:255'],
@@ -114,15 +91,24 @@ class NoteController extends Controller
      */
     public function destroy(Request $request, Note $note)
     {
-        if ($request->user()->id !== $note->user_id) {
-            abort(Response::HTTP_FORBIDDEN);
-        }
+        Gate::allowIf(fn (User $user) => $user->id === $note->user_id);
 
         $note->delete();
+
+        $validated = $request->validate(['show' => ['boolean', 'nullable']]);
+        if ($validated['show'] ?? false) {
+            $notes = $this->fetchNotes($request);
+            if ($notes->count() > 0) {
+                return redirect()->route('notes.show', $notes[0]);
+            }
+        }
 
         return redirect()->route('notes.index');
     }
 
+    /**
+     * Fetch all notes for the authenticated user.
+     */
     private function fetchNotes(Request $request)
     {
         return $request

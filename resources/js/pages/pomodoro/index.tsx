@@ -1,10 +1,10 @@
-import { App2Layout } from "@/layouts/app2-layout";
+import { AppLayout } from "@/components/layouts/app-layout";
 
 const Pomodoro = () => {
     return (
-        <App2Layout>
+        <AppLayout>
             <h1>Pomodoro</h1>
-        </App2Layout>
+        </AppLayout>
     );
 };
 
