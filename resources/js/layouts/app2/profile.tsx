@@ -11,7 +11,8 @@ import type { TUser } from "@/types/models";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { LogOutIcon, SettingsIcon, UserIcon } from "lucide-react";
+import { Link } from "@inertiajs/react";
+import { LogOutIcon, SettingsIcon } from "lucide-react";
 
 const Logout = () => {
     return (
@@ -41,13 +42,11 @@ export const Profile = ({ user }: { user: TUser }) => {
                     </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                    <UserIcon className="mr-2 h-4 w-4" />
-                    <span>Profile</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                    <SettingsIcon className="mr-2 h-4 w-4" />
-                    <span>Settings</span>
+                <DropdownMenuItem asChild>
+                    <Link href={route("settings")}>
+                        <SettingsIcon className="mr-2 h-4 w-4" />
+                        <span>Settings</span>
+                    </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <Logout />
