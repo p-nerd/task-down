@@ -9,10 +9,12 @@ import {
 } from "@mdxeditor/editor";
 
 import type { TNote } from "@/types/models";
-
-import { useCallback, useRef } from "react";
+import type { ChangeEvent } from "react";
 
 import { time } from "@/lib/time";
+import { router } from "@inertiajs/react";
+import { useCallback, useRef } from "react";
+
 import { MDXEditor } from "@mdxeditor/editor";
 
 const ShowContent = ({ note }: { note: TNote }) => {
@@ -20,18 +22,22 @@ const ShowContent = ({ note }: { note: TNote }) => {
     const titleInputRef = useRef<HTMLInputElement>(null);
 
     const handleTitleChange = useCallback(
-        (event: React.ChangeEvent<HTMLInputElement>) => {
+        (event: ChangeEvent<HTMLInputElement>) => {
             if (!note.id) return;
-            const newTitle = event.target.value;
-            // Clear any existing timeout
+
+            const name = event.target.value;
+
             if (timeoutRef.current) {
                 clearTimeout(timeoutRef.current);
             }
-            // Set a new timeout for debouncing title updates
+
             timeoutRef.current = setTimeout(() => {
-                if (newTitle) {
-                    // Update title logic would go here
-                    console.log("Title updated:", newTitle);
+                if (name) {
+                    router.patch(
+                        route("notes.update", note),
+                        { name },
+                        { preserveScroll: true, preserveState: true },
+                    );
                 }
             }, 500); // Debounce for 500ms
         },
