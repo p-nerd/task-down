@@ -13,15 +13,8 @@ class NoteController extends Controller
      */
     public function index(Request $request)
     {
-        $notes = $request
-            ->user()
-            ->notes()
-            ->orderBy('order')
-            ->orderBy('created_at', 'desc')
-            ->get();
-
         return inertia('notes/index', [
-            'notes' => $notes,
+            'notes' => $this->fetchNotes($request),
         ]);
     }
 
@@ -60,7 +53,9 @@ class NoteController extends Controller
             abort(Response::HTTP_FORBIDDEN);
         }
 
-        return response()->json($note);
+        return inertia('notes/show', [
+            'notes' => $this->fetchNotes($request),
+        ]);
     }
 
     /**
@@ -125,5 +120,15 @@ class NoteController extends Controller
         $note->delete();
 
         return redirect()->route('notes.index');
+    }
+
+    private function fetchNotes(Request $request)
+    {
+        return $request
+            ->user()
+            ->notes()
+            ->orderBy('order')
+            ->orderBy('created_at', 'desc')
+            ->get();
     }
 }

@@ -5,6 +5,7 @@ import { time } from "@/lib/time";
 import { CreateNote } from "@/components/screens/notes/create-note";
 import { Button } from "@/components/ui/button";
 import { App2Layout } from "@/layouts/app2-layout";
+import { Link } from "@inertiajs/react";
 import { LayoutListIcon } from "lucide-react";
 
 const Notes = ({ notes }: { notes: TNote[] }) => {
@@ -13,9 +14,11 @@ const Notes = ({ notes }: { notes: TNote[] }) => {
             <div className="flex h-full w-full flex-col space-y-4">
                 <div className="flex justify-between">
                     <CreateNote />
-                    <Button size="icon" variant="outline" className="group" onClick={() => {}}>
-                        <LayoutListIcon className="h-4 w-4" />
-                    </Button>
+                    <Link href={route("notes.show", notes[0])}>
+                        <Button size="icon" variant="outline" className="group" onClick={() => {}}>
+                            <LayoutListIcon className="h-4 w-4" />
+                        </Button>
+                    </Link>
                 </div>
                 {notes.length === 0 ? (
                     <div className="text-muted-foreground pt-4 text-center">No Notes Yet!</div>
