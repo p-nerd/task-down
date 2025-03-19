@@ -1,3 +1,4 @@
+import type { LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
@@ -6,38 +7,32 @@ import { Heading } from "@/components/elements/heading";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "@inertiajs/react";
-import { LucideIcon } from "lucide-react";
+import { LockIcon, PaletteIcon, UserIcon } from "lucide-react";
 import { App2Layout } from "./app2-layout";
 
-const links: { title: string; route: string; icon: LucideIcon | null }[] = [
+const links: { title: string; route: string; icon: LucideIcon }[] = [
     {
         title: "Profile",
         route: "settings.profile.edit",
-        icon: null,
+        icon: UserIcon,
     },
     {
         title: "Password",
         route: "settings.password.edit",
-        icon: null,
+        icon: LockIcon,
     },
     {
         title: "Appearance",
         route: "settings.appearance.edit",
-        icon: null,
+        icon: PaletteIcon,
     },
 ];
 
-export const SettingsLayout = ({ children }: { children: ReactNode }) => {
-    // When server-side rendering, we only render the layout on the client...
-    if (typeof window === "undefined") {
-        return null;
-    }
-
+const SettingsLayout = ({ children }: { children: ReactNode }) => {
     return (
         <App2Layout>
             <div className="px-4 py-6">
                 <Heading title="Settings" description="Manage your profile and account settings" />
-
                 <div className="flex flex-col space-y-8 lg:flex-row lg:space-y-0 lg:space-x-12">
                     <aside className="w-full max-w-xl lg:w-48">
                         <nav className="flex flex-col space-y-1 space-x-0">
@@ -51,7 +46,12 @@ export const SettingsLayout = ({ children }: { children: ReactNode }) => {
                                         "bg-muted": route().current(item.route),
                                     })}
                                 >
-                                    <Link href={route(item.route)} prefetch>
+                                    <Link
+                                        href={route(item.route)}
+                                        prefetch
+                                        className="flex items-center"
+                                    >
+                                        {item.icon && <item.icon className="mr-2 h-4 w-4" />}
                                         {item.title}
                                     </Link>
                                 </Button>
@@ -67,3 +67,5 @@ export const SettingsLayout = ({ children }: { children: ReactNode }) => {
         </App2Layout>
     );
 };
+
+export { SettingsLayout };
