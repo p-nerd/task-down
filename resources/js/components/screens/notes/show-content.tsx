@@ -12,6 +12,7 @@ import type { TNote } from "@/types/models";
 
 import { useCallback, useRef } from "react";
 
+import { time } from "@/lib/time";
 import { MDXEditor } from "@mdxeditor/editor";
 
 const ShowContent = ({ note }: { note: TNote }) => {
@@ -22,12 +23,10 @@ const ShowContent = ({ note }: { note: TNote }) => {
         (event: React.ChangeEvent<HTMLInputElement>) => {
             if (!note.id) return;
             const newTitle = event.target.value;
-
             // Clear any existing timeout
             if (timeoutRef.current) {
                 clearTimeout(timeoutRef.current);
             }
-
             // Set a new timeout for debouncing title updates
             timeoutRef.current = setTimeout(() => {
                 if (newTitle) {
@@ -57,17 +56,21 @@ const ShowContent = ({ note }: { note: TNote }) => {
     );
 
     if (!note.id) return null;
+
     return (
         <div className="flex w-full flex-col">
-            <div className="border-border mb-4 border-b">
+            <div className="border-border mb-4 flex items-center justify-between border-b py-2">
                 <input
                     ref={titleInputRef}
                     type="text"
                     defaultValue={note.name}
                     onChange={handleTitleChange}
-                    className="w-full bg-transparent text-2xl font-bold focus:outline-none"
+                    className="mr-4 w-full bg-transparent text-2xl font-bold focus:outline-none"
                     placeholder="Note Title"
                 />
+                <span className="text-muted-foreground text-sm whitespace-nowrap">
+                    {time.format.shortt(note.updated_at)}
+                </span>
             </div>
             <MDXEditor
                 key={note.id}
