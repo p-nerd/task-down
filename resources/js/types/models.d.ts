@@ -1,0 +1,21 @@
+export type TUser = {
+    id: string;
+    name: string;
+    email: string;
+    avatar?: string;
+    email_verified_at: string | null;
+    created_at: string;
+    updated_at: string;
+};
+
+export type TNote = {
+    id: string;
+    user_id: TId;
+
+    name: string;
+    content: string;
+    order: number;
+
+    created_at: string;
+    updated_at: string;
+};
