@@ -5,12 +5,13 @@ import { time } from "@/lib/time";
 import { AppLayout } from "@/components/layouts/app-layout";
 import { CreateNote } from "@/components/screens/notes/create-note";
 import { Button } from "@/components/ui/button";
-import { Link } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import { LayoutListIcon } from "lucide-react";
 
 const Notes = ({ notes }: { notes: TNote[] }) => {
     return (
         <AppLayout className="flex h-full w-full flex-col space-y-4">
+            <Head title="Notes" />
             <div className="flex justify-between pt-6">
                 <CreateNote />
                 {notes.length !== 0 && (
