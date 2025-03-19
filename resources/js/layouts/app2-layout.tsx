@@ -24,9 +24,7 @@ export const App2Layout = ({
                 <ThemeSwitcher />
                 <Profile user={user} />
             </nav>
-            <main className={cn("bg-background flex-1 overflow-auto pt-6 pb-4", className)}>
-                {children}
-            </main>
+            <main className={cn("bg-background flex-1 overflow-auto", className)}>{children}</main>
         </div>
     );
 };

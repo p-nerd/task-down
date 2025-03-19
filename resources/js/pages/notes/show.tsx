@@ -1,23 +1,24 @@
-import type { TNote } from "@/types/models";
-
 import {
     headingsPlugin,
     linkPlugin,
     listsPlugin,
     markdownShortcutPlugin,
-    MDXEditor,
     quotePlugin,
     tablePlugin,
     thematicBreakPlugin,
 } from "@mdxeditor/editor";
 
+import type { TNote } from "@/types/models";
+
+import { useCallback, useRef } from "react";
+
 import { time } from "@/lib/time";
 import { cn } from "@/lib/utils";
-import { useCallback, useRef } from "react";
 
 import { Button } from "@/components/ui/button";
 import { App2Layout } from "@/layouts/app2-layout";
 import { Link } from "@inertiajs/react";
+import { MDXEditor } from "@mdxeditor/editor";
 import { LayoutGridIcon, NotebookPenIcon, Trash2Icon } from "lucide-react";
 
 const plugins = [
@@ -81,9 +82,11 @@ const Editor = ({
 };
 
 const Note = ({ note, notes }: { note: TNote; notes: TNote[] }) => {
+    const contentHeight = "calc(100vh - 130px)";
+
     return (
         <App2Layout className="flex h-full w-full flex-col">
-            <div className="flex w-full justify-between">
+            <div className="flex w-full justify-between pt-6">
                 <div className="flex w-[300px] justify-between">
                     <Button size="icon" variant="outline" className="group">
                         <NotebookPenIcon className="h-4 w-4 transition-colors" />
@@ -102,8 +105,11 @@ const Note = ({ note, notes }: { note: TNote; notes: TNote[] }) => {
                     </Button>
                 </Link>
             </div>
-            <div className="flex h-full w-full">
-                <div className="h-[100vh+10px] w-[300px] space-y-4 overflow-auto py-2">
+            <div className="flex h-full w-full py-2">
+                <div
+                    className="w-[300px] space-y-4 overflow-y-auto"
+                    style={{ height: contentHeight }}
+                >
                     {notes.length === 0 ? (
                         <div className="text-muted-foreground pt-4 text-center">No Notes Yet!</div>
                     ) : (
@@ -130,8 +136,8 @@ const Note = ({ note, notes }: { note: TNote; notes: TNote[] }) => {
                         </ul>
                     )}
                 </div>
-                <div className="h-full w-full px-8 py-2">
-                    <Editor id={note?.id} content={note?.content || ""} onUpdate={() => {}} />;
+                <div className="flex-1 overflow-y-auto px-8" style={{ height: contentHeight }}>
+                    <Editor id={note?.id} content={note?.content || ""} onUpdate={() => {}} />
                 </div>
             </div>
         </App2Layout>
