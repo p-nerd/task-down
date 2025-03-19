@@ -35,6 +35,9 @@ jobs:
           composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
           pnpm install --frozen-lockfile
 
+      - name: PHP Lint
+        run: composer run-script lint
+
       - name: PHP Format
         run: composer run-script format
 
