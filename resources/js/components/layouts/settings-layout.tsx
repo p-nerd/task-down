@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "@inertiajs/react";
 import { ArrowLeftIcon, LockIcon, PaletteIcon, UserIcon } from "lucide-react";
+
 import { AppLayout } from "./app-layout";
 
 const links: { title: string; route: string; icon: LucideIcon }[] = [
