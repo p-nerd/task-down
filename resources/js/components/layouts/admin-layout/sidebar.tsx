@@ -1,10 +1,10 @@
 import type { BreadcrumbItem } from "@/types";
 import type { ReactNode } from "react";
 
-import { AppContent } from "@/components/app-content";
-import { AppShell } from "@/components/app-shell";
-import { AppSidebar } from "@/components/app-sidebar";
-import { AppSidebarHeader } from "@/components/app-sidebar-header";
+import { AppContent } from "./app-content";
+import { AppShell } from "./app-shell";
+import { AppSidebar } from "./app-sidebar";
+import { AppSidebarHeader } from "./app-sidebar-header";
 
 export const AdminSidebarLayout = ({
     children,

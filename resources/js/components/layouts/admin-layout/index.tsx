@@ -13,4 +13,4 @@ const AdminLayout = ({
     return <AdminSidebarLayout breadcrumbs={breadcrumbs}>{children}</AdminSidebarLayout>;
 };
 
-export default { AdminLayout };
+export { AdminLayout };

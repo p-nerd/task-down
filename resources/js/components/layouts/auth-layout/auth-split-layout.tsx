@@ -1,18 +1,20 @@
-import AppLogoIcon from "@/components/app-logo-icon";
-import { type SharedData } from "@/types";
-import { Link, usePage } from "@inertiajs/react";
-import { type PropsWithChildren } from "react";
+import type { SharedData } from "@/types";
+import type { ReactNode } from "react";
 
-interface AuthLayoutProps {
-    title?: string;
-    description?: string;
-}
+import { usePage } from "@inertiajs/react";
 
-export default function AuthSplitLayout({
+import { LogoIcon } from "@/components/elements/logo-icon";
+import { Link } from "@inertiajs/react";
+
+const AuthSplitLayout = ({
     children,
     title,
     description,
-}: PropsWithChildren<AuthLayoutProps>) {
+}: {
+    children: ReactNode;
+    title?: string;
+    description?: string;
+}) => {
     const { name, quote } = usePage<SharedData>().props;
 
     return (
@@ -23,7 +25,7 @@ export default function AuthSplitLayout({
                     href={route("home")}
                     className="relative z-20 flex items-center text-lg font-medium"
                 >
-                    <AppLogoIcon className="mr-2 size-8 fill-current text-white" />
+                    <LogoIcon className="mr-2 size-8 fill-current text-white" />
                     {name}
                 </Link>
                 {quote && (
@@ -41,7 +43,7 @@ export default function AuthSplitLayout({
                         href={route("home")}
                         className="relative z-20 flex items-center justify-center lg:hidden"
                     >
-                        <AppLogoIcon className="h-10 fill-current text-black sm:h-12" />
+                        <LogoIcon className="h-10 fill-current text-black sm:h-12" />
                     </Link>
                     <div className="flex flex-col items-start gap-2 text-left sm:items-center sm:text-center">
                         <h1 className="text-xl font-medium">{title}</h1>
@@ -52,4 +54,6 @@ export default function AuthSplitLayout({
             </div>
         </div>
     );
-}
+};
+
+export { AuthSplitLayout };

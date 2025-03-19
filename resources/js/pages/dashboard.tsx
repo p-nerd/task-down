@@ -1,6 +1,7 @@
-import AdminLayout from "@/components/layouts/admin-layout";
-import { PlaceholderPattern } from "@/components/ui/placeholder-pattern";
 import { type BreadcrumbItem } from "@/types";
+
+import { AdminLayout } from "@/components/layouts/admin-layout";
+import { PlaceholderPattern } from "@/components/ui/placeholder-pattern";
 import { Head } from "@inertiajs/react";
 
 const breadcrumbs: BreadcrumbItem[] = [
