@@ -1,10 +1,10 @@
 import type { BreadcrumbItem } from "@/types";
 import type { ReactNode } from "react";
 
-import { AppContent } from "./app-content";
-import { AppShell } from "./app-shell";
-import { AppSidebar } from "./app-sidebar";
-import { AppSidebarHeader } from "./app-sidebar-header";
+import { AdminShell } from "./admin-shell";
+import { AdminSidebar } from "./admin-sidebar";
+import { AdminSidebarHeader } from "./admin-sidebar-header";
+import { Content } from "./content";
 
 export const AdminSidebarLayout = ({
     children,
@@ -14,12 +14,12 @@ export const AdminSidebarLayout = ({
     breadcrumbs?: BreadcrumbItem[];
 }) => {
     return (
-        <AppShell variant="sidebar">
-            <AppSidebar />
-            <AppContent variant="sidebar">
-                <AppSidebarHeader breadcrumbs={breadcrumbs} />
+        <AdminShell variant="sidebar">
+            <AdminSidebar />
+            <Content variant="sidebar">
+                <AdminSidebarHeader breadcrumbs={breadcrumbs} />
                 {children}
-            </AppContent>
-        </AppShell>
+            </Content>
+        </AdminShell>
     );
 };

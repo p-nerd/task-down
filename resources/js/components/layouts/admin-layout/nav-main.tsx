@@ -5,8 +5,12 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { type NavItem } from "@/types";
-import { Link, usePage } from "@inertiajs/react";
+
+import type { NavItem } from "@/types";
+
+import { usePage } from "@inertiajs/react";
+
+import { Link } from "@inertiajs/react";
 
 export function NavMain({ items = [] }: { items: NavItem[] }) {
     const page = usePage();

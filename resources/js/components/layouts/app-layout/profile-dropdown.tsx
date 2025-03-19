@@ -12,9 +12,9 @@ import type { TUser } from "@/types/models";
 import { useInitials } from "@/hooks/use-initials";
 import { useMobileNavigation } from "@/hooks/use-mobile-navigation";
 
+import { UserInfo } from "@/components/elements/user-info";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { UserInfo } from "@/components/user-info";
 import { Link } from "@inertiajs/react";
 import { LogOutIcon, SettingsIcon } from "lucide-react";
 

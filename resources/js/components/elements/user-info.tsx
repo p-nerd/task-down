@@ -4,7 +4,7 @@ import { useInitials } from "@/hooks/use-initials";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-export function UserInfo({ user, showEmail = false }: { user: TUser; showEmail?: boolean }) {
+export const UserInfo = ({ user, showEmail = false }: { user: TUser; showEmail?: boolean }) => {
     const getInitials = useInitials();
 
     return (
@@ -23,4 +23,4 @@ export function UserInfo({ user, showEmail = false }: { user: TUser; showEmail?:
             </div>
         </>
     );
-}
+};
