@@ -2,20 +2,10 @@
 
 use App\Http\Controllers\NoteController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('welcome');
-})->name('home');
+Route::get('/', fn () => inertia('welcome'))->name('home');
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
-});
-
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
+Route::get('/dashboard', fn () => inertia('dashboard'))->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::prefix('/notes')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [NoteController::class, 'index'])->name('notes.index');
@@ -36,3 +26,6 @@ Route::prefix('/todos')->middleware(['auth', 'verified'])->group(function () {
 Route::prefix('/pomodoro')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', fn () => inertia('pomodoro/index'))->name('pomodoro.index');
 });
+
+require __DIR__.'/settings.php';
+require __DIR__.'/auth.php';
