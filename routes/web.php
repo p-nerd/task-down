@@ -24,7 +24,6 @@ Route::prefix('/notes')->middleware(['auth', 'verified'])->group(function () {
     Route::post('/', [NoteController::class, 'store'])->name('notes.store');
 
     Route::patch('/reorder', [NoteController::class, 'reorder'])->name('notes.reorder');
-    Route::get('/{note}/edit', [NoteController::class, 'edit'])->name('notes.edit');
     Route::patch('/{note}', [NoteController::class, 'update'])->name('notes.update');
 
     Route::delete('/{note}', [NoteController::class, 'destroy'])->name('notes.destroy');

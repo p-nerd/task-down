@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Note;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 
 class NoteController extends Controller
 {
@@ -23,9 +25,7 @@ class NoteController extends Controller
      */
     public function show(Request $request, Note $note)
     {
-        if ($request->user()->id !== $note->user_id) {
-            abort(Response::HTTP_FORBIDDEN);
-        }
+        Gate::allowIf(fn (User $user) => $user->id === $note->user_id);
 
         return inertia('notes/show', [
             'note' => $note,
@@ -70,21 +70,11 @@ class NoteController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Note $note)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Note $note)
     {
-        if ($request->user()->id !== $note->user_id) {
-            abort(Response::HTTP_FORBIDDEN);
-        }
+        Gate::allowIf(fn (User $user) => $user->id === $note->user_id);
 
         $payload = $request->validate([
             'name' => ['sometimes', 'required', 'string', 'max:255'],
@@ -101,9 +91,7 @@ class NoteController extends Controller
      */
     public function destroy(Request $request, Note $note)
     {
-        if ($request->user()->id !== $note->user_id) {
-            abort(Response::HTTP_FORBIDDEN);
-        }
+        Gate::allowIf(fn (User $user) => $user->id === $note->user_id);
 
         $note->delete();
 
@@ -118,6 +106,9 @@ class NoteController extends Controller
         return redirect()->route('notes.index');
     }
 
+    /**
+     * Fetch all notes for the authenticated user.
+     */
     private function fetchNotes(Request $request)
     {
         return $request
