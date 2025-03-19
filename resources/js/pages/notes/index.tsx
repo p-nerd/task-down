@@ -25,15 +25,14 @@ const Notes = ({ notes }: { notes: TNote[] }) => {
                 ) : (
                     <ul className="grid w-full grid-cols-4 gap-3 px-10">
                         {notes.map((note) => (
-                            <li
-                                key={note.id}
-                                className="bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground w-full cursor-pointer rounded-md px-2.5 py-3 transition-colors duration-75"
-                            >
-                                <h3 className="mb-1 w-full font-bold">{note.name}</h3>
-                                <span className="text-xs font-light">
-                                    {time.format.shortt(note.created_at)}
-                                </span>
-                            </li>
+                            <Link key={note.id} href={route("notes.show", note)}>
+                                <li className="bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground w-full cursor-pointer rounded-md px-2.5 py-3 transition-colors duration-75">
+                                    <h3 className="mb-1 w-full font-bold">{note.name}</h3>
+                                    <span className="text-xs font-light">
+                                        {time.format.shortt(note.created_at)}
+                                    </span>
+                                </li>
+                            </Link>
                         ))}
                     </ul>
                 )}

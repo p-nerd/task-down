@@ -8,17 +8,33 @@ import { CheckSquareIcon, NotebookIcon, TimerIcon } from "lucide-react";
 type TItem = {
     label: string;
     route: string;
+    base: string;
     icon: ReactNode;
 };
 
 const items: TItem[] = [
-    { label: "Notes", route: "notes.index", icon: <NotebookIcon className="h-4 w-4" /> },
-    { label: "Todos", route: "todos.index", icon: <CheckSquareIcon className="h-4 w-4" /> },
-    { label: "Pomodoro", route: "pomodoro.index", icon: <TimerIcon className="h-4 w-4" /> },
+    {
+        label: "Notes",
+        route: "notes.index",
+        base: "notes",
+        icon: <NotebookIcon className="h-4 w-4" />,
+    },
+    {
+        label: "Todos",
+        route: "todos.index",
+        base: "todos",
+        icon: <CheckSquareIcon className="h-4 w-4" />,
+    },
+    {
+        label: "Pomodoro",
+        route: "pomodoro.index",
+        base: "pomodoro",
+        icon: <TimerIcon className="h-4 w-4" />,
+    },
 ];
 
 const Item = ({ item }: { item: TItem }) => {
-    const active = route().current(item.route);
+    const active = window.location.href.includes(item.base);
 
     return (
         <Link
