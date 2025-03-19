@@ -88,10 +88,15 @@ const Note = ({ note, notes }: { note: TNote; notes: TNote[] }) => {
         <App2Layout className="flex h-full w-full flex-col">
             <div className="flex w-full justify-between pt-6">
                 <div className="flex w-[300px] justify-between">
-                    <Button size="icon" variant="outline" className="group">
+                    <Button size="icon" variant="outline" className="cursor-pointer">
                         <NotebookPenIcon className="h-4 w-4 transition-colors" />
                     </Button>
-                    <Button size="icon" variant="outline" className="group" onClick={() => {}}>
+                    <Button
+                        size="icon"
+                        variant="outline"
+                        className="cursor-pointer"
+                        onClick={() => {}}
+                    >
                         <Trash2Icon
                             className={cn("h-4 w-4 transition-colors group-hover:text-red-500", {
                                 "animate-pulse text-red-500": false,
@@ -100,7 +105,7 @@ const Note = ({ note, notes }: { note: TNote; notes: TNote[] }) => {
                     </Button>
                 </div>
                 <Link href={route("notes.index")}>
-                    <Button size="icon" variant="outline" className="group">
+                    <Button size="icon" variant="outline" className="cursor-pointer">
                         <LayoutGridIcon className="h-4 w-4" />
                     </Button>
                 </Link>

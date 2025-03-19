@@ -11,11 +11,16 @@ const Notes = ({ notes }: { notes: TNote[] }) => {
     return (
         <App2Layout className="flex h-full w-full flex-col space-y-4">
             <div className="flex justify-between pt-6">
-                <Button size="icon" variant="outline" className="group">
+                <Button size="icon" variant="outline" className="cursor-pointer">
                     <NotebookPenIcon className="h-4 w-4 transition-colors" />
                 </Button>
                 <Link href={route("notes.show", notes[0])}>
-                    <Button size="icon" variant="outline" className="group" onClick={() => {}}>
+                    <Button
+                        size="icon"
+                        variant="outline"
+                        className="cursor-pointer"
+                        onClick={() => {}}
+                    >
                         <LayoutListIcon className="h-4 w-4" />
                     </Button>
                 </Link>
