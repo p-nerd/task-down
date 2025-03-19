@@ -11,66 +11,58 @@ import {
 import type { TNote } from "@/types/models";
 import type { ChangeEvent } from "react";
 
+import { useDebounce } from "@/hooks/use-debounce";
 import { time } from "@/lib/time";
 import { router } from "@inertiajs/react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { MDXEditor } from "@mdxeditor/editor";
 
 const ShowContent = ({ note }: { note: TNote }) => {
     const [noteName, setNoteName] = useState(note.name);
 
-    const timeoutRef = useRef<any>(null);
-
     useEffect(() => {
         setNoteName(note.name);
     }, [note.id, note.name]);
 
+    const debouncedUpdateName = useDebounce((name: string) => {
+        if (note.id && name) {
+            router.patch(
+                route("notes.update", note),
+                { name },
+                { preserveScroll: true, preserveState: true },
+            );
+        }
+    }, 250);
+
+    const debouncedUpdateContent = useDebounce((content: string) => {
+        if (note.id && content) {
+            router.patch(
+                route("notes.update", note),
+                { content },
+                { preserveScroll: true, preserveState: true },
+            );
+        }
+    }, 250);
+
     const handleTitleChange = useCallback(
         (e: ChangeEvent<HTMLInputElement>) => {
-            if (!note.id) return;
-
             const name = e.target.value;
-
             setNoteName(name);
-
-            if (timeoutRef.current) {
-                clearTimeout(timeoutRef.current);
-            }
-
-            timeoutRef.current = setTimeout(() => {
-                if (name) {
-                    router.patch(
-                        route("notes.update", note),
-                        { name },
-                        { preserveScroll: true, preserveState: true },
-                    );
-                }
-            }, 250);
+            debouncedUpdateName(name);
         },
-        [note.id],
+        [debouncedUpdateName],
     );
 
     const handleContentChange = useCallback(
         (content: string) => {
-            if (!note.id) return;
-
-            if (timeoutRef.current) clearTimeout(timeoutRef.current);
-
-            timeoutRef.current = setTimeout(() => {
-                if (content) {
-                    router.patch(
-                        route("notes.update", note),
-                        { content },
-                        { preserveScroll: true, preserveState: true },
-                    );
-                }
-            }, 250);
+            debouncedUpdateContent(content);
         },
-        [note.id],
+        [debouncedUpdateContent],
     );
 
     if (!note.id) return null;
+
     return (
         <div className="flex w-full flex-col">
             <div className="border-border mb-4 flex items-center justify-between border-b py-2">
