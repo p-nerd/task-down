@@ -9,17 +9,17 @@ Route::prefix('/settings')->middleware('auth')->group(function () {
     Route::redirect('/', 'settings/profile')->name('settings');
 
     Route::prefix('/profile')->group(function () {
-        Route::get('/', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
-        Route::delete('/', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        Route::get('/', [ProfileController::class, 'edit'])->name('settings.profile.edit');
+        Route::patch('/', [ProfileController::class, 'update'])->name('settings.profile.update');
+        Route::delete('/', [ProfileController::class, 'destroy'])->name('settings.profile.destroy');
     });
 
     Route::prefix('/password')->group(function () {
-        Route::get('/', [PasswordController::class, 'edit'])->name('password.edit');
-        Route::put('/', [PasswordController::class, 'update'])->name('password.update');
+        Route::get('/', [PasswordController::class, 'edit'])->name('settings.password.edit');
+        Route::put('/', [PasswordController::class, 'update'])->name('settings.password.update');
     });
 
     Route::prefix('/appearance')->group(function () {
-        Route::get('/', [AppearanceController::class, 'edit'])->name('appearance');
+        Route::get('/', [AppearanceController::class, 'edit'])->name('settings.appearance.edit');
     });
 });

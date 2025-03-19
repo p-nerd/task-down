@@ -42,7 +42,7 @@ export const ProfileDropdown = ({ user }: { user: TUser }) => {
                 <DropdownMenuItem asChild>
                     <Link
                         className="block w-full cursor-pointer"
-                        href={route("profile.edit")}
+                        href={route("settings.profile.edit")}
                         as="button"
                         prefetch
                         onClick={cleanup}
