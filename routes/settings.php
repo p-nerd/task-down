@@ -1,21 +1,25 @@
 <?php
 
+use App\Http\Controllers\Settings\AppearanceController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::middleware('auth')->group(function () {
-    Route::redirect('settings', 'settings/profile')->name('settings');
+Route::prefix('/settings')->middleware('auth')->group(function () {
+    Route::redirect('/', 'settings/profile')->name('settings');
 
-    Route::get('settings/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('settings/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('settings/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::prefix('/profile')->group(function () {
+        Route::get('/', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    });
 
-    Route::get('settings/password', [PasswordController::class, 'edit'])->name('password.edit');
-    Route::put('settings/password', [PasswordController::class, 'update'])->name('password.update');
+    Route::prefix('/password')->group(function () {
+        Route::get('/', [PasswordController::class, 'edit'])->name('password.edit');
+        Route::put('/', [PasswordController::class, 'update'])->name('password.update');
+    });
 
-    Route::get('settings/appearance', function () {
-        return Inertia::render('settings/appearance');
-    })->name('appearance');
+    Route::prefix('/appearance')->group(function () {
+        Route::get('/', [AppearanceController::class, 'edit'])->name('appearance');
+    });
 });
