@@ -1,34 +1,29 @@
-import { Head, useForm } from "@inertiajs/react";
-import { LoaderCircle } from "lucide-react";
-import { FormEventHandler } from "react";
+import type { FormEventHandler } from "react";
 
-import InputError from "@/components/input-error";
-import AuthLayout from "@/components/layouts/auth-layout";
+import { useForm } from "@inertiajs/react";
+
+import { Messsage } from "@/components/elements/message";
+import { AuthLayout } from "@/components/layouts/auth-layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Head } from "@inertiajs/react";
+import { LoaderCircleIcon } from "lucide-react";
 
-interface ResetPasswordProps {
-    token: string;
-    email: string;
-}
-
-type ResetPasswordForm = {
-    token: string;
-    email: string;
-    password: string;
-    password_confirmation: string;
-};
-
-export default function ResetPassword({ token, email }: ResetPasswordProps) {
-    const { data, setData, post, processing, errors, reset } = useForm<Required<ResetPasswordForm>>(
-        {
-            token: token,
-            email: email,
-            password: "",
-            password_confirmation: "",
-        },
-    );
+const ResetPassword = ({ token, email }: { token: string; email: string }) => {
+    const { data, setData, post, processing, errors, reset } = useForm<
+        Required<{
+            token: string;
+            email: string;
+            password: string;
+            password_confirmation: string;
+        }>
+    >({
+        token: token,
+        email: email,
+        password: "",
+        password_confirmation: "",
+    });
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -55,7 +50,7 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
                             readOnly
                             onChange={(e) => setData("email", e.target.value)}
                         />
-                        <InputError message={errors.email} className="mt-2" />
+                        <Messsage error={errors.email} className="mt-2" />
                     </div>
 
                     <div className="grid gap-2">
@@ -71,7 +66,7 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
                             onChange={(e) => setData("password", e.target.value)}
                             placeholder="Password"
                         />
-                        <InputError message={errors.password} />
+                        <Messsage error={errors.password} />
                     </div>
 
                     <div className="grid gap-2">
@@ -86,15 +81,17 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
                             onChange={(e) => setData("password_confirmation", e.target.value)}
                             placeholder="Confirm password"
                         />
-                        <InputError message={errors.password_confirmation} className="mt-2" />
+                        <Messsage error={errors.password_confirmation} className="mt-2" />
                     </div>
 
                     <Button type="submit" className="mt-4 w-full" disabled={processing}>
-                        {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                        {processing && <LoaderCircleIcon className="h-4 w-4 animate-spin" />}
                         Reset password
                     </Button>
                 </div>
             </form>
         </AuthLayout>
     );
-}
+};
+
+export default ResetPassword;

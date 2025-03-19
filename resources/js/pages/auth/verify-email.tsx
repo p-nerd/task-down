@@ -1,11 +1,12 @@
-// Components
-import { Head, useForm } from "@inertiajs/react";
-import { LoaderCircle } from "lucide-react";
-import { FormEventHandler } from "react";
+import type { FormEventHandler } from "react";
 
-import AuthLayout from "@/components/layouts/auth-layout";
-import TextLink from "@/components/text-link";
+import { useForm } from "@inertiajs/react";
+
+import { TextLink } from "@/components/elements/text-link";
+import { AuthLayout } from "@/components/layouts/auth-layout";
 import { Button } from "@/components/ui/button";
+import { Head } from "@inertiajs/react";
+import { LoaderCircleIcon } from "lucide-react";
 
 export default function VerifyEmail({ status }: { status?: string }) {
     const { post, processing } = useForm({});
@@ -32,7 +33,7 @@ export default function VerifyEmail({ status }: { status?: string }) {
 
             <form onSubmit={submit} className="space-y-6 text-center">
                 <Button disabled={processing} variant="secondary">
-                    {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                    {processing && <LoaderCircleIcon className="h-4 w-4 animate-spin" />}
                     Resend verification email
                 </Button>
 

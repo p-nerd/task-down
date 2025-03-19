@@ -1,33 +1,27 @@
 import type { SharedData } from "@/types";
+import type { FormEventHandler } from "react";
 
-import { Transition } from "@headlessui/react";
-import { Head, Link, useForm, usePage } from "@inertiajs/react";
-import { FormEventHandler } from "react";
+import { useForm, usePage } from "@inertiajs/react";
 
-import DeleteUser from "@/components/delete-user";
 import { HeadingSmall } from "@/components/elements/heading-small";
-import InputError from "@/components/input-error";
+import { Messsage } from "@/components/elements/message";
 import { SettingsLayout } from "@/components/layouts/settings-layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Transition } from "@headlessui/react";
+import { Head, Link } from "@inertiajs/react";
 
-interface ProfileForm {
-    name: string;
-    email: string;
-}
+import { DeleteUser } from "@/components/screens/settings/delete-user";
 
-export default function Profile({
-    mustVerifyEmail,
-    status,
-}: {
-    mustVerifyEmail: boolean;
-    status?: string;
-}) {
+const Profile = ({ mustVerifyEmail, status }: { mustVerifyEmail: boolean; status?: string }) => {
     const { auth } = usePage<SharedData>().props;
 
     const { data, setData, patch, errors, processing, recentlySuccessful } = useForm<
-        Required<ProfileForm>
+        Required<{
+            name: string;
+            email: string;
+        }>
     >({
         name: auth.user.name,
         email: auth.user.email,
@@ -64,7 +58,7 @@ export default function Profile({
                             placeholder="Full name"
                         />
 
-                        <InputError className="mt-2" message={errors.name} />
+                        <Messsage className="mt-2" error={errors.name} />
                     </div>
 
                     <div className="grid gap-2">
@@ -81,7 +75,7 @@ export default function Profile({
                             placeholder="Email address"
                         />
 
-                        <InputError className="mt-2" message={errors.email} />
+                        <Messsage className="mt-2" error={errors.email} />
                     </div>
 
                     {mustVerifyEmail && auth.user.email_verified_at === null && (
@@ -125,4 +119,6 @@ export default function Profile({
             <DeleteUser />
         </SettingsLayout>
     );
-}
+};
+
+export default Profile;

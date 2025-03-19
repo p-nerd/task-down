@@ -1,10 +1,4 @@
-import { useForm } from "@inertiajs/react";
-import { FormEventHandler, useRef } from "react";
-
-import InputError from "@/components/input-error";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import type { FormEventHandler } from "react";
 
 import {
     Dialog,
@@ -15,9 +9,17 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { HeadingSmall } from "./elements/heading-small";
 
-export default function DeleteUser() {
+import { useForm } from "@inertiajs/react";
+import { useRef } from "react";
+
+import { HeadingSmall } from "@/components/elements/heading-small";
+import { Messsage } from "@/components/elements/message";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
+const DeleteUser = () => {
     const passwordInput = useRef<HTMLInputElement>(null);
     const {
         data,
@@ -85,7 +87,7 @@ export default function DeleteUser() {
                                     autoComplete="current-password"
                                 />
 
-                                <InputError message={errors.password} />
+                                <Messsage error={errors.password} />
                             </div>
 
                             <DialogFooter className="gap-2">
@@ -105,4 +107,6 @@ export default function DeleteUser() {
             </div>
         </div>
     );
-}
+};
+
+export { DeleteUser };

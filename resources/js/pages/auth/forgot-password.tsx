@@ -1,16 +1,18 @@
-// Components
-import { Head, useForm } from "@inertiajs/react";
-import { LoaderCircle } from "lucide-react";
-import { FormEventHandler } from "react";
+import type { FormEventHandler } from "react";
 
-import InputError from "@/components/input-error";
-import AuthLayout from "@/components/layouts/auth-layout";
-import TextLink from "@/components/text-link";
+import { useForm } from "@inertiajs/react";
+
+import { Head } from "@inertiajs/react";
+import { LoaderCircleIcon } from "lucide-react";
+
+import { Messsage } from "@/components/elements/message";
+import { TextLink } from "@/components/elements/text-link";
+import { AuthLayout } from "@/components/layouts/auth-layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export default function ForgotPassword({ status }: { status?: string }) {
+const ForgotPassword = ({ status }: { status?: string }) => {
     const { data, setData, post, processing, errors } = useForm<Required<{ email: string }>>({
         email: "",
     });
@@ -47,12 +49,12 @@ export default function ForgotPassword({ status }: { status?: string }) {
                             placeholder="email@example.com"
                         />
 
-                        <InputError message={errors.email} />
+                        <Messsage error={errors.email} />
                     </div>
 
                     <div className="my-6 flex items-center justify-start">
                         <Button className="w-full" disabled={processing}>
-                            {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                            {processing && <LoaderCircleIcon className="h-4 w-4 animate-spin" />}
                             Email password reset link
                         </Button>
                     </div>
@@ -65,4 +67,6 @@ export default function ForgotPassword({ status }: { status?: string }) {
             </div>
         </AuthLayout>
     );
-}
+};
+
+export default ForgotPassword;

@@ -1,15 +1,16 @@
-// Components
-import { Head, useForm } from "@inertiajs/react";
-import { LoaderCircle } from "lucide-react";
-import { FormEventHandler } from "react";
+import type { FormEventHandler } from "react";
 
-import InputError from "@/components/input-error";
-import AuthLayout from "@/components/layouts/auth-layout";
+import { useForm } from "@inertiajs/react";
+
+import { Messsage } from "@/components/elements/message";
+import { AuthLayout } from "@/components/layouts/auth-layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Head } from "@inertiajs/react";
+import { LoaderCircleIcon } from "lucide-react";
 
-export default function ConfirmPassword() {
+const ConfirmPassword = () => {
     const { data, setData, post, processing, errors, reset } = useForm<
         Required<{ password: string }>
     >({
@@ -46,12 +47,12 @@ export default function ConfirmPassword() {
                             onChange={(e) => setData("password", e.target.value)}
                         />
 
-                        <InputError message={errors.password} />
+                        <Messsage error={errors.password} />
                     </div>
 
                     <div className="flex items-center">
                         <Button className="w-full" disabled={processing}>
-                            {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                            {processing && <LoaderCircleIcon className="h-4 w-4 animate-spin" />}
                             Confirm password
                         </Button>
                     </div>
@@ -59,4 +60,6 @@ export default function ConfirmPassword() {
             </form>
         </AuthLayout>
     );
-}
+};
+
+export default ConfirmPassword;

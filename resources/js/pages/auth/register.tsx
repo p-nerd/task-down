@@ -1,23 +1,25 @@
-import { Head, useForm } from "@inertiajs/react";
-import { LoaderCircle } from "lucide-react";
-import { FormEventHandler } from "react";
+import type { FormEventHandler } from "react";
 
-import InputError from "@/components/input-error";
-import AuthLayout from "@/components/layouts/auth-layout";
-import TextLink from "@/components/text-link";
+import { useForm } from "@inertiajs/react";
+
+import { Messsage } from "@/components/elements/message";
+import { TextLink } from "@/components/elements/text-link";
+import { AuthLayout } from "@/components/layouts/auth-layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Head } from "@inertiajs/react";
+import { LoaderCircleIcon } from "lucide-react";
 
-type RegisterForm = {
-    name: string;
-    email: string;
-    password: string;
-    password_confirmation: string;
-};
-
-export default function Register() {
-    const { data, setData, post, processing, errors, reset } = useForm<Required<RegisterForm>>({
+const Register = () => {
+    const { data, setData, post, processing, errors, reset } = useForm<
+        Required<{
+            name: string;
+            email: string;
+            password: string;
+            password_confirmation: string;
+        }>
+    >({
         name: "",
         email: "",
         password: "",
@@ -53,7 +55,7 @@ export default function Register() {
                             disabled={processing}
                             placeholder="Full name"
                         />
-                        <InputError message={errors.name} className="mt-2" />
+                        <Messsage error={errors.name} className="mt-2" />
                     </div>
 
                     <div className="grid gap-2">
@@ -69,7 +71,7 @@ export default function Register() {
                             disabled={processing}
                             placeholder="email@example.com"
                         />
-                        <InputError message={errors.email} />
+                        <Messsage error={errors.email} />
                     </div>
 
                     <div className="grid gap-2">
@@ -85,7 +87,7 @@ export default function Register() {
                             disabled={processing}
                             placeholder="Password"
                         />
-                        <InputError message={errors.password} />
+                        <Messsage error={errors.password} />
                     </div>
 
                     <div className="grid gap-2">
@@ -101,7 +103,7 @@ export default function Register() {
                             disabled={processing}
                             placeholder="Confirm password"
                         />
-                        <InputError message={errors.password_confirmation} />
+                        <Messsage error={errors.password_confirmation} />
                     </div>
 
                     <Button
@@ -110,7 +112,7 @@ export default function Register() {
                         tabIndex={5}
                         disabled={processing}
                     >
-                        {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                        {processing && <LoaderCircleIcon className="h-4 w-4 animate-spin" />}
                         Create account
                     </Button>
                 </div>
@@ -124,4 +126,6 @@ export default function Register() {
             </form>
         </AuthLayout>
     );
-}
+};
+
+export default Register;
