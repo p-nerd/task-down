@@ -18,14 +18,14 @@ import { UserInfo } from "@/components/user-info";
 import { Link } from "@inertiajs/react";
 import { LogOutIcon, SettingsIcon } from "lucide-react";
 
-export const Profile = ({ user }: { user: TUser }) => {
+export const ProfileDropdown = ({ user }: { user: TUser }) => {
     const getInitials = useInitials();
     const cleanup = useMobileNavigation();
 
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="size-8 rounded-full">
+                <Button variant="ghost" className="size-8 cursor-pointer rounded-full">
                     <Avatar className="size-8">
                         <AvatarImage src={user.avatar} alt={user?.name} />
                         <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
@@ -41,7 +41,7 @@ export const Profile = ({ user }: { user: TUser }) => {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                     <Link
-                        className="block w-full"
+                        className="block w-full cursor-pointer"
                         href={route("profile.edit")}
                         as="button"
                         prefetch
@@ -54,7 +54,7 @@ export const Profile = ({ user }: { user: TUser }) => {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                     <Link
-                        className="block w-full"
+                        className="block w-full cursor-pointer"
                         method="post"
                         href={route("logout")}
                         as="button"
