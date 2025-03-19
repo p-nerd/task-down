@@ -29,7 +29,7 @@ const ShowListing = ({ notes, note }: { notes: TNote[]; note: TNote }) => {
                             },
                         )}
                     >
-                        <h3 className="mb-1 w-full font-bold">{n.name}</h3>
+                        <h3 className="mb-1 w-full text-base font-bold">{n.name}</h3>
                         <span className="text-xs font-light">
                             {time.format.shortt(n.created_at)}
                         </span>
