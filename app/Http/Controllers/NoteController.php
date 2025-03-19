@@ -19,6 +19,21 @@ class NoteController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function show(Request $request, Note $note)
+    {
+        if ($request->user()->id !== $note->user_id) {
+            abort(Response::HTTP_FORBIDDEN);
+        }
+
+        return inertia('notes/show', [
+            'note' => $note,
+            'notes' => $this->fetchNotes($request),
+        ]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create()
@@ -42,20 +57,6 @@ class NoteController extends Controller
         ]);
 
         return redirect()->route('notes.index');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Request $request, Note $note)
-    {
-        if ($request->user()->id !== $note->user_id) {
-            abort(Response::HTTP_FORBIDDEN);
-        }
-
-        return inertia('notes/show', [
-            'notes' => $this->fetchNotes($request),
-        ]);
     }
 
     /**
