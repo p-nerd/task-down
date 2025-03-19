@@ -65,7 +65,7 @@ const ShowContent = ({ note }: { note: TNote }) => {
     if (!note.id) return null;
 
     return (
-        <div className="flex w-full flex-col">
+        <div className="flex h-full w-full flex-col">
             <div className="border-border mb-4 flex items-center justify-between border-b py-2">
                 <input
                     id="name"
@@ -84,7 +84,7 @@ const ShowContent = ({ note }: { note: TNote }) => {
                 key={note.id}
                 markdown={note.content}
                 onChange={handleContentChange}
-                contentEditableClassName="w-full h-full text-lg outline-hidden prose dark:prose-invert text-foreground bg-background"
+                contentEditableClassName="w-full h-full min-h-[calc(100vh-196px)] text-lg outline-hidden prose dark:prose-invert text-foreground bg-background"
                 plugins={[
                     headingsPlugin(),
                     quotePlugin(),
