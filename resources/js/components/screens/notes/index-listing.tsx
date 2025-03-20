@@ -13,36 +13,22 @@ const IndexListing = ({ notes }: { notes: TNote[] }) => {
 
     useEffect(() => {
         if (containerRef.current) {
-            swapyRef.current = createSwapy(containerRef.current, { animation: "spring" });
+            const swapy = createSwapy(containerRef.current, { animation: "spring" });
 
-            swapyRef.current.onSwapEnd((e) => {
-                console.log(e);
-
-                const orderMaps = notes.reduce<Record<string, number>>((acc, note) => {
-                    acc[note.id] = note.order;
-                    return acc;
-                }, {});
-                console.log(orderMaps);
-
-                const data = e.slotItemMap.asArray.map((item) => {
-                    if (item.slot === item.item) {
-                        return {
-                            id: item.item,
-                            order: orderMaps[item.item],
-                        };
-                    }
-                    return {
-                        id: item.item,
-                        order: orderMaps[item.slot],
-                    };
-                });
-                console.log(notes, data);
-
-                router.patch(route("notes.reorder"), { notes: data });
-                swapyRef.current?.update();
+            swapy.onSwapEnd((e) => {
+                router.patch(
+                    route("notes.reorder"),
+                    {
+                        notes: e.slotItemMap.asArray.map((t, i) => ({ id: t.item, order: i })),
+                    },
+                    {
+                        onFinish: swapy.update,
+                    },
+                );
             });
-        }
 
+            swapyRef.current = swapy;
+        }
         return () => {
             swapyRef.current?.destroy();
         };
@@ -71,5 +57,4 @@ const IndexListing = ({ notes }: { notes: TNote[] }) => {
         </div>
     );
 };
-
 export { IndexListing };
