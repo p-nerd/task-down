@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Note;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 
 class NoteController extends Controller
@@ -59,9 +58,7 @@ class NoteController extends Controller
 
         foreach ($payload['notes'] as $update) {
             $note = Note::find($update['id']);
-            if ($request->user()->id !== $note->user_id) {
-                abort(Response::HTTP_FORBIDDEN);
-            }
+            Gate::allowIf(fn (User $user) => $user->id === $note->user_id);
 
             $note->update(['order' => $update['order']]);
         }
