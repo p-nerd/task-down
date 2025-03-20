@@ -23,7 +23,11 @@ const ShowListing = ({ notes, note }: { notes: TNote[]; note: TNote }) => {
                             <div
                                 key={itemId}
                                 data-swapy-item={itemId}
-                                onClick={() => router.get(route("notes.show", item))}
+                                onClick={() =>
+                                    router.get(route("notes.show", item), undefined, {
+                                        preserveState: true,
+                                    })
+                                }
                                 className="h-full w-full"
                             >
                                 <NoteItem note={item} active={item.id === note.id} />
