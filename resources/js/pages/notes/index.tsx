@@ -8,8 +8,10 @@ import { Head, Link } from "@inertiajs/react";
 import { LayoutListIcon } from "lucide-react";
 
 const Notes = ({ notes }: { notes: TNote[] }) => {
+    const contentHeight = "calc(100vh - 130px)";
+
     return (
-        <AppLayout className="flex h-full w-full flex-col space-y-4">
+        <AppLayout className="flex h-full w-full flex-col">
             <Head title="Notes" />
             <div className="flex justify-between pt-6">
                 <CreateNote />
@@ -26,11 +28,15 @@ const Notes = ({ notes }: { notes: TNote[] }) => {
                     </Link>
                 )}
             </div>
-            {notes.length === 0 ? (
-                <div className="text-muted-foreground pt-4 text-center">No Notes Yet!</div>
-            ) : (
-                <IndexListing notes={notes} />
-            )}
+            <div className="flex h-full w-full py-2">
+                <div className="w-full overflow-y-auto" style={{ height: contentHeight }}>
+                    {notes.length === 0 ? (
+                        <div className="text-muted-foreground pt-4 text-center">No Notes Yet!</div>
+                    ) : (
+                        <IndexListing notes={notes} />
+                    )}
+                </div>
+            </div>
         </AppLayout>
     );
 };

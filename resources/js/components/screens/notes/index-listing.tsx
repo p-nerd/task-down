@@ -1,16 +1,38 @@
 import type { TNote } from "@/types/models";
+import type { Swapy } from "swapy";
 
 import { time } from "@/lib/time";
 import { cn } from "@/lib/utils";
-
-import { Link } from "@inertiajs/react";
+import { router } from "@inertiajs/react";
+import { useEffect, useRef } from "react";
+import { createSwapy } from "swapy";
 
 const IndexListing = ({ notes }: { notes: TNote[] }) => {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const swapyRef = useRef<Swapy | null>(null);
+
+    useEffect(() => {
+        if (containerRef.current) {
+            swapyRef.current = createSwapy(containerRef.current, { animation: "spring" });
+
+            swapyRef.current.onSwap((event) => {
+                console.log("swap", event);
+            });
+        }
+
+        return () => {
+            swapyRef.current?.destroy();
+        };
+    }, []);
+
     return (
-        <ul className="grid w-full grid-cols-4 gap-3 px-10">
+        <div className="grid w-full grid-cols-4 gap-3 px-10" ref={containerRef}>
             {notes.map((n) => (
-                <Link key={n.id} href={route("notes.show", n)}>
-                    <li
+                <div key={n.id} data-swapy-slot={n.id}>
+                    <div
+                        key={n.id}
+                        data-swapy-item={n.id}
+                        onClick={() => router.get(route("notes.show", n))}
                         className={cn(
                             "bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground",
                             "w-full cursor-pointer rounded-md px-2.5 py-3 transition-colors duration-75",
@@ -20,10 +42,10 @@ const IndexListing = ({ notes }: { notes: TNote[] }) => {
                         <span className="text-xs font-light">
                             {time.format.shortt(n.created_at)}
                         </span>
-                    </li>
-                </Link>
+                    </div>
+                </div>
             ))}
-        </ul>
+        </div>
     );
 };
 
