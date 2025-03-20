@@ -14,7 +14,7 @@ const Note = ({ note, notes }: { note: TNote; notes: TNote[] }) => {
 
     return (
         <AppLayout className="flex h-full w-full flex-col">
-            <Head title={note.name} />
+            <Head title={`'${note.name}' Note`} />
             <div className="flex w-full justify-between pt-6">
                 <div className="flex w-[300px] justify-between">
                     <CreateNote />
