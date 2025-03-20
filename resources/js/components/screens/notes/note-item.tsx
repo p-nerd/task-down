@@ -24,6 +24,7 @@ export const NoteItem = ({ note, active }: { note: TNote; active?: boolean }) =>
                 markdown={note.content}
                 contentEditableClassName="w-full h-[100px] overflow-hidden text-sm outline-hidden prose dark:prose-invert"
                 plugins={plugins}
+                readOnly={true}
             />
             <span className="text-xs font-light">{time.format.shortt(note.created_at)}</span>
         </div>
