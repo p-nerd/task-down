@@ -1,6 +1,3 @@
-import { NavFooter } from "@/components/nav-footer";
-import { NavMain } from "@/components/nav-main";
-import { NavUser } from "@/components/nav-user";
 import {
     Sidebar,
     SidebarContent,
@@ -10,33 +7,39 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { type NavItem } from "@/types";
-import { Link } from "@inertiajs/react";
-import { BookOpen, Folder, LayoutGrid } from "lucide-react";
-import AppLogo from "./app-logo";
 
-const mainNavItems: NavItem[] = [
+import type { TNavItem } from "@/types";
+
+import { Link } from "@inertiajs/react";
+import { BookOpenIcon, FolderIcon, LayoutGridIcon } from "lucide-react";
+
+import { AdminLogo } from "./admin-logo";
+import { NavFooter } from "./nav-footer";
+import { NavMain } from "./nav-main";
+import { NavUser } from "./nav-user";
+
+const mainNavItems: TNavItem[] = [
     {
         title: "Dashboard",
         href: "/dashboard",
-        icon: LayoutGrid,
+        icon: LayoutGridIcon,
     },
 ];
 
-const footerNavItems: NavItem[] = [
+const footerNavItems: TNavItem[] = [
     {
         title: "Repository",
         href: "https://github.com/laravel/react-starter-kit",
-        icon: Folder,
+        icon: FolderIcon,
     },
     {
         title: "Documentation",
         href: "https://laravel.com/docs/starter-kits",
-        icon: BookOpen,
+        icon: BookOpenIcon,
     },
 ];
 
-export function AppSidebar() {
+export const AdminSidebar = () => {
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
@@ -44,7 +47,7 @@ export function AppSidebar() {
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
                             <Link href="/dashboard" prefetch>
-                                <AppLogo />
+                                <AdminLogo />
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -61,4 +64,4 @@ export function AppSidebar() {
             </SidebarFooter>
         </Sidebar>
     );
-}
+};

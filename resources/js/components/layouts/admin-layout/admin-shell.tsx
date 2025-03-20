@@ -1,12 +1,14 @@
-import { SidebarProvider } from "@/components/ui/sidebar";
 import { useState } from "react";
 
-interface AppShellProps {
+import { SidebarProvider } from "@/components/ui/sidebar";
+
+export const AdminShell = ({
+    children,
+    variant = "header",
+}: {
     children: React.ReactNode;
     variant?: "header" | "sidebar";
-}
-
-export function AppShell({ children, variant = "header" }: AppShellProps) {
+}) => {
     const [isOpen, setIsOpen] = useState(() =>
         typeof window !== "undefined" ? localStorage.getItem("sidebar") !== "false" : true,
     );
@@ -28,4 +30,4 @@ export function AppShell({ children, variant = "header" }: AppShellProps) {
             {children}
         </SidebarProvider>
     );
-}
+};

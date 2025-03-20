@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import AuthLayoutTemplate from "@/components/screens/auth/auth-simple-layout";
+import { AuthSimpleLayout } from "./auth-simple-layout";
 
 const AuthLayout = ({
     children,
@@ -12,9 +12,9 @@ const AuthLayout = ({
     description: string;
 }) => {
     return (
-        <AuthLayoutTemplate title={title} description={description}>
+        <AuthSimpleLayout title={title} description={description}>
             {children}
-        </AuthLayoutTemplate>
+        </AuthSimpleLayout>
     );
 };
 

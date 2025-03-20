@@ -1,4 +1,4 @@
-import type { SharedData } from "@/types";
+import type { TSharedData } from "@/types";
 import type { FormEventHandler } from "react";
 
 import { useForm, usePage } from "@inertiajs/react";
@@ -15,7 +15,7 @@ import { Head, Link } from "@inertiajs/react";
 import { DeleteUser } from "@/components/screens/settings/delete-user";
 
 const Profile = ({ mustVerifyEmail, status }: { mustVerifyEmail: boolean; status?: string }) => {
-    const { auth } = usePage<SharedData>().props;
+    const { auth } = usePage<TSharedData>().props;
 
     const { data, setData, patch, errors, processing, recentlySuccessful } = useForm<
         Required<{

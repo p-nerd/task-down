@@ -9,15 +9,11 @@ import type { TUser } from "@/types/models";
 
 import { useMobileNavigation } from "@/hooks/use-mobile-navigation";
 
-import { UserInfo } from "@/components/user-info";
+import { UserInfo } from "@/components/elements/user-info";
 import { Link } from "@inertiajs/react";
-import { LogOut, Settings } from "lucide-react";
+import { LogOutIcon, SettingsIcon } from "lucide-react";
 
-interface UserMenuContentProps {
-    user: TUser;
-}
-
-export function UserMenuContent({ user }: UserMenuContentProps) {
+export const UserMenuContent = ({ user }: { user: TUser }) => {
     const cleanup = useMobileNavigation();
 
     return (
@@ -37,7 +33,7 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
                         prefetch
                         onClick={cleanup}
                     >
-                        <Settings className="mr-2" />
+                        <SettingsIcon className="mr-2" />
                         Settings
                     </Link>
                 </DropdownMenuItem>
@@ -51,10 +47,10 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
                     as="button"
                     onClick={cleanup}
                 >
-                    <LogOut className="mr-2" />
+                    <LogOutIcon className="mr-2" />
                     Log out
                 </Link>
             </DropdownMenuItem>
         </>
     );
-}
+};

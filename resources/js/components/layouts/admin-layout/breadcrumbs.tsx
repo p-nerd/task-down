@@ -6,11 +6,13 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { type BreadcrumbItem as BreadcrumbItemType } from "@/types";
+
+import type { TBreadcrumbItem as BreadcrumbItemType } from "@/types";
+
 import { Link } from "@inertiajs/react";
 import { Fragment } from "react";
 
-export function Breadcrumbs({ breadcrumbs }: { breadcrumbs: BreadcrumbItemType[] }) {
+export const Breadcrumbs = ({ breadcrumbs }: { breadcrumbs: BreadcrumbItemType[] }) => {
     return (
         <>
             {breadcrumbs.length > 0 && (
@@ -38,4 +40,4 @@ export function Breadcrumbs({ breadcrumbs }: { breadcrumbs: BreadcrumbItemType[]
             )}
         </>
     );
-}
+};

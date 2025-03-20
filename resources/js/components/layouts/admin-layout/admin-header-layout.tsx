@@ -1,60 +1,67 @@
-import { Breadcrumbs } from "@/components/breadcrumbs";
-import { Icon } from "@/components/icon";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
 import {
     NavigationMenu,
     NavigationMenuItem,
     NavigationMenuList,
-    navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { UserMenuContent } from "@/components/user-menu-content";
+
+import type { TBreadcrumbItem, TNavItem, TSharedData } from "@/types";
+import type { ReactNode } from "react";
+
+import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import { useInitials } from "@/hooks/use-initials";
 import { cn } from "@/lib/utils";
-import { type BreadcrumbItem, type NavItem, type SharedData } from "@/types";
-import { Link, usePage } from "@inertiajs/react";
-import { BookOpen, Folder, LayoutGrid, Menu, Search } from "lucide-react";
-import AppLogo from "./app-logo";
-import AppLogoIcon from "./app-logo-icon";
+import { usePage } from "@inertiajs/react";
 
-const mainNavItems: NavItem[] = [
+import { LogoIcon } from "@/components/elements/logo-icon";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Link } from "@inertiajs/react";
+import { BookOpenIcon, FolderIcon, LayoutGridIcon, MenuIcon, SearchIcon } from "lucide-react";
+
+import { AdminLogo } from "./admin-logo";
+import { AdminShell } from "./admin-shell";
+import { Breadcrumbs } from "./breadcrumbs";
+import { Content } from "./content";
+import { Icon } from "./icon";
+import { UserMenuContent } from "./user-menu-content";
+
+const mainNavItems: TNavItem[] = [
     {
         title: "Dashboard",
         href: "/dashboard",
-        icon: LayoutGrid,
+        icon: LayoutGridIcon,
     },
 ];
 
-const rightNavItems: NavItem[] = [
+const rightNavItems: TNavItem[] = [
     {
         title: "Repository",
         href: "https://github.com/laravel/react-starter-kit",
-        icon: Folder,
+        icon: FolderIcon,
     },
     {
         title: "Documentation",
         href: "https://laravel.com/docs/starter-kits",
-        icon: BookOpen,
+        icon: BookOpenIcon,
     },
 ];
 
 const activeItemStyles = "text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100";
 
-interface AppHeaderProps {
-    breadcrumbs?: BreadcrumbItem[];
-}
-
-export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
-    const page = usePage<SharedData>();
-    const { auth } = page.props;
+const Header = ({ breadcrumbs = [] }: { breadcrumbs?: TBreadcrumbItem[] }) => {
+    const page = usePage<TSharedData>();
     const getInitials = useInitials();
+
+    const { auth } = page.props;
+
     return (
         <>
             <div className="border-sidebar-border/80 border-b">
@@ -68,7 +75,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                     size="icon"
                                     className="mr-2 h-[34px] w-[34px]"
                                 >
-                                    <Menu className="h-5 w-5" />
+                                    <MenuIcon className="h-5 w-5" />
                                 </Button>
                             </SheetTrigger>
                             <SheetContent
@@ -77,7 +84,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                             >
                                 <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                                 <SheetHeader className="flex justify-start text-left">
-                                    <AppLogoIcon className="h-6 w-6 fill-current text-black dark:text-white" />
+                                    <LogoIcon className="h-6 w-6 fill-current text-black dark:text-white" />
                                 </SheetHeader>
                                 <div className="flex h-full flex-1 flex-col space-y-4 p-4">
                                     <div className="flex h-full flex-col justify-between text-sm">
@@ -125,7 +132,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                     </div>
 
                     <Link href="/dashboard" prefetch className="flex items-center space-x-2">
-                        <AppLogo />
+                        <AdminLogo />
                     </Link>
 
                     {/* Desktop Navigation */}
@@ -169,7 +176,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                 size="icon"
                                 className="group h-9 w-9 cursor-pointer"
                             >
-                                <Search className="!size-5 opacity-80 group-hover:opacity-100" />
+                                <SearchIcon className="!size-5 opacity-80 group-hover:opacity-100" />
                             </Button>
                             <div className="hidden lg:flex">
                                 {rightNavItems.map((item) => (
@@ -226,4 +233,19 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
             )}
         </>
     );
-}
+};
+
+export const AdminHeaderLayout = ({
+    children,
+    breadcrumbs,
+}: {
+    children: ReactNode;
+    breadcrumbs?: TBreadcrumbItem[];
+}) => {
+    return (
+        <AdminShell>
+            <Header breadcrumbs={breadcrumbs} />
+            <Content>{children}</Content>
+        </AdminShell>
+    );
+};

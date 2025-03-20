@@ -1,8 +1,12 @@
+import type { RouteName } from "ziggy-js";
+
 import { createInertiaApp } from "@inertiajs/react";
-import createServer from "@inertiajs/react/server";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
+import { route } from "ziggy-js";
+
+import createServer from "@inertiajs/react/server";
+
 import ReactDOMServer from "react-dom/server";
-import { type RouteName, route } from "ziggy-js";
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
