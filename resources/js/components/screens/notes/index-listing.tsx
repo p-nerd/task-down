@@ -21,9 +21,14 @@ const IndexListing = ({ notes }: { notes: TNote[] }) => {
                                 className={cn(
                                     "bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground",
                                     "w-full cursor-pointer rounded-md px-2.5 py-3 transition-colors duration-75",
+                                    {
+                                        "text-muted-foreground": !item.name,
+                                    },
                                 )}
                             >
-                                <h3 className="mb-1 w-full font-bold">{item.name}</h3>
+                                <h3 className="mb-1 w-full text-base font-bold">
+                                    {item.name || "Untitled Title"}
+                                </h3>
                                 <span className="text-xs font-light">
                                     {time.format.shortt(item.created_at)}
                                 </span>

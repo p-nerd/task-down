@@ -16,7 +16,7 @@ const ShowListing = ({ notes, note }: { notes: TNote[]; note: TNote }) => {
                 ({ slotId, itemId, item }) =>
                     item && (
                         <div
-                            ref={note.id === note.id ? scrollIntoViewRef : null}
+                            ref={item.id === note.id ? scrollIntoViewRef : null}
                             key={slotId}
                             data-swapy-slot={slotId}
                         >
@@ -29,10 +29,13 @@ const ShowListing = ({ notes, note }: { notes: TNote[]; note: TNote }) => {
                                     "w-full cursor-pointer rounded-md px-2.5 py-3 transition-colors duration-75",
                                     {
                                         "bg-primary text-primary-foreground": item.id === note.id,
+                                        "text-muted-foreground": !item.name,
                                     },
                                 )}
                             >
-                                <h3 className="mb-1 w-full text-base font-bold">{item.name}</h3>
+                                <h3 className="mb-1 w-full text-base font-bold">
+                                    {item.name || "Untitled Title"}
+                                </h3>
                                 <span className="text-xs font-light">
                                     {time.format.shortt(item.created_at)}
                                 </span>
