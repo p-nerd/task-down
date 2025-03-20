@@ -1,26 +1,20 @@
 import type { TNote } from "@/types/models";
 
+import { useScrollIntoView } from "@/hooks/use-scroll-into-view";
 import { time } from "@/lib/time";
 import { cn } from "@/lib/utils";
-import { useEffect, useRef } from "react";
 
 import { Link } from "@inertiajs/react";
 
 const ShowListing = ({ notes, note }: { notes: TNote[]; note: TNote }) => {
-    const activeNoteRef = useRef<HTMLLIElement>(null);
-
-    useEffect(() => {
-        if (activeNoteRef.current) {
-            activeNoteRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        }
-    }, [note.id]);
+    const scrollIntoViewRef = useScrollIntoView();
 
     return (
         <ul className="flex flex-col space-y-2">
             {notes.map((n) => (
                 <Link key={n.id} href={route("notes.show", n)} preserveState={true}>
                     <li
-                        ref={n.id === note.id ? activeNoteRef : null}
+                        ref={n.id === note.id ? scrollIntoViewRef : null}
                         className={cn(
                             "bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground",
                             "w-full cursor-pointer rounded-md px-2.5 py-3 transition-colors duration-75",
