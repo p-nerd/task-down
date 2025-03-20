@@ -20,13 +20,14 @@ export const useNotesReorder = (notes: TNote[]) => {
 
     useEffect(
         () => utils.dynamicSwapy(swapyRef.current, notes, "id", slotItemMap, setSlotItemMap),
-        [notes],
+        [notes, slotItemMap, setSlotItemMap],
     );
 
     useEffect(() => {
         if (containerRef.current) {
             swapyRef.current = createSwapy(containerRef.current!, {
                 manualSwap: true,
+                animation: "spring",
             });
 
             swapyRef.current.onSwap((event) => {

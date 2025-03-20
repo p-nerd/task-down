@@ -15,8 +15,8 @@ const IndexListing = ({ notes }: { notes: TNote[] }) => {
                     item && (
                         <div key={slotId} data-swapy-slot={slotId}>
                             <div
-                                data-swapy-item={itemId}
                                 key={itemId}
+                                data-swapy-item={itemId}
                                 onClick={() => router.get(route("notes.show", item))}
                                 className={cn(
                                     "bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground",

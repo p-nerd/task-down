@@ -1,13 +1,13 @@
 import { useEffect, useRef } from "react";
 
 export const useScrollIntoView = () => {
-    const ref = useRef<HTMLLIElement>(null);
+    const scrollIntoViewRef = useRef<any>(null);
 
     useEffect(() => {
-        if (ref.current) {
-            ref.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        if (scrollIntoViewRef.current) {
+            scrollIntoViewRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
         }
     }, []);
 
-    return ref;
+    return { scrollIntoViewRef };
 };
