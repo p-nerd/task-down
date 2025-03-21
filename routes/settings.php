@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Settings\AppearanceController;
+// use App\Http\Controllers\Settings\AppearanceController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +19,7 @@ Route::prefix('/settings')->middleware('auth')->group(function () {
         Route::put('/', [PasswordController::class, 'update'])->name('settings.password.update');
     });
 
-    Route::prefix('/appearance')->group(function () {
-        Route::get('/', [AppearanceController::class, 'edit'])->name('settings.appearance.edit');
-    });
+    // Route::prefix('/appearance')->group(function () {
+    //     Route::get('/', [AppearanceController::class, 'edit'])->name('settings.appearance.edit');
+    // });
 });

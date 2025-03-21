@@ -1,5 +1,8 @@
+@import "@mdxeditor/editor/style.css";
+
 @import "tailwindcss";
 
+@plugin "@tailwindcss/typography";
 @plugin 'tailwindcss-animate';
 
 @source "../views";

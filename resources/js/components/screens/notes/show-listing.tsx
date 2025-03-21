@@ -1,42 +1,41 @@
 import type { TNote } from "@/types/models";
 
-import { time } from "@/lib/time";
-import { cn } from "@/lib/utils";
-import { useEffect, useRef } from "react";
+import { useNotesReorder } from "@/hooks/use-notes-reorder";
+import { useScrollIntoView } from "@/hooks/use-scroll-into-view";
+import { router } from "@inertiajs/react";
 
-import { Link } from "@inertiajs/react";
+import { NoteItem } from "./note-item";
 
 const ShowListing = ({ notes, note }: { notes: TNote[]; note: TNote }) => {
-    const activeNoteRef = useRef<HTMLLIElement>(null);
-
-    useEffect(() => {
-        if (activeNoteRef.current) {
-            activeNoteRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        }
-    }, [note.id]);
+    const { scrollIntoViewRef } = useScrollIntoView();
+    const { containerRef, slottedItems } = useNotesReorder(notes);
 
     return (
-        <ul className="flex flex-col space-y-2">
-            {notes.map((n) => (
-                <Link key={n.id} href={route("notes.show", n)} preserveState={true}>
-                    <li
-                        ref={n.id === note.id ? activeNoteRef : null}
-                        className={cn(
-                            "bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground",
-                            "w-full cursor-pointer rounded-md px-2.5 py-3 transition-colors duration-75",
-                            {
-                                "bg-primary text-primary-foreground": n.id === note.id,
-                            },
-                        )}
-                    >
-                        <h3 className="mb-1 w-full text-base font-bold">{n.name}</h3>
-                        <span className="text-xs font-light">
-                            {time.format.shortt(n.created_at)}
-                        </span>
-                    </li>
-                </Link>
-            ))}
-        </ul>
+        <div className="flex flex-col space-y-2" ref={containerRef}>
+            {slottedItems.map(
+                ({ slotId, itemId, item }) =>
+                    item && (
+                        <div
+                            ref={item.id === note.id ? scrollIntoViewRef : null}
+                            key={slotId}
+                            data-swapy-slot={slotId}
+                        >
+                            <div
+                                key={itemId}
+                                data-swapy-item={itemId}
+                                onClick={() =>
+                                    router.get(route("notes.show", item), undefined, {
+                                        preserveState: true,
+                                    })
+                                }
+                                className="h-full w-full"
+                            >
+                                <NoteItem note={item} active={item.id === note.id} />
+                            </div>
+                        </div>
+                    ),
+            )}
+        </div>
     );
 };
 
