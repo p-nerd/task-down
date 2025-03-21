@@ -57,25 +57,27 @@ const ShowContent = ({ note }: { note: TNote }) => {
 
     return (
         <div className="flex h-full w-full flex-col">
-            <div className="border-border mb-4 flex items-center justify-between border-b py-2">
-                <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    value={noteName}
-                    onChange={handleTitleChange}
-                    className="mr-4 w-full bg-transparent text-2xl font-bold focus:outline-none"
-                    placeholder="Note Title"
-                />
-                <span className="text-muted-foreground text-sm whitespace-nowrap">
-                    {time.format.shortt(note.updated_at)}
-                </span>
+            <div className="w-full px-[0.75rem]">
+                <div className="border-border mb-4 flex items-center justify-between border-b py-2">
+                    <input
+                        id="name"
+                        name="name"
+                        type="text"
+                        value={noteName}
+                        onChange={handleTitleChange}
+                        className="mr-4 w-full bg-transparent text-2xl font-bold focus:outline-none"
+                        placeholder="Note Title"
+                    />
+                    <span className="text-muted-foreground text-sm whitespace-nowrap">
+                        {time.format.shortt(note.updated_at)}
+                    </span>
+                </div>
             </div>
             <MDXEditor
                 key={note.id}
                 markdown={note.content}
                 onChange={handleContentChange}
-                contentEditableClassName="w-full max-w-full h-full min-h-[calc(100vh-196px)] text-base outline-hidden prose dark:prose-invert text-foreground bg-background"
+                contentEditableClassName="w-full p-0 max-w-full h-full min-h-[calc(100vh-196px)] text-base outline-hidden prose dark:prose-invert text-foreground bg-background"
                 plugins={plugins}
             />
         </div>

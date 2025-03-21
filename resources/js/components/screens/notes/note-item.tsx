@@ -4,7 +4,15 @@ import { md } from "@/lib/md";
 import { time } from "@/lib/time";
 import { cn } from "@/lib/utils";
 
-export const NoteItem = ({ note, active }: { note: TNote; active?: boolean }) => {
+export const NoteItem = ({
+    note,
+    active,
+    strikable,
+}: {
+    note: TNote;
+    active?: boolean;
+    strikable?: boolean;
+}) => {
     return (
         <div
             className={cn(
@@ -19,7 +27,8 @@ export const NoteItem = ({ note, active }: { note: TNote; active?: boolean }) =>
             <h3 className="mb-1 w-full text-base font-bold">{note.name || "Untitled Title"}</h3>
             <p
                 className={cn(
-                    "max-h-[100px] w-full overflow-hidden text-sm",
+                    "w-full overflow-hidden text-sm",
+                    strikable ? "max-h-[100px]" : "h-[100px]",
                     "prose group-hover:prose-invert",
                     {
                         "prose-invert": active,
