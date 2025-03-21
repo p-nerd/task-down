@@ -75,8 +75,8 @@ const ShowContent = ({ note }: { note: TNote }) => {
                 key={note.id}
                 markdown={note.content}
                 onChange={handleContentChange}
+                className="dark-theme dark-editor"
                 contentEditableClassName="w-full max-w-full h-full min-h-[calc(100vh-196px)] text-base outline-hidden prose dark:prose-invert text-foreground bg-background"
-                className="h-full w-full"
                 plugins={plugins}
             />
         </div>
