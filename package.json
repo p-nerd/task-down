@@ -11,20 +11,6 @@
         "clean": "rm -rf ./public/build",
         "shadcn": "shadcn"
     },
-    "devDependencies": {
-        "@eslint/js": "^9.19.0",
-        "@tailwindcss/typography": "^0.5.16",
-        "@types/node": "^22.13.5",
-        "eslint": "^9.17.0",
-        "eslint-config-prettier": "^10.0.1",
-        "eslint-plugin-react": "^7.37.3",
-        "eslint-plugin-react-hooks": "^5.1.0",
-        "prettier": "^3.4.2",
-        "prettier-plugin-blade": "^2.1.21",
-        "prettier-plugin-organize-imports": "^4.1.0",
-        "prettier-plugin-tailwindcss": "^0.6.11",
-        "typescript-eslint": "^8.23.0"
-    },
     "dependencies": {
         "@headlessui/react": "^2.2.0",
         "@inertiajs/react": "^2.0.0",
@@ -70,6 +56,21 @@
         "typescript": "^5.7.2",
         "vite": "^6.0",
         "zustand": "^5.0.3"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.19.0",
+        "@tailwindcss/typography": "^0.5.16",
+        "@types/node": "^22.13.5",
+        "eslint": "^9.17.0",
+        "eslint-config-prettier": "^10.0.1",
+        "eslint-plugin-react": "^7.37.3",
+        "eslint-plugin-react-hooks": "^5.1.0",
+        "prettier": "^3.4.2",
+        "prettier-plugin-blade": "^2.1.21",
+        "prettier-plugin-organize-imports": "^4.1.0",
+        "prettier-plugin-tailwindcss": "^0.6.11",
+        "typescript-eslint": "^8.23.0",
+        "vitest": "^3.0.9"
     },
     "optionalDependencies": {
         "@rollup/rollup-linux-x64-gnu": "4.9.5",
