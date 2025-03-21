@@ -1,7 +1,7 @@
-import { TNote } from "@/types/models";
+import type { TNote } from "@/types/models";
+
 import {
     diffSourcePlugin,
-    DiffSourceToggleWrapper,
     headingsPlugin,
     imagePlugin,
     linkDialogPlugin,
@@ -17,6 +17,7 @@ import {
 import {
     BoldItalicUnderlineToggles,
     CreateLink,
+    DiffSourceToggleWrapper,
     InsertImage,
     InsertTable,
     UndoRedo,
@@ -61,7 +62,10 @@ const plugins = (note: TNote) => [
     // TODO code blocks
 
     // diff/source mode
-    diffSourcePlugin({ diffMarkdown: note.content, viewMode: "rich-text" }),
+    diffSourcePlugin({
+        diffMarkdown: note.content,
+        viewMode: "rich-text",
+    }),
 
     // Markdown keyboard shortcuts
     markdownShortcutPlugin(),
