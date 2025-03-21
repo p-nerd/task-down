@@ -37,7 +37,7 @@ const Note = ({ note, notes }: { note: TNote; notes: TNote[] }) => {
                         <ShowListing notes={notes} note={note} />
                     )}
                 </div>
-                <div className="flex-1 overflow-y-auto px-8" style={{ height: contentHeight }}>
+                <div className="flex-1 overflow-y-auto px-4" style={{ height: contentHeight }}>
                     <ShowContent note={note} />
                 </div>
             </div>

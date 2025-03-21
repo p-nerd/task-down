@@ -30,7 +30,11 @@ const ShowListing = ({ notes, note }: { notes: TNote[]; note: TNote }) => {
                                 }
                                 className="h-full w-full"
                             >
-                                <NoteItem note={item} active={item.id === note.id} />
+                                <NoteItem
+                                    note={item}
+                                    active={item.id === note.id}
+                                    strikable={true}
+                                />
                             </div>
                         </div>
                     ),
