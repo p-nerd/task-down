@@ -18,7 +18,7 @@ export const NoteItem = ({ note, active }: { note: TNote; active?: boolean }) =>
         >
             <h3 className="mb-1 w-full text-base font-bold">{note.name || "Untitled Title"}</h3>
             <p
-                className="prose dark:prose-invert h-[100px] w-full overflow-hidden text-sm"
+                className="prose dark:prose-invert max-h-[100px] w-full overflow-hidden text-sm"
                 dangerouslySetInnerHTML={{ __html: md.convert(note.content) }}
             />
             <span className="text-xs font-light">{time.format.shortt(note.created_at)}</span>
