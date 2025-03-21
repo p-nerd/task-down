@@ -20,7 +20,7 @@ export const useNotesReorder = (notes: TNote[]) => {
 
     useEffect(
         () => utils.dynamicSwapy(swapyRef.current, notes, "id", slotItemMap, setSlotItemMap),
-        [notes, slotItemMap, setSlotItemMap],
+        [notes],
     );
 
     useEffect(() => {
