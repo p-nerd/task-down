@@ -10,8 +10,6 @@ import { Head, Link } from "@inertiajs/react";
 import { LayoutGridIcon } from "lucide-react";
 
 const Note = ({ note, notes }: { note: TNote; notes: TNote[] }) => {
-    const contentHeight = "calc(100vh - 130px)";
-
     return (
         <AppLayout className="flex h-full w-full flex-col">
             <Head title={`'${note.name}' Note`} />
@@ -27,17 +25,14 @@ const Note = ({ note, notes }: { note: TNote; notes: TNote[] }) => {
                 </Link>
             </div>
             <div className="flex h-full w-full py-2">
-                <div
-                    className="w-[300px] space-y-4 overflow-y-auto"
-                    style={{ height: contentHeight }}
-                >
+                <div className="h-(--notes-content-height) w-[300px] space-y-4 overflow-y-auto">
                     {notes.length === 0 ? (
                         <div className="text-muted-foreground pt-4 text-center">No Notes Yet!</div>
                     ) : (
                         <ShowListing notes={notes} note={note} />
                     )}
                 </div>
-                <div className="flex-1 overflow-y-auto px-4" style={{ height: contentHeight }}>
+                <div className="h-(--notes-content-height) flex-1 overflow-y-auto px-4">
                     <ShowContent note={note} />
                 </div>
             </div>

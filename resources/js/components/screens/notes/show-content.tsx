@@ -2,7 +2,7 @@ import type { TNote } from "@/types/models";
 import type { ChangeEvent } from "react";
 
 import { useDebounce } from "@/hooks/use-debounce";
-import { plugins } from "@/lib/plugins2";
+import { plugins } from "@/lib/plugins";
 import { time } from "@/lib/time";
 import { router } from "@inertiajs/react";
 import { useCallback, useEffect, useState } from "react";
@@ -77,7 +77,7 @@ const ShowContent = ({ note }: { note: TNote }) => {
                 key={note.id}
                 markdown={note.content}
                 onChange={handleContentChange}
-                contentEditableClassName="w-full p-0 max-w-full h-full min-h-[calc(100vh-196px)] text-base outline-hidden prose dark:prose-invert text-foreground bg-background"
+                contentEditableClassName="w-full p-0 max-w-full h-full min-h-(--notes-content-editor-height) text-base outline-hidden prose dark:prose-invert text-foreground bg-background"
                 plugins={plugins(note)}
             />
         </div>

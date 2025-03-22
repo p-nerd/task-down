@@ -11,7 +11,7 @@ const AppLayout = ({ children, className }: { children: ReactNode; className?: s
     const { user } = usePage<TSharedData>().props.auth;
 
     return (
-        <div className="mx-auto flex max-w-7xl flex-col p-2">
+        <div className="max-w-app mx-auto flex flex-col p-2">
             <nav className="bg-card text-card-foreground flex w-full items-center justify-between space-x-2 border-b">
                 <HeaderNavigation />
                 <ProfileDropdown user={user} />
