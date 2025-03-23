@@ -8,7 +8,7 @@ export const imageUploadHandler = async (image: File): Promise<string> => {
         const data = new FormData();
         data.append("image", image);
 
-        const response = await window.axios.post<TImage>(route("api.images.store"), data, {
+        const response = await window.axios.post<TImage>(route("images.store"), data, {
             headers: {
                 "Content-Type": "multipart/form-data",
                 Accept: "application/json",
