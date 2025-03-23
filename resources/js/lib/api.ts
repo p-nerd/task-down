@@ -3,7 +3,7 @@ import type { TImage } from "@/types/models";
 import { toast } from "./toast";
 import { error } from "./utils";
 
-export const imageUploadHandler = async (image: File) => {
+export const imageUploadHandler = async (image: File): Promise<string> => {
     try {
         const data = new FormData();
         data.append("image", image);
@@ -18,5 +18,6 @@ export const imageUploadHandler = async (image: File) => {
         return response.data.url;
     } catch (e: any) {
         toast.error("Image upload failed: " + error(e));
+        return "";
     }
 };
