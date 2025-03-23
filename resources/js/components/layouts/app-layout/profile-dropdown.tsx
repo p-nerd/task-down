@@ -16,7 +16,7 @@ import { UserInfo } from "@/components/elements/user-info";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Link } from "@inertiajs/react";
-import { LogOutIcon, SettingsIcon } from "lucide-react";
+import { ImagesIcon, LogOutIcon, SettingsIcon } from "lucide-react";
 
 export const ProfileDropdown = ({ user }: { user: TUser }) => {
     const getInitials = useInitials();
@@ -39,6 +39,18 @@ export const ProfileDropdown = ({ user }: { user: TUser }) => {
                     </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                    <Link
+                        className="block w-full cursor-pointer"
+                        href={route("images.index")}
+                        as="button"
+                        prefetch
+                        onClick={cleanup}
+                    >
+                        <ImagesIcon className="mr-2" />
+                        Images
+                    </Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                     <Link
                         className="block w-full cursor-pointer"
