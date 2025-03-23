@@ -1,11 +1,11 @@
 import {
-    Sidebar,
     SidebarContent,
     SidebarFooter,
     SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
+    Sidebar as SidebarUI,
 } from "@/components/ui/sidebar";
 
 import type { TNavItem } from "@/types";
@@ -13,7 +13,7 @@ import type { TNavItem } from "@/types";
 import { Link } from "@inertiajs/react";
 import { BookOpenIcon, FolderIcon, LayoutGridIcon } from "lucide-react";
 
-import { AdminLogo } from "./admin-logo";
+import { Logo } from "./logo";
 import { NavFooter } from "./nav-footer";
 import { NavMain } from "./nav-main";
 import { NavUser } from "./nav-user";
@@ -39,15 +39,15 @@ const footerNavItems: TNavItem[] = [
     },
 ];
 
-export const AdminSidebar = () => {
+export const Sidebar = () => {
     return (
-        <Sidebar collapsible="icon" variant="inset">
+        <SidebarUI collapsible="icon" variant="inset">
             <SidebarHeader>
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
                             <Link href="/dashboard" prefetch>
-                                <AdminLogo />
+                                <Logo />
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -62,6 +62,6 @@ export const AdminSidebar = () => {
                 <NavFooter items={footerNavItems} className="mt-auto" />
                 <NavUser />
             </SidebarFooter>
-        </Sidebar>
+        </SidebarUI>
     );
 };

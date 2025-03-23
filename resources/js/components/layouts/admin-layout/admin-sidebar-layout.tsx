@@ -2,10 +2,11 @@ import type { TBreadcrumbItem } from "@/types";
 import type { ReactNode } from "react";
 
 import { BaseLayout } from "@/components/layouts/base-layout";
-import { AdminShell } from "./admin-shell";
-import { AdminSidebar } from "./admin-sidebar";
-import { AdminSidebarHeader } from "./admin-sidebar-header";
+
 import { Content } from "./content";
+import { Shell } from "./shell";
+import { Sidebar } from "./sidebar";
+import { SidebarHeader } from "./sidebar-header";
 
 export const AdminSidebarLayout = ({
     children,
@@ -16,13 +17,13 @@ export const AdminSidebarLayout = ({
 }) => {
     return (
         <BaseLayout>
-            <AdminShell variant="sidebar">
-                <AdminSidebar />
+            <Shell variant="sidebar">
+                <Sidebar />
                 <Content variant="sidebar">
-                    <AdminSidebarHeader breadcrumbs={breadcrumbs} />
+                    <SidebarHeader breadcrumbs={breadcrumbs} />
                     {children}
                 </Content>
-            </AdminShell>
+            </Shell>
         </BaseLayout>
     );
 };

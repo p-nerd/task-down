@@ -26,11 +26,11 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Link } from "@inertiajs/react";
 import { BookOpenIcon, FolderIcon, LayoutGridIcon, MenuIcon, SearchIcon } from "lucide-react";
 
-import { AdminLogo } from "./admin-logo";
-import { AdminShell } from "./admin-shell";
 import { Breadcrumbs } from "./breadcrumbs";
 import { Content } from "./content";
 import { Icon } from "./icon";
+import { Logo } from "./logo";
+import { Shell } from "./shell";
 import { UserMenuContent } from "./user-menu-content";
 
 const mainNavItems: TNavItem[] = [
@@ -132,7 +132,7 @@ const Header = ({ breadcrumbs = [] }: { breadcrumbs?: TBreadcrumbItem[] }) => {
                     </div>
 
                     <Link href="/dashboard" prefetch className="flex items-center space-x-2">
-                        <AdminLogo />
+                        <Logo />
                     </Link>
 
                     {/* Desktop Navigation */}
@@ -243,9 +243,9 @@ export const AdminHeaderLayout = ({
     breadcrumbs?: TBreadcrumbItem[];
 }) => {
     return (
-        <AdminShell>
+        <Shell>
             <Header breadcrumbs={breadcrumbs} />
             <Content>{children}</Content>
-        </AdminShell>
+        </Shell>
     );
 };

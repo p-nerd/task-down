@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { SidebarProvider } from "@/components/ui/sidebar";
 
-export const AdminShell = ({
+export const Shell = ({
     children,
     variant = "header",
 }: {
