@@ -47,7 +47,8 @@
     --radius: 0.625rem;
 
     --notes-content-height: calc(100vh - 8.125rem);
-    --notes-content-editor-height: calc(100vh - 12.25rem);
+    --notes-content-editor-height: calc(100vh - 14.95rem);
+    --images-height: calc(100vh - 9.05rem);
 }
 
 .dark {

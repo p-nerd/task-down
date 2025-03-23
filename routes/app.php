@@ -1,7 +1,16 @@
 <?php
 
+use App\Http\Controllers\App\ImageController;
 use App\Http\Controllers\App\NoteController;
 use Illuminate\Support\Facades\Route;
+
+Route::prefix('/images')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [ImageController::class, 'index'])->name('images.index');
+
+    Route::post('/', [ImageController::class, 'store'])->name('images.store');
+
+    Route::delete('/{image}', [ImageController::class, 'destroy'])->name('images.destroy');
+});
 
 Route::prefix('/notes')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [NoteController::class, 'index'])->name('notes.index');

@@ -20,3 +20,5 @@ export type TNavItem = {
     icon?: LucideIcon | null;
     isActive?: boolean;
 };
+
+export type TTimelineView = "grid" | "row";

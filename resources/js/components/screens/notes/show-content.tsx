@@ -76,7 +76,6 @@ const ShowContent = ({ note }: { note: TNote }) => {
             <MDXEditor
                 key={note.id}
                 markdown={note.content}
-                placeholder="Note Content"
                 onChange={handleContentChange}
                 contentEditableClassName="w-full p-0 max-w-full h-full min-h-(--notes-content-editor-height) text-base outline-hidden prose dark:prose-invert text-foreground bg-background"
                 plugins={plugins(note)}

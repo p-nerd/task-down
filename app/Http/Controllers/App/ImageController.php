@@ -1,13 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\App;
 
 use App\Http\Controllers\Controller;
+use App\Models\Image;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class ImageController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
+    {
+        return inertia('app/images/index', [
+            'images' => $request->user()->images()->get(),
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -28,5 +44,19 @@ class ImageController extends Controller
         ]);
 
         return response()->json($image);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Image $image)
+    {
+        Gate::allowIf(fn (User $user) => $user->id === $image->user_id);
+
+        Storage::disk('public')->delete($image->path);
+
+        $image->delete();
+
+        return redirect()->back();
     }
 }
