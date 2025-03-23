@@ -1,4 +1,4 @@
-import type { TTimelineViewMode } from "@/types/utils";
+import type { TTimelineView } from "@/types";
 
 import { groupImagesByDate } from "@/lib/images";
 
@@ -7,7 +7,7 @@ import { TImage } from "@/types/models";
 import { GridView, GridViewLoading } from "./grid-view";
 import { RowView, RowViewLoading } from "./row-view";
 
-export const Loading = ({ viewMode }: { viewMode: TTimelineViewMode }) => {
+export const Loading = ({ viewMode }: { viewMode: TTimelineView }) => {
     return (
         <>
             {viewMode === "grid" ? (
@@ -21,13 +21,7 @@ export const Loading = ({ viewMode }: { viewMode: TTimelineViewMode }) => {
     );
 };
 
-export const Timeline = ({
-    images,
-    viewMode,
-}: {
-    images: TImage[];
-    viewMode: TTimelineViewMode;
-}) => {
+export const Timeline = ({ images, viewMode }: { images: TImage[]; viewMode: TTimelineView }) => {
     const groupedImages = groupImagesByDate(images);
 
     return (

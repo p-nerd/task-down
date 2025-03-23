@@ -1,16 +1,17 @@
+import type { TTimelineView } from "@/types";
 import type { TImage } from "@/types/models";
-import type { TTimelineViewMode } from "@/types/utils";
 
-import { getQueryParams } from "@/lib/utils";
+import { getQueryParam, replaceQueryParam } from "@/lib/url";
 
 import { AppLayout } from "@/components/layouts/app-layout";
 import { Loading, Timeline } from "@/components/screens/images/timeline";
-import { Deferred, Head } from "@inertiajs/react";
+import { ToggleView } from "@/components/screens/images/toggle-view";
+import { Deferred, Head, router } from "@inertiajs/react";
 
 const Images = ({ images }: { images: TImage[] }) => {
-    const quries = getQueryParams(window.location.href);
+    const href = window.location.href;
 
-    const viewMode: TTimelineViewMode = (quries?.view as TTimelineViewMode) || "grid";
+    const view = getQueryParam(href, "view", "grid") as TTimelineView;
 
     return (
         <AppLayout className="flex h-full w-full flex-col">
@@ -19,9 +20,13 @@ const Images = ({ images }: { images: TImage[] }) => {
                 <div className="mx-auto flex max-w-5xl flex-col space-y-6">
                     <div className="flex items-center justify-between">
                         <h1 className="text-3xl font-bold">Your Images from Notes & Todos</h1>
+                        <ToggleView
+                            view={view}
+                            onChange={(value) => router.get(replaceQueryParam(href, "view", value))}
+                        />
                     </div>
-                    <Deferred data={["images"]} fallback={<Loading viewMode={viewMode} />}>
-                        <Timeline images={images} viewMode={viewMode} />
+                    <Deferred data={["images"]} fallback={<Loading viewMode={view} />}>
+                        <Timeline images={images} viewMode={view} />
                     </Deferred>
                 </div>
             </div>
