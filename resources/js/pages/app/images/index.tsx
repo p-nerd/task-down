@@ -1,7 +1,7 @@
 import type { TImage } from "@/types/models";
 
 import { AppLayout } from "@/components/layouts/app-layout";
-import { Loading, Timeline } from "@/components/screens/images/timeline";
+import { Loading, Timeline } from "@/components/screens/images/timeline2";
 import { Deferred, Head } from "@inertiajs/react";
 
 const Images = ({ images }: { images: TImage[] }) => {
