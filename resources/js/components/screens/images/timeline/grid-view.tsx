@@ -2,9 +2,10 @@ import type { TGroupImage } from "@/lib/images";
 
 import { format } from "date-fns";
 
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Trash2Icon } from "lucide-react";
 
 export const GridViewLoading = () => {
     return (
@@ -36,7 +37,13 @@ export const GridViewLoading = () => {
     );
 };
 
-export const GridView = ({ groupedImages }: { groupedImages: TGroupImage[] }) => {
+export const GridView = ({
+    groupedImages,
+    onDeleteImage,
+}: {
+    groupedImages: TGroupImage[];
+    onDeleteImage: (imageId: string) => void;
+}) => {
     return (
         <div className="space-y-10 pr-4">
             {groupedImages.map((group) => (
@@ -58,6 +65,15 @@ export const GridView = ({ groupedImages }: { groupedImages: TGroupImage[] }) =>
                                         alt={image.filename}
                                         className="object-cover transition-transform group-hover:scale-105"
                                     />
+                                    <Button
+                                        variant="destructive"
+                                        size="sm"
+                                        className="absolute top-2 right-2 cursor-pointer opacity-0 transition-opacity group-hover:opacity-100"
+                                        onClick={() => onDeleteImage(image.id)}
+                                        aria-label={`Delete ${image.filename}`}
+                                    >
+                                        <Trash2Icon className="h-4 w-4" />
+                                    </Button>
                                 </div>
                                 <div className="p-3">
                                     <h3 className="font-medium">{image.filename}</h3>
