@@ -1,5 +1,7 @@
 import type { TNote } from "@/types/models";
 
+import { useNotes } from "@/hooks/use-notes";
+
 import { AppLayout } from "@/components/layouts/app-layout";
 import { CreateNote } from "@/components/screens/notes/create-note";
 import { DeleteNote } from "@/components/screens/notes/delete-note";
@@ -9,14 +11,18 @@ import { Button } from "@/components/ui/button";
 import { Head, Link } from "@inertiajs/react";
 import { LayoutGridIcon } from "lucide-react";
 
-const Note = ({ note, notes }: { note: TNote; notes: TNote[] }) => {
+const Note = (props: { note: TNote; notes: TNote[] }) => {
+    const { notes, handleCreateNote, handleDeleteNote } = useNotes(props.notes);
+
+    const note = props.note;
+
     return (
         <AppLayout className="flex h-full w-full flex-col">
             <Head title={`'${note.name}' Note`} />
             <div className="flex w-full justify-between pt-6">
                 <div className="flex w-[300px] justify-between">
-                    <CreateNote />
-                    <DeleteNote noteId={note.id} />
+                    <CreateNote onClick={() => handleCreateNote()} />
+                    <DeleteNote onClick={() => handleDeleteNote(note.id, { show: true })} />
                 </div>
                 <Link href={route("notes.index")}>
                     <Button size="icon" variant="outline" className="cursor-pointer">

@@ -1,5 +1,7 @@
 import type { TNote } from "@/types/models";
 
+import { useNotes } from "@/hooks/use-notes";
+
 import { AppLayout } from "@/components/layouts/app-layout";
 import { CreateNote } from "@/components/screens/notes/create-note";
 import { IndexListing } from "@/components/screens/notes/index-listing";
@@ -7,12 +9,14 @@ import { Button } from "@/components/ui/button";
 import { Head, Link } from "@inertiajs/react";
 import { LayoutListIcon } from "lucide-react";
 
-const Notes = ({ notes }: { notes: TNote[] }) => {
+const Notes = (props: { notes: TNote[] }) => {
+    const { notes, handleCreateNote } = useNotes(props.notes);
+
     return (
         <AppLayout className="flex h-full w-full flex-col">
             <Head title="Notes" />
             <div className="flex justify-between pt-6">
-                <CreateNote />
+                <CreateNote onClick={handleCreateNote} />
                 {notes.length !== 0 && (
                     <Link href={route("notes.show", notes[0])}>
                         <Button
