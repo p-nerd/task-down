@@ -2,7 +2,13 @@ import type { TImage } from "@/types/models";
 
 import { format } from "date-fns";
 
-export const groupImagesByDate = (images: TImage[]) => {
+export type TGroupImage = {
+    date: string;
+    formattedDate: string;
+    images: TImage[];
+};
+
+export const groupImagesByDate = (images: TImage[]): TGroupImage[] => {
     const grouped = images.reduce(
         (acc, image) => {
             const dateKey = format(image.created_at, "yyyy-MM-dd");
