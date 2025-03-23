@@ -13,9 +13,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('images', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
 
-            $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(User::class);
+
             $table->string('filename');
             $table->string('path');
             $table->string('url');
