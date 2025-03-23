@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('notes', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
 
             $table->foreignIdFor(User::class);
 
