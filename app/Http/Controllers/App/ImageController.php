@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\App;
 
 use App\Http\Controllers\Controller;
+use App\Models\Image;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
-use Inertia\Inertia;
 
 class ImageController extends Controller
 {
@@ -15,7 +17,7 @@ class ImageController extends Controller
     public function index(Request $request)
     {
         return inertia('app/images/index', [
-            'images' => Inertia::defer(fn () => $request->user()->images()->get()),
+            'images' => $request->user()->images()->get(),
         ]);
     }
 
@@ -42,5 +44,17 @@ class ImageController extends Controller
         ]);
 
         return response()->json($image);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Image $image)
+    {
+        Gate::allowIf(fn (User $user) => $user->id === $image->user_id);
+
+        $image->delete();
+
+        return redirect()->back();
     }
 }

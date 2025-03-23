@@ -19,7 +19,7 @@ const Images = ({ images }: { images: TImage[] }) => {
     };
 
     const handleDeleteImage = (id: string) => {
-        console.log(id);
+        router.delete(route("images.destroy", id));
     };
 
     return (
