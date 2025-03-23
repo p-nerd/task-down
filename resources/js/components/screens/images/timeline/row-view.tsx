@@ -57,7 +57,7 @@ export const RowView = ({
                         {group.images.map((image) => (
                             <div
                                 key={image.id}
-                                className="group bg-background flex items-center gap-4 rounded-lg border p-3 shadow transition-all hover:shadow-md"
+                                className="group bg-background flex items-center gap-4 rounded-lg border p-3 transition-all hover:shadow-xs"
                             >
                                 <div className="relative h-16 w-16 min-w-16 overflow-hidden rounded">
                                     <img

@@ -7,29 +7,29 @@ import { TImage } from "@/types/models";
 import { GridView, GridViewLoading } from "./grid-view";
 import { RowView, RowViewLoading } from "./row-view";
 
-export const Loading = ({ viewMode }: { viewMode: TTimelineView }) => {
+export const Loading = ({ view: view }: { view: TTimelineView }) => {
     return (
-        <>
-            {viewMode === "grid" ? (
-                <GridViewLoading />
-            ) : viewMode === "row" ? (
-                <RowViewLoading />
-            ) : (
-                <></>
-            )}
-        </>
+        <>{view === "grid" ? <GridViewLoading /> : view === "row" ? <RowViewLoading /> : <></>}</>
     );
 };
 
-export const Timeline = ({ images, viewMode }: { images: TImage[]; viewMode: TTimelineView }) => {
+export const Timeline = ({
+    images,
+    view,
+    onDeleteImage,
+}: {
+    images: TImage[];
+    view: TTimelineView;
+    onDeleteImage: (imageId: string) => void;
+}) => {
     const groupedImages = groupImagesByDate(images);
 
     return (
         <ScrollArea className="h-(--images-height)">
-            {viewMode === "grid" ? (
-                <GridView groupedImages={groupedImages} />
-            ) : viewMode === "row" ? (
-                <RowView groupedImages={groupedImages} />
+            {view === "grid" ? (
+                <GridView groupedImages={groupedImages} onDeleteImage={onDeleteImage} />
+            ) : view === "row" ? (
+                <RowView groupedImages={groupedImages} onDeleteImage={onDeleteImage} />
             ) : (
                 <></>
             )}

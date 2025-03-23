@@ -57,7 +57,7 @@ export const GridView = ({
                         {group.images.map((image) => (
                             <div
                                 key={image.id}
-                                className="group bg-background relative overflow-hidden rounded-lg border shadow transition-all hover:shadow-lg"
+                                className="group bg-background relative overflow-hidden rounded-lg border transition-all hover:shadow-xs"
                             >
                                 <div className="relative aspect-square">
                                     <img
