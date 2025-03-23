@@ -12,18 +12,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notes', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
             $table->foreignIdFor(User::class);
 
-            $table->string('name');
-            $table->text('content');
-            $table->integer('order')->default(0);
+            $table->string('filename');
+            $table->string('path');
+            $table->string('url');
+            $table->unsignedBigInteger('size')->nullable();
+            $table->string('mime_type')->nullable();
 
             $table->timestamps();
-
-            $table->index('order');
         });
     }
 
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('notes');
+        Schema::dropIfExists('images');
     }
 };

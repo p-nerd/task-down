@@ -50,6 +50,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Get all images belonging to the user.
+     */
+    public function images(): HasMany
+    {
+        return $this->hasMany(Image::class);
+    }
+
+    /**
      * Get the notes for the user.
      */
     public function notes(): HasMany

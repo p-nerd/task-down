@@ -8,9 +8,21 @@ export type TUser = {
     updated_at: string;
 };
 
+export type TImage = {
+    id: string;
+    user_id: string;
+    filename: string;
+    path: string;
+    url: string;
+    size: number | null;
+    mime_type: string | null;
+    created_at: string;
+    updated_at: string;
+};
+
 export type TNote = {
     id: string;
-    user_id: TId;
+    user_id: string;
 
     name: string;
     content: string;

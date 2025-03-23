@@ -1,6 +1,6 @@
 import { LogoIcon } from "@/components/elements/logo-icon";
 
-export const AdminLogo = () => {
+export const Logo = () => {
     return (
         <>
             <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-md">

@@ -19,6 +19,7 @@ import {
 import type { TNote } from "@/types/models";
 
 import { toolbar } from "@/components/elements/toolbar";
+import { imageUploadHandler } from "./api";
 
 import { AdmonitionDirectiveDescriptor } from "@mdxeditor/editor";
 
@@ -36,7 +37,7 @@ export const plugins = (note: TNote) => [
     headingsPlugin(),
     linkPlugin(),
     linkDialogPlugin(),
-    imagePlugin({ imageUploadHandler: async () => "/sample-image.png" }),
+    imagePlugin({ imageUploadHandler }),
     tablePlugin(),
     thematicBreakPlugin(),
     frontmatterPlugin(),
