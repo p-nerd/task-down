@@ -5,15 +5,18 @@ namespace App\Http\Controllers\App;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class ImageController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return inertia('app/images/index');
+        return inertia('app/images/index', [
+            'images' => Inertia::defer(fn () => $request->user()->images()->get()),
+        ]);
     }
 
     /**
