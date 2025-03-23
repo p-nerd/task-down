@@ -53,6 +53,8 @@ class ImageController extends Controller
     {
         Gate::allowIf(fn (User $user) => $user->id === $image->user_id);
 
+        Storage::disk('public')->delete($image->path);
+
         $image->delete();
 
         return redirect()->back();
