@@ -11,7 +11,7 @@ export const add = (a: number, b: number) => {
     return a + b;
 };
 
-export const error = (e: any) => {
+export const error = (e: any): string => {
     return (
         e.response?.data?.message ||
         e.response?.data?.error ||

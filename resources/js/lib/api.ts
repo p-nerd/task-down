@@ -1,15 +1,22 @@
 import { toast } from "./toast";
 import { error } from "./utils";
 
-export const imageUploadHandler = async (file: File) => {
+export const imageUploadHandler = async (image: File) => {
     try {
         const data = new FormData();
-        data.append("image", file);
+        data.append("image", image);
+
+        console.log("Hello", image);
+
         const response = await window.axios.post(route("api.images.store"), data, {
-            headers: { "Content-Type": "multipart/form-data" },
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Accept: "application/json",
+            },
         });
+
         return response.data.url;
     } catch (e: any) {
-        toast.error("Image upload failed:", { description: error(e) });
+        toast.error("Image upload failed: " + error(e));
     }
 };
