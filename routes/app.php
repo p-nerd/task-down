@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\NoteController;
+use App\Http\Controllers\App\NoteController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/notes')->middleware(['auth', 'verified'])->group(function () {
@@ -16,9 +16,9 @@ Route::prefix('/notes')->middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::prefix('/todos')->middleware(['auth', 'verified'])->group(function () {
-    Route::get('/', fn () => inertia('todos/index'))->name('todos.index');
+    Route::get('/', fn () => inertia('app/todos/index'))->name('todos.index');
 });
 
 Route::prefix('/pomodoro')->middleware(['auth', 'verified'])->group(function () {
-    Route::get('/', fn () => inertia('pomodoro/index'))->name('pomodoro.index');
+    Route::get('/', fn () => inertia('app/pomodoro/index'))->name('pomodoro.index');
 });

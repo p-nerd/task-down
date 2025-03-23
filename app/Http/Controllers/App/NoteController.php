@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\App;
 
+use App\Http\Controllers\Controller;
 use App\Models\Note;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class NoteController extends Controller
      */
     public function index(Request $request)
     {
-        return inertia('notes/index', [
+        return inertia('app/notes/index', [
             'notes' => $this->fetchNotes($request),
         ]);
     }
@@ -26,7 +27,7 @@ class NoteController extends Controller
     {
         Gate::allowIf(fn (User $user) => $user->id === $note->user_id);
 
-        return inertia('notes/show', [
+        return inertia('app/notes/show', [
             'note' => $note,
             'notes' => $this->fetchNotes($request),
         ]);
