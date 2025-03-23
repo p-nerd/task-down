@@ -1,3 +1,5 @@
+import type { TImage } from "@/types/models";
+
 import { toast } from "./toast";
 import { error } from "./utils";
 
@@ -6,7 +8,7 @@ export const imageUploadHandler = async (image: File) => {
         const data = new FormData();
         data.append("image", image);
 
-        const response = await window.axios.post(route("api.images.store"), data, {
+        const response = await window.axios.post<TImage>(route("api.images.store"), data, {
             headers: {
                 "Content-Type": "multipart/form-data",
                 Accept: "application/json",

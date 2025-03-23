@@ -11,14 +11,22 @@ class ImageController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => 'required|image|max:5120',
+            'image' => ['required', 'image', 'max:5120'],
         ]);
 
-        $image = $request->file('image');
-        $filename = str()->uuid().'.'.$image->getClientOriginalExtension();
-        $path = $image->storeAs('images', $filename, 'public');
-        $url = Storage::url($path);
+        $imageFile = $request->file('image');
 
-        return response()->json(['url' => $url]);
+        $filename = str()->uuid().'.'.$imageFile->getClientOriginalExtension();
+        $path = $imageFile->storeAs('images', $filename, 'public');
+
+        $image = $request->user()->images()->create([
+            'filename' => $filename,
+            'path' => $path,
+            'url' => Storage::url($path),
+            'size' => $imageFile->getSize(),
+            'mime_type' => $imageFile->getMimeType(),
+        ]);
+
+        return response()->json($image);
     }
 }
