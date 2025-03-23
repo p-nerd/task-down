@@ -2,9 +2,10 @@ import type { TGroupImage } from "@/lib/images";
 
 import { format } from "date-fns";
 
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { CalendarIcon, FileIcon } from "lucide-react";
+import { CalendarIcon, FileIcon, Trash2Icon } from "lucide-react";
 
 export const RowViewLoading = () => {
     return (
@@ -36,7 +37,13 @@ export const RowViewLoading = () => {
     );
 };
 
-export const RowView = ({ groupedImages }: { groupedImages: TGroupImage[] }) => {
+export const RowView = ({
+    groupedImages,
+    onDeleteImage,
+}: {
+    groupedImages: TGroupImage[];
+    onDeleteImage: (imageId: string) => void;
+}) => {
     return (
         <div className="space-y-8 pr-4">
             {groupedImages.map((group) => (
@@ -68,6 +75,15 @@ export const RowView = ({ groupedImages }: { groupedImages: TGroupImage[] }) => 
                                         {format(image.created_at, "h:mm a")}
                                     </p>
                                 </div>
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="text-destructive hover:bg-destructive/10 cursor-pointer"
+                                    onClick={() => onDeleteImage(image.id)}
+                                    aria-label={`Delete ${image.filename}`}
+                                >
+                                    <Trash2Icon className="h-5 w-5" />
+                                </Button>
                             </div>
                         ))}
                     </div>
