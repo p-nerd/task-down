@@ -1,4 +1,5 @@
 import { toast } from "./toast";
+import { error } from "./utils";
 
 export const imageUploadHandler = async (file: File) => {
     try {
@@ -8,9 +9,7 @@ export const imageUploadHandler = async (file: File) => {
             headers: { "Content-Type": "multipart/form-data" },
         });
         return response.data.url;
-    } catch (error: any) {
-        toast.error("Image upload failed:", {
-            description: error?.message,
-        });
+    } catch (e: any) {
+        toast.error("Image upload failed:", { description: error(e) });
     }
 };

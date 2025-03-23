@@ -10,3 +10,12 @@ export const cn = (...inputs: ClassValue[]) => {
 export const add = (a: number, b: number) => {
     return a + b;
 };
+
+export const error = (e: any) => {
+    return (
+        e.response?.data?.message ||
+        e.response?.data?.error ||
+        e.message ||
+        "Unknown error occurred"
+    );
+};
