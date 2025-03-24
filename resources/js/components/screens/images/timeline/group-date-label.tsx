@@ -21,7 +21,19 @@ export const GroupDateLabel = ({ group }: { group: TGroupImage }) => {
             <Checkbox
                 id={`select-${group.date}`}
                 checked={isCheck}
-                // onCheckedChange={() => setSelectedImageIds(group.images.map((i) => i.id))}
+                onCheckedChange={() => {
+                    const groupImagesFreeIds = selectedImageIds.filter(
+                        (id) => !group.images.find((image) => image.id == id),
+                    );
+                    if (isCheck) {
+                        setSelectedImageIds(groupImagesFreeIds);
+                    } else {
+                        setSelectedImageIds([
+                            ...groupImagesFreeIds,
+                            ...group.images.map((i) => i.id),
+                        ]);
+                    }
+                }}
                 className={cn(
                     "hidden h-5 w-5 cursor-pointer rounded border-gray-300 bg-white group-hover:block",
                     {
