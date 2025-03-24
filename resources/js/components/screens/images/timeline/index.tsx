@@ -25,7 +25,7 @@ export const Timeline = ({
     view: TTimelineView;
     areaHeight: string;
     selectedImages: string[];
-    onDeleteImage: (imageId: string) => void;
+    onDeleteImage: (imageId: string, onSuccess: () => void) => void;
     onCheckboxClick: (imageId: string) => void;
 }) => {
     const groupedImages = groupImagesByDate(images);

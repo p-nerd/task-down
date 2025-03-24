@@ -2,11 +2,13 @@ import type { TGroupImage } from "@/lib/images";
 
 import { format } from "date-fns";
 
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { CalendarIcon, FileIcon, Trash2Icon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { CalendarIcon, FileIcon } from "lucide-react";
+import { DeleteImage } from "./delete-image";
 
 export const ListViewLoading = () => {
     return (
@@ -45,7 +47,7 @@ export const ListView = ({
     onCheckboxClick,
 }: {
     groupedImages: TGroupImage[];
-    onDeleteImage: (imageId: string) => void;
+    onDeleteImage: (imageId: string, onSuccess: () => void) => void;
     selectedImages: string[];
     onCheckboxClick: (imageId: string) => void;
 }) => {
@@ -87,15 +89,14 @@ export const ListView = ({
                                         {format(image.created_at, "h:mm a")}
                                     </p>
                                 </div>
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    className="text-destructive hover:bg-destructive/10 cursor-pointer"
-                                    onClick={() => onDeleteImage(image.id)}
-                                    aria-label={`Delete ${image.filename}`}
-                                >
-                                    <Trash2Icon className="h-5 w-5" />
-                                </Button>
+                                <DeleteImage
+                                    image={image}
+                                    onDelete={onDeleteImage}
+                                    className={cn(
+                                        buttonVariants({ variant: "ghost", size: "icon" }),
+                                        "text-destructive hover:bg-destructive/10 cursor-pointer",
+                                    )}
+                                />
                             </div>
                         ))}
                     </div>

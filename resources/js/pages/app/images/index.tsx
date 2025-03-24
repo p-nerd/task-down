@@ -55,8 +55,10 @@ const Images = ({ images }: { images: TImage[] }) => {
                                 ? "calc(100vh - 14.5rem)"
                                 : "calc(100vh - 9.05rem)"
                         }
-                        onDeleteImage={(id: string) => {
-                            router.delete(route("images.destroy", id));
+                        onDeleteImage={(id, onSuccess) => {
+                            router.delete(route("images.destroy", id), {
+                                onSuccess,
+                            });
                         }}
                         onCheckboxClick={(imageId: string) => {
                             setSelectedImages((prev) =>
