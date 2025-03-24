@@ -34,6 +34,7 @@ const Images = ({ images }: { images: TImage[] }) => {
                     </div>
                     {selectedImages.length > 0 && (
                         <DeleteBatch
+                            setSelectedImages={setSelectedImages}
                             selectedImages={selectedImages}
                             onDelete={(ids, onSuccess) =>
                                 router.delete(route("images.destroys"), {
