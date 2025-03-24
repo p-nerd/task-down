@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CalendarIcon, FileIcon, Trash2Icon } from "lucide-react";
 
-export const RowViewLoading = () => {
+export const ListViewLoading = () => {
     return (
         <div className="space-y-6">
             {[1, 2, 3].map((group) => (
@@ -37,7 +37,7 @@ export const RowViewLoading = () => {
     );
 };
 
-export const RowView = ({
+export const ListView = ({
     groupedImages,
     onDeleteImage,
 }: {

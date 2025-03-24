@@ -21,7 +21,7 @@ export type TNavItem = {
     isActive?: boolean;
 };
 
-export type TTimelineView = "grid" | "row";
+export type TTimelineView = "grid" | "list";
 
 export type TPaginate<T> = {
     current_page: number;
