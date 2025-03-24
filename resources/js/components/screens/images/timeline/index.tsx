@@ -33,7 +33,12 @@ export const Timeline = ({
     return (
         <ScrollArea style={{ height: areaHeight }}>
             {view === "grid" ? (
-                <GridView groupedImages={groupedImages} onDeleteImage={onDeleteImage} />
+                <GridView
+                    groupedImages={groupedImages}
+                    onDeleteImage={onDeleteImage}
+                    selectedImages={selectedImages}
+                    onCheckboxClick={onCheckboxClick}
+                />
             ) : view === "list" ? (
                 <ListView
                     groupedImages={groupedImages}

@@ -4,6 +4,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 
+import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CalendarIcon } from "lucide-react";
@@ -42,9 +43,13 @@ export const GridViewLoading = () => {
 export const GridView = ({
     groupedImages,
     onDeleteImage,
+    selectedImages,
+    onCheckboxClick,
 }: {
     groupedImages: TGroupImage[];
     onDeleteImage: (imageId: string, onSuccess: () => void) => void;
+    selectedImages: string[];
+    onCheckboxClick: (imageId: string) => void;
 }) => {
     return (
         <div className="space-y-10 pr-4">
@@ -67,6 +72,21 @@ export const GridView = ({
                                         alt={image.filename}
                                         className="object-cover transition-transform group-hover:scale-105"
                                     />
+                                    <div
+                                        className={cn(
+                                            "absolute top-2 left-2 z-10 opacity-0 group-hover:opacity-100",
+                                            {
+                                                "opacity-100": selectedImages.includes(image.id),
+                                            },
+                                        )}
+                                    >
+                                        <Checkbox
+                                            id={`select-${image.id}`}
+                                            checked={selectedImages.includes(image.id)}
+                                            onCheckedChange={() => onCheckboxClick(image.id)}
+                                            className="h-5 w-5 cursor-pointer rounded border-gray-300 bg-white"
+                                        />
+                                    </div>
                                     <DeleteImage
                                         image={image}
                                         onDelete={onDeleteImage}
