@@ -2,8 +2,8 @@ import type { TTimelineView } from "@/types";
 import type { TImage } from "@/types/models";
 
 import { getQueryParam, replaceQueryParam } from "@/lib/url";
+import { useImagesStore } from "@/states/images";
 import { router } from "@inertiajs/react";
-import { useState } from "react";
 
 import { AppLayout } from "@/components/layouts/app-layout";
 import { DeleteBatch } from "@/components/screens/images/delete-batch";
@@ -16,7 +16,7 @@ const Images = ({ images }: { images: TImage[] }) => {
 
     const view = getQueryParam(href, "view", "grid") as TTimelineView;
 
-    const [selectedImages, setSelectedImages] = useState<string[]>([]);
+    const { selectedImageIds } = useImagesStore();
 
     return (
         <AppLayout className="flex h-full w-full flex-col">
@@ -32,50 +32,15 @@ const Images = ({ images }: { images: TImage[] }) => {
                             }}
                         />
                     </div>
-                    {selectedImages.length > 0 && (
-                        <DeleteBatch
-                            setSelectedImages={setSelectedImages}
-                            selectedImages={selectedImages}
-                            onDelete={(ids, onSuccess) =>
-                                router.delete(route("images.destroys"), {
-                                    data: { ids },
-                                    onSuccess: () => {
-                                        setSelectedImages([]);
-                                        onSuccess();
-                                    },
-                                })
-                            }
-                        />
-                    )}
+                    {selectedImageIds.length > 0 && <DeleteBatch />}
                     <Timeline
                         images={images}
                         view={view}
-                        selectedImages={selectedImages}
                         areaHeight={
-                            selectedImages.length > 0
+                            selectedImageIds.length > 0
                                 ? "calc(100vh - 14.5rem)"
                                 : "calc(100vh - 9.05rem)"
                         }
-                        onDeleteImage={(id, onSuccess) => {
-                            router.delete(route("images.destroy", id), {
-                                onSuccess,
-                            });
-                        }}
-                        onCheckboxClick={(imageIds: string[]) => {
-                            setSelectedImages((prev) => {
-                                let newSelectedImages = [...prev];
-                                imageIds.forEach((id) => {
-                                    if (prev.includes(id)) {
-                                        newSelectedImages = newSelectedImages.filter(
-                                            (existingId) => existingId !== id,
-                                        );
-                                    } else {
-                                        newSelectedImages.push(id);
-                                    }
-                                });
-                                return newSelectedImages;
-                            });
-                        }}
                     />
                 </div>
             </div>

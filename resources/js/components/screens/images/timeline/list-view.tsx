@@ -2,6 +2,7 @@ import type { TGroupImage } from "@/lib/images";
 
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useImagesStore } from "@/states/images";
 import { format } from "date-fns";
 
 import { Checkbox } from "@/components/ui/checkbox";
@@ -44,23 +45,17 @@ export const ListViewLoading = () => {
 export const ListView = ({
     groupedImages,
     onDeleteImage,
-    selectedImages,
-    onCheckboxClick,
 }: {
     groupedImages: TGroupImage[];
     onDeleteImage: (imageId: string, onSuccess: () => void) => void;
-    selectedImages: string[];
-    onCheckboxClick: (imageIds: string[]) => void;
 }) => {
+    const { selectedImageIds, toggleSelectedImageId } = useImagesStore();
+
     return (
         <div className="space-y-8 pr-4">
             {groupedImages.map((group) => (
                 <div key={group.date} className="space-y-4">
-                    <GroupDateLabel
-                        group={group}
-                        selectedImages={selectedImages}
-                        onCheckboxClick={onCheckboxClick}
-                    />
+                    <GroupDateLabel group={group} />
                     <Separator />
                     <div className="space-y-3">
                         {group.images.map((image) => (
@@ -70,8 +65,8 @@ export const ListView = ({
                             >
                                 <Checkbox
                                     id={`select-${image.id}`}
-                                    checked={selectedImages.includes(image.id)}
-                                    onCheckedChange={() => onCheckboxClick([image.id])}
+                                    checked={selectedImageIds.includes(image.id)}
+                                    onCheckedChange={() => toggleSelectedImageId(image.id)}
                                     aria-label={`Select ${image.filename}`}
                                     className="mr-1 cursor-pointer"
                                 />

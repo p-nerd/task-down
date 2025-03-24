@@ -1,22 +1,17 @@
 import type { TGroupImage } from "@/lib/images";
 
 import { cn } from "@/lib/utils";
+import { useImagesStore } from "@/states/images";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { CalendarIcon } from "lucide-react";
 
-export const GroupDateLabel = ({
-    group,
-    selectedImages,
-    onCheckboxClick,
-}: {
-    group: TGroupImage;
-    selectedImages: string[];
-    onCheckboxClick: (imageIds: string[]) => void;
-}) => {
+export const GroupDateLabel = ({ group }: { group: TGroupImage }) => {
+    const { selectedImageIds, setSelectedImageIds } = useImagesStore();
+
     let isCheck = true;
     group.images.forEach((image) => {
-        if (!selectedImages.find((i) => i === image.id)) {
+        if (!selectedImageIds.find((i) => i === image.id)) {
             isCheck = false;
         }
     });
@@ -26,7 +21,7 @@ export const GroupDateLabel = ({
             <Checkbox
                 id={`select-${group.date}`}
                 checked={isCheck}
-                onCheckedChange={() => onCheckboxClick(group.images.map((i) => i.id))}
+                // onCheckedChange={() => setSelectedImageIds(group.images.map((i) => i.id))}
                 className={cn(
                     "hidden h-5 w-5 cursor-pointer rounded border-gray-300 bg-white group-hover:block",
                     {

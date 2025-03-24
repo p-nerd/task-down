@@ -1,3 +1,5 @@
+import { useImagesStore } from "@/states/images";
+import { router } from "@inertiajs/react";
 import { useState } from "react";
 
 import { Confirmation } from "@/components/elements/confirmation";
@@ -5,16 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Trash2Icon } from "lucide-react";
 
-export const DeleteBatch = ({
-    selectedImages,
-    setSelectedImages,
-    onDelete,
-}: {
-    selectedImages: string[];
-    setSelectedImages: (imageIds: string[]) => void;
-    onDelete: (images: string[], onSuccess: () => void) => void;
-}) => {
+export const DeleteBatch = () => {
     const [open, setOpen] = useState(false);
+
+    const { selectedImageIds, setSelectedImageIds } = useImagesStore();
 
     return (
         <>
@@ -23,10 +19,10 @@ export const DeleteBatch = ({
                     <Checkbox
                         id="select-all"
                         className="h-5 w-5 cursor-pointer rounded border-gray-300 bg-white"
-                        checked={selectedImages.length > 0}
-                        onCheckedChange={() => setSelectedImages([])}
+                        checked={selectedImageIds.length > 0}
+                        onCheckedChange={() => setSelectedImageIds([])}
                     />
-                    <span className="font-medium">{selectedImages.length} items selected</span>
+                    <span className="font-medium">{selectedImageIds.length} items selected</span>
                 </div>
                 <Button
                     variant="destructive"
@@ -43,15 +39,19 @@ export const DeleteBatch = ({
                 onOpen={setOpen}
                 description={
                     <>
-                        This action will permanently delete {selectedImages.length} selected{" "}
-                        {selectedImages.length === 1 ? "item" : "items"}. This action cannot be
+                        This action will permanently delete {selectedImageIds.length} selected{" "}
+                        {selectedImageIds.length === 1 ? "item" : "items"}. This action cannot be
                         undone.
                     </>
                 }
                 confirmActionText="Delete"
                 onConfirmAction={() => {
-                    onDelete(selectedImages, () => {
-                        setOpen(false);
+                    router.delete(route("images.destroys"), {
+                        data: { ids: selectedImageIds },
+                        onSuccess: () => {
+                            setSelectedImageIds([]);
+                            setOpen(false);
+                        },
                     });
                 }}
             />

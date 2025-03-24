@@ -2,6 +2,7 @@ import type { TGroupImage } from "@/lib/images";
 
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useImagesStore } from "@/states/images";
 import { format } from "date-fns";
 
 import { Checkbox } from "@/components/ui/checkbox";
@@ -43,23 +44,17 @@ export const GridViewLoading = () => {
 export const GridView = ({
     groupedImages,
     onDeleteImage,
-    selectedImages,
-    onCheckboxClick,
 }: {
     groupedImages: TGroupImage[];
     onDeleteImage: (imageId: string, onSuccess: () => void) => void;
-    selectedImages: string[];
-    onCheckboxClick: (imageIds: string[]) => void;
 }) => {
+    const { selectedImageIds, toggleSelectedImageId } = useImagesStore();
+
     return (
         <div className="space-y-10 pr-4">
             {groupedImages.map((group) => (
                 <div key={group.date} className="space-y-4">
-                    <GroupDateLabel
-                        group={group}
-                        selectedImages={selectedImages}
-                        onCheckboxClick={onCheckboxClick}
-                    />
+                    <GroupDateLabel group={group} />
                     <Separator />
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
                         {group.images.map((image) => (
@@ -77,14 +72,14 @@ export const GridView = ({
                                         className={cn(
                                             "absolute top-2 left-2 z-10 opacity-0 group-hover:opacity-100",
                                             {
-                                                "opacity-100": selectedImages.includes(image.id),
+                                                "opacity-100": selectedImageIds.includes(image.id),
                                             },
                                         )}
                                     >
                                         <Checkbox
                                             id={`select-${image.id}`}
-                                            checked={selectedImages.includes(image.id)}
-                                            onCheckedChange={() => onCheckboxClick([image.id])}
+                                            checked={selectedImageIds.includes(image.id)}
+                                            onCheckedChange={() => toggleSelectedImageId(image.id)}
                                             className="h-5 w-5 cursor-pointer rounded border-gray-300 bg-white"
                                         />
                                     </div>
