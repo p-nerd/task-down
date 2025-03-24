@@ -3,13 +3,13 @@ import type { TImage } from "@/types/models";
 
 import { getQueryParam, replaceQueryParam } from "@/lib/url";
 import { router } from "@inertiajs/react";
+import { useState } from "react";
 
 import { AppLayout } from "@/components/layouts/app-layout";
 import { DeleteBatch } from "@/components/screens/images/delete-batch";
 import { Timeline } from "@/components/screens/images/timeline";
 import { ToggleView } from "@/components/screens/images/toggle-view";
 import { Head } from "@inertiajs/react";
-import { useState } from "react";
 
 const Images = ({ images }: { images: TImage[] }) => {
     const href = window.location.href;
@@ -32,7 +32,20 @@ const Images = ({ images }: { images: TImage[] }) => {
                             }}
                         />
                     </div>
-                    {selectedImages.length > 0 && <DeleteBatch selectedImages={selectedImages} />}
+                    {selectedImages.length > 0 && (
+                        <DeleteBatch
+                            selectedImages={selectedImages}
+                            onDelete={(ids, onSuccess) =>
+                                router.delete(route("images.destroys"), {
+                                    data: { ids },
+                                    onSuccess: () => {
+                                        setSelectedImages([]);
+                                        onSuccess();
+                                    },
+                                })
+                            }
+                        />
+                    )}
                     <Timeline
                         images={images}
                         view={view}

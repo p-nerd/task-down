@@ -59,4 +59,28 @@ class ImageController extends Controller
 
         return redirect()->back();
     }
+
+    /**
+     * Remove multiple resources from storage.
+     */
+    public function destroys(Request $request)
+    {
+        $payload = $request->validate([
+            'ids' => ['required', 'array'],
+            'ids.*' => ['exists:images,id'],
+        ]);
+
+        $images = Image::query()
+            ->whereIn('id', $payload['ids'])
+            ->where('user_id', $request->user()->id)
+            ->get();
+
+        foreach ($images as $image) {
+            Storage::disk('public')->delete($image->path);
+        }
+
+        Image::whereIn('id', $images->pluck('id'))->delete();
+
+        return redirect()->back();
+    }
 }
