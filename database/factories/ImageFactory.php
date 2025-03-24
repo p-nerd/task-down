@@ -23,9 +23,6 @@ class ImageFactory extends Factory
         $filename = str()->uuid().'.jpg';
         $path = 'images/'.$filename;
 
-        $createdAt = fake()->dateTimeBetween('-1 year', 'now');
-        $updatedAt = fake()->boolean(80) ? $createdAt : fake()->dateTimeBetween($createdAt, 'now');
-
         return [
             'user_id' => User::inRandomOrder()->first()->id,
             'filename' => $filename,
@@ -33,8 +30,8 @@ class ImageFactory extends Factory
             'url' => "https://picsum.photos/{$width}/{$height}",
             'size' => fake()->numberBetween(50000, 5000000),
             'mime_type' => 'image/jpeg',
-            'created_at' => $createdAt,
-            'updated_at' => $updatedAt,
+            'created_at' => fake()->dateTimeBetween('-1 year', 'now'),
+            'updated_at' => fn (array $attributes) => fake()->dateTimeBetween($attributes['created_at'], 'now'),
         ];
     }
 }
