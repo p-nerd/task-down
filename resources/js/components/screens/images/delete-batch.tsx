@@ -1,0 +1,19 @@
+import { Button } from "@/components/ui/button";
+import { Trash2Icon } from "lucide-react";
+
+export const DeleteBatch = ({ selectedImages }: { selectedImages: string[] }) => {
+    return (
+        <div className="bg-muted flex items-center justify-between rounded-lg px-5 py-3">
+            <span className="font-medium">{selectedImages.length} items selected</span>
+            <Button
+                variant="destructive"
+                size="sm"
+                className="flex cursor-pointer items-center gap-2"
+                onClick={() => {}}
+            >
+                <Trash2Icon className="h-4 w-4" />
+                Delete Selected
+            </Button>
+        </div>
+    );
+};

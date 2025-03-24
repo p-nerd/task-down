@@ -16,20 +16,31 @@ export const Loading = ({ view: view }: { view: TTimelineView }) => {
 export const Timeline = ({
     images,
     view,
+    areaHeight,
+    selectedImages,
     onDeleteImage,
+    onCheckboxClick,
 }: {
     images: TImage[];
     view: TTimelineView;
+    areaHeight: string;
+    selectedImages: string[];
     onDeleteImage: (imageId: string) => void;
+    onCheckboxClick: (imageId: string) => void;
 }) => {
     const groupedImages = groupImagesByDate(images);
 
     return (
-        <ScrollArea className="h-(--images-height)">
+        <ScrollArea style={{ height: areaHeight }}>
             {view === "grid" ? (
                 <GridView groupedImages={groupedImages} onDeleteImage={onDeleteImage} />
             ) : view === "list" ? (
-                <ListView groupedImages={groupedImages} onDeleteImage={onDeleteImage} />
+                <ListView
+                    groupedImages={groupedImages}
+                    onDeleteImage={onDeleteImage}
+                    selectedImages={selectedImages}
+                    onCheckboxClick={onCheckboxClick}
+                />
             ) : (
                 <></>
             )}

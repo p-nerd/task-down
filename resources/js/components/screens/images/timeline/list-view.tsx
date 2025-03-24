@@ -3,6 +3,7 @@ import type { TGroupImage } from "@/lib/images";
 import { format } from "date-fns";
 
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CalendarIcon, FileIcon, Trash2Icon } from "lucide-react";
@@ -40,9 +41,13 @@ export const ListViewLoading = () => {
 export const ListView = ({
     groupedImages,
     onDeleteImage,
+    selectedImages,
+    onCheckboxClick,
 }: {
     groupedImages: TGroupImage[];
     onDeleteImage: (imageId: string) => void;
+    selectedImages: string[];
+    onCheckboxClick: (imageId: string) => void;
 }) => {
     return (
         <div className="space-y-8 pr-4">
@@ -59,6 +64,13 @@ export const ListView = ({
                                 key={image.id}
                                 className="group bg-background flex items-center gap-4 rounded-lg border p-3 transition-all hover:shadow-xs"
                             >
+                                <Checkbox
+                                    id={`select-${image.id}`}
+                                    checked={selectedImages.includes(image.id)}
+                                    onCheckedChange={() => onCheckboxClick(image.id)}
+                                    aria-label={`Select ${image.filename}`}
+                                    className="mr-1 cursor-pointer"
+                                />
                                 <div className="relative h-16 w-16 min-w-16 overflow-hidden rounded">
                                     <img
                                         src={image.url}
