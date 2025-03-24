@@ -5,9 +5,9 @@ import { getQueryParam, replaceQueryParam } from "@/lib/url";
 import { router } from "@inertiajs/react";
 
 import { AppLayout } from "@/components/layouts/app-layout";
-import { Loading, Timeline } from "@/components/screens/images/timeline";
+import { Timeline } from "@/components/screens/images/timeline";
 import { ToggleView } from "@/components/screens/images/toggle-view";
-import { Deferred, Head } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
 
 const Images = ({ images }: { images: TImage[] }) => {
     const href = window.location.href;
@@ -31,9 +31,7 @@ const Images = ({ images }: { images: TImage[] }) => {
                         <h1 className="text-3xl font-bold">Your Images from Notes & Todos</h1>
                         <ToggleView view={view} onChange={handleToogleView} />
                     </div>
-                    <Deferred data={["images"]} fallback={<Loading view={view} />}>
-                        <Timeline images={images} view={view} onDeleteImage={handleDeleteImage} />
-                    </Deferred>
+                    <Timeline images={images} view={view} onDeleteImage={handleDeleteImage} />
                 </div>
             </div>
         </AppLayout>
