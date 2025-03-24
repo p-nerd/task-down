@@ -7,8 +7,8 @@ import { format } from "date-fns";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { CalendarIcon } from "lucide-react";
 import { DeleteImage } from "./delete-image";
+import { GroupDateLabel } from "./group-date-label";
 
 export const GridViewLoading = () => {
     return (
@@ -55,24 +55,11 @@ export const GridView = ({
         <div className="space-y-10 pr-4">
             {groupedImages.map((group) => (
                 <div key={group.date} className="space-y-4">
-                    <div className="group flex items-center gap-2">
-                        <Checkbox
-                            id={`select-${group.date}`}
-                            checked={false}
-                            onCheckedChange={() => {}}
-                            className={cn(
-                                "hidden h-5 w-5 cursor-pointer rounded border-gray-300 bg-white group-hover:block",
-                                {
-                                    block: false,
-                                },
-                            )}
-                        />
-                        <CalendarIcon className="text-muted-foreground h-5 w-5" />
-                        <h2 className="text-xl font-semibold">{group.formattedDate}</h2>
-                        <span className="text-muted-foreground text-sm">
-                            ({group.images.length} {group.images.length === 1 ? "image" : "images"})
-                        </span>
-                    </div>
+                    <GroupDateLabel
+                        group={group}
+                        selectedImages={selectedImages}
+                        onCheckboxClick={onCheckboxClick}
+                    />
                     <Separator />
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
                         {group.images.map((image) => (

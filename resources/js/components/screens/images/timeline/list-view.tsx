@@ -7,8 +7,9 @@ import { format } from "date-fns";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { CalendarIcon, FileIcon } from "lucide-react";
+import { FileIcon } from "lucide-react";
 import { DeleteImage } from "./delete-image";
+import { GroupDateLabel } from "./group-date-label";
 
 export const ListViewLoading = () => {
     return (
@@ -55,10 +56,11 @@ export const ListView = ({
         <div className="space-y-8 pr-4">
             {groupedImages.map((group) => (
                 <div key={group.date} className="space-y-4">
-                    <div className="flex items-center gap-2">
-                        <CalendarIcon className="text-muted-foreground h-5 w-5" />
-                        <h2 className="text-xl font-semibold">{group.formattedDate}</h2>
-                    </div>
+                    <GroupDateLabel
+                        group={group}
+                        selectedImages={selectedImages}
+                        onCheckboxClick={onCheckboxClick}
+                    />
                     <Separator />
                     <div className="space-y-3">
                         {group.images.map((image) => (
