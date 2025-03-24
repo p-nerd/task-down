@@ -49,15 +49,29 @@ export const GridView = ({
     groupedImages: TGroupImage[];
     onDeleteImage: (imageId: string, onSuccess: () => void) => void;
     selectedImages: string[];
-    onCheckboxClick: (imageId: string) => void;
+    onCheckboxClick: (imageIds: string[]) => void;
 }) => {
     return (
         <div className="space-y-10 pr-4">
             {groupedImages.map((group) => (
                 <div key={group.date} className="space-y-4">
-                    <div className="flex items-center gap-2">
+                    <div className="group flex items-center gap-2">
+                        <Checkbox
+                            id={`select-${group.date}`}
+                            checked={false}
+                            onCheckedChange={() => {}}
+                            className={cn(
+                                "hidden h-5 w-5 cursor-pointer rounded border-gray-300 bg-white group-hover:block",
+                                {
+                                    block: false,
+                                },
+                            )}
+                        />
                         <CalendarIcon className="text-muted-foreground h-5 w-5" />
                         <h2 className="text-xl font-semibold">{group.formattedDate}</h2>
+                        <span className="text-muted-foreground text-sm">
+                            ({group.images.length} {group.images.length === 1 ? "image" : "images"})
+                        </span>
                     </div>
                     <Separator />
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
@@ -83,7 +97,7 @@ export const GridView = ({
                                         <Checkbox
                                             id={`select-${image.id}`}
                                             checked={selectedImages.includes(image.id)}
-                                            onCheckedChange={() => onCheckboxClick(image.id)}
+                                            onCheckedChange={() => onCheckboxClick([image.id])}
                                             className="h-5 w-5 cursor-pointer rounded border-gray-300 bg-white"
                                         />
                                     </div>

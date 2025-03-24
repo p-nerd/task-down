@@ -60,12 +60,20 @@ const Images = ({ images }: { images: TImage[] }) => {
                                 onSuccess,
                             });
                         }}
-                        onCheckboxClick={(imageId: string) => {
-                            setSelectedImages((prev) =>
-                                prev.includes(imageId)
-                                    ? prev.filter((id) => id !== imageId)
-                                    : [...prev, imageId],
-                            );
+                        onCheckboxClick={(imageIds: string[]) => {
+                            setSelectedImages((prev) => {
+                                let newSelectedImages = [...prev];
+                                imageIds.forEach((id) => {
+                                    if (prev.includes(id)) {
+                                        newSelectedImages = newSelectedImages.filter(
+                                            (existingId) => existingId !== id,
+                                        );
+                                    } else {
+                                        newSelectedImages.push(id);
+                                    }
+                                });
+                                return newSelectedImages;
+                            });
                         }}
                     />
                 </div>

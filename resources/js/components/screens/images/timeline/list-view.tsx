@@ -49,7 +49,7 @@ export const ListView = ({
     groupedImages: TGroupImage[];
     onDeleteImage: (imageId: string, onSuccess: () => void) => void;
     selectedImages: string[];
-    onCheckboxClick: (imageId: string) => void;
+    onCheckboxClick: (imageIds: string[]) => void;
 }) => {
     return (
         <div className="space-y-8 pr-4">
@@ -69,7 +69,7 @@ export const ListView = ({
                                 <Checkbox
                                     id={`select-${image.id}`}
                                     checked={selectedImages.includes(image.id)}
-                                    onCheckedChange={() => onCheckboxClick(image.id)}
+                                    onCheckedChange={() => onCheckboxClick([image.id])}
                                     aria-label={`Select ${image.filename}`}
                                     className="mr-1 cursor-pointer"
                                 />
