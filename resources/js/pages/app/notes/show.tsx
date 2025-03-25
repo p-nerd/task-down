@@ -1,7 +1,8 @@
 import type { TNote } from "@/types/models";
 
 import { useNotes } from "@/hooks/use-notes";
-import { useState } from "react";
+import { cn } from "@/lib/utils";
+import { useNotesStore } from "@/states/notes";
 
 import { AppLayout } from "@/components/layouts/app-layout";
 import { CreateNote } from "@/components/screens/notes/create-note";
@@ -11,14 +12,9 @@ import { Button } from "@/components/ui/button";
 import { Head, Link } from "@inertiajs/react";
 import { LayoutGridIcon, PanelLeftCloseIcon, PanelLeftIcon } from "lucide-react";
 
-const Note = (props: { note: TNote; notes: TNote[] }) => {
+const Note = ({ note, ...props }: { note: TNote; notes: TNote[] }) => {
     const { notes, handleCreateNote, handleDeleteNote } = useNotes(props.notes);
-    const note = props.note;
-    const [sidebarVisible, setSidebarVisible] = useState(true);
-
-    const toggleSidebar = () => {
-        setSidebarVisible(!sidebarVisible);
-    };
+    const { sidebarVisible, setSidebarVisible } = useNotesStore();
 
     return (
         <AppLayout className="flex h-full w-full flex-col">
@@ -28,9 +24,8 @@ const Note = (props: { note: TNote; notes: TNote[] }) => {
                     <Button
                         size="icon"
                         variant="outline"
-                        onClick={toggleSidebar}
+                        onClick={() => setSidebarVisible(!sidebarVisible)}
                         className="mr-2 cursor-pointer"
-                        title={sidebarVisible ? "Hide sidebar" : "Show sidebar"}
                     >
                         {sidebarVisible ? (
                             <PanelLeftCloseIcon className="h-4 w-4" />
@@ -59,7 +54,10 @@ const Note = (props: { note: TNote; notes: TNote[] }) => {
                     </div>
                 )}
                 <div
-                    className={`h-(--notes-content-height) ${sidebarVisible ? "flex-1" : "w-full"} overflow-y-auto px-4 transition-all duration-200`}
+                    className={cn(
+                        "h-(--notes-content-height) overflow-y-auto px-4 transition-all duration-200",
+                        sidebarVisible ? "flex-1" : "w-full",
+                    )}
                 >
                     <ShowContent note={note} handleDeleteNote={handleDeleteNote} />
                 </div>
