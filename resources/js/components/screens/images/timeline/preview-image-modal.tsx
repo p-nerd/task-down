@@ -3,6 +3,7 @@ import { format } from "date-fns";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { DownloadIcon } from "lucide-react";
 
 export const PreviewImageModal = () => {
@@ -41,15 +42,15 @@ export const PreviewImageModal = () => {
                                 </p>
                             </div>
                         </div>
-                        <div className="relative flex-1 overflow-auto">
-                            <div className="flex min-h-full items-center justify-center p-4">
+                        <ScrollArea className="max-h-[90vh]">
+                            <div className="p-4">
                                 <img
                                     src={previewImage.url}
                                     alt={previewImage.filename}
-                                    className="max-h-full max-w-full object-contain"
+                                    className="max-w-full object-contain"
                                 />
                             </div>
-                        </div>
+                        </ScrollArea>
                     </div>
                 )}
             </DialogContent>
