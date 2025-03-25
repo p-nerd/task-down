@@ -1,12 +1,11 @@
 import { useForm } from "@inertiajs/react";
 
 import { SettingsLayout } from "@/components/layouts/settings-layout";
+import { SettingsSaveButton } from "@/components/screens/settings/settings-save-button";
 import { SettingsSection } from "@/components/screens/settings/settings-section";
-import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Transition } from "@headlessui/react";
 import { HelpCircle } from "lucide-react";
 
 const NotesSettings = ({ initial_sidebar_visibility }: { initial_sidebar_visibility: boolean }) => {
@@ -54,20 +53,10 @@ const NotesSettings = ({ initial_sidebar_visibility }: { initial_sidebar_visibil
                             </TooltipProvider>
                         </div>
                     </div>
-                    <div className="flex items-center gap-4">
-                        <Button type="submit" disabled={processing}>
-                            Save changes
-                        </Button>
-                        <Transition
-                            show={recentlySuccessful}
-                            enter="transition ease-in-out"
-                            enterFrom="opacity-0"
-                            leave="transition ease-in-out"
-                            leaveTo="opacity-0"
-                        >
-                            <p className="text-sm text-neutral-600">Saved</p>
-                        </Transition>
-                    </div>
+                    <SettingsSaveButton
+                        processing={processing}
+                        recentlySuccessful={recentlySuccessful}
+                    />
                 </form>
             </SettingsSection>
         </SettingsLayout>

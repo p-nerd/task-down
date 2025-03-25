@@ -5,11 +5,10 @@ import { useRef } from "react";
 
 import { Messsage } from "@/components/elements/message";
 import { SettingsLayout } from "@/components/layouts/settings-layout";
+import { SettingsSaveButton } from "@/components/screens/settings/settings-save-button";
 import { SettingsSection } from "@/components/screens/settings/settings-section";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Transition } from "@headlessui/react";
 
 const Password = () => {
     const passwordInput = useRef<HTMLInputElement>(null);
@@ -98,19 +97,11 @@ const Password = () => {
                         <Messsage error={errors.password_confirmation} />
                     </div>
 
-                    <div className="flex items-center gap-4">
-                        <Button disabled={processing}>Save password</Button>
-
-                        <Transition
-                            show={recentlySuccessful}
-                            enter="transition ease-in-out"
-                            enterFrom="opacity-0"
-                            leave="transition ease-in-out"
-                            leaveTo="opacity-0"
-                        >
-                            <p className="text-sm text-neutral-600">Saved</p>
-                        </Transition>
-                    </div>
+                    <SettingsSaveButton
+                        processing={processing}
+                        recentlySuccessful={recentlySuccessful}
+                        buttonText="Save password"
+                    />
                 </form>
             </SettingsSection>
         </SettingsLayout>

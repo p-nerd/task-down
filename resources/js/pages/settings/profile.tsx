@@ -5,13 +5,12 @@ import { useForm, usePage } from "@inertiajs/react";
 
 import { Messsage } from "@/components/elements/message";
 import { SettingsLayout } from "@/components/layouts/settings-layout";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Transition } from "@headlessui/react";
 import { Link } from "@inertiajs/react";
 
 import { DeleteUser } from "@/components/screens/settings/delete-user";
+import { SettingsSaveButton } from "@/components/screens/settings/settings-save-button";
 import { SettingsSection } from "@/components/screens/settings/settings-section";
 
 const Profile = ({ mustVerifyEmail, status }: { mustVerifyEmail: boolean; status?: string }) => {
@@ -97,19 +96,10 @@ const Profile = ({ mustVerifyEmail, status }: { mustVerifyEmail: boolean; status
                         </div>
                     )}
 
-                    <div className="flex items-center gap-4">
-                        <Button disabled={processing}>Save</Button>
-
-                        <Transition
-                            show={recentlySuccessful}
-                            enter="transition ease-in-out"
-                            enterFrom="opacity-0"
-                            leave="transition ease-in-out"
-                            leaveTo="opacity-0"
-                        >
-                            <p className="text-sm text-neutral-600">Saved</p>
-                        </Transition>
-                    </div>
+                    <SettingsSaveButton
+                        processing={processing}
+                        recentlySuccessful={recentlySuccessful}
+                    />
                 </form>
             </SettingsSection>
             <DeleteUser />
