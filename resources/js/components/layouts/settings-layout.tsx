@@ -7,7 +7,7 @@ import { Heading } from "@/components/elements/heading";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "@inertiajs/react";
-import { ArrowLeftIcon, LockIcon, UserIcon } from "lucide-react";
+import { ArrowLeftIcon, LockIcon, NotebookIcon, UserIcon } from "lucide-react";
 
 import { AppLayout } from "./app-layout";
 
@@ -21,6 +21,11 @@ const links: { title: string; route: string; icon: LucideIcon }[] = [
         title: "Password",
         route: "settings.password.edit",
         icon: LockIcon,
+    },
+    {
+        title: "Notes",
+        route: "settings.notes.edit",
+        icon: NotebookIcon,
     },
     // {
     //     title: "Appearance",
