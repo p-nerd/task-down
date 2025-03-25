@@ -1,13 +1,18 @@
 import type { TGroupImage } from "@/lib/images";
 
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { useImagesStore } from "@/states/images";
 import { format } from "date-fns";
 
-import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { CalendarIcon, FileIcon, Trash2Icon } from "lucide-react";
+import { FileIcon } from "lucide-react";
+import { DeleteImage } from "./delete-image";
+import { GroupDateLabel } from "./group-date-label";
 
-export const RowViewLoading = () => {
+export const ListViewLoading = () => {
     return (
         <div className="space-y-6">
             {[1, 2, 3].map((group) => (
@@ -37,21 +42,20 @@ export const RowViewLoading = () => {
     );
 };
 
-export const RowView = ({
+export const ListView = ({
     groupedImages,
     onDeleteImage,
 }: {
     groupedImages: TGroupImage[];
-    onDeleteImage: (imageId: string) => void;
+    onDeleteImage: (imageId: string, onSuccess: () => void) => void;
 }) => {
+    const { selectedImageIds, toggleSelectedImageId, setPreviewImage } = useImagesStore();
+
     return (
         <div className="space-y-8 pr-4">
             {groupedImages.map((group) => (
                 <div key={group.date} className="space-y-4">
-                    <div className="flex items-center gap-2">
-                        <CalendarIcon className="text-muted-foreground h-5 w-5" />
-                        <h2 className="text-xl font-semibold">{group.formattedDate}</h2>
-                    </div>
+                    <GroupDateLabel group={group} />
                     <Separator />
                     <div className="space-y-3">
                         {group.images.map((image) => (
@@ -59,11 +63,19 @@ export const RowView = ({
                                 key={image.id}
                                 className="group bg-background flex items-center gap-4 rounded-lg border p-3 transition-all hover:shadow-xs"
                             >
+                                <Checkbox
+                                    id={`select-${image.id}`}
+                                    checked={selectedImageIds.includes(image.id)}
+                                    onCheckedChange={() => toggleSelectedImageId(image.id)}
+                                    aria-label={`Select ${image.filename}`}
+                                    className="mr-1 cursor-pointer"
+                                />
                                 <div className="relative h-16 w-16 min-w-16 overflow-hidden rounded">
                                     <img
                                         src={image.url}
                                         alt={image.filename}
                                         className="h-full w-full object-cover transition-transform group-hover:scale-105"
+                                        onClick={() => setPreviewImage(image)}
                                     />
                                 </div>
                                 <div className="min-w-0 flex-1">
@@ -75,15 +87,14 @@ export const RowView = ({
                                         {format(image.created_at, "h:mm a")}
                                     </p>
                                 </div>
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    className="text-destructive hover:bg-destructive/10 cursor-pointer"
-                                    onClick={() => onDeleteImage(image.id)}
-                                    aria-label={`Delete ${image.filename}`}
-                                >
-                                    <Trash2Icon className="h-5 w-5" />
-                                </Button>
+                                <DeleteImage
+                                    image={image}
+                                    onDelete={onDeleteImage}
+                                    className={cn(
+                                        buttonVariants({ variant: "ghost", size: "icon" }),
+                                        "text-destructive hover:bg-destructive/10 cursor-pointer",
+                                    )}
+                                />
                             </div>
                         ))}
                     </div>

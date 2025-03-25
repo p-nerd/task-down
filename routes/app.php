@@ -10,6 +10,7 @@ Route::prefix('/images')->middleware(['auth', 'verified'])->group(function () {
     Route::post('/', [ImageController::class, 'store'])->name('images.store');
 
     Route::delete('/{image}', [ImageController::class, 'destroy'])->name('images.destroy');
+    Route::delete('/', [ImageController::class, 'destroys'])->name('images.destroys');
 });
 
 Route::prefix('/notes')->middleware(['auth', 'verified'])->group(function () {

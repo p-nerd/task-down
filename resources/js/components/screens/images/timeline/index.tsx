@@ -1,38 +1,49 @@
 import type { TTimelineView } from "@/types";
+import type { TImage } from "@/types/models";
 
 import { groupImagesByDate } from "@/lib/images";
+import { router } from "@inertiajs/react";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { TImage } from "@/types/models";
 import { GridView, GridViewLoading } from "./grid-view";
-import { RowView, RowViewLoading } from "./row-view";
+import { ListView, ListViewLoading } from "./list-view";
+import { PreviewImageModal } from "./preview-image-modal";
 
 export const Loading = ({ view: view }: { view: TTimelineView }) => {
     return (
-        <>{view === "grid" ? <GridViewLoading /> : view === "row" ? <RowViewLoading /> : <></>}</>
+        <>{view === "grid" ? <GridViewLoading /> : view === "list" ? <ListViewLoading /> : <></>}</>
     );
 };
 
 export const Timeline = ({
     images,
     view,
-    onDeleteImage,
+    areaHeight,
 }: {
     images: TImage[];
     view: TTimelineView;
-    onDeleteImage: (imageId: string) => void;
+    areaHeight: string;
 }) => {
     const groupedImages = groupImagesByDate(images);
 
+    const handleDeleteImage = (id: string, onSuccess: () => void) => {
+        router.delete(route("images.destroy", id), {
+            onSuccess,
+        });
+    };
+
     return (
-        <ScrollArea className="h-(--images-height)">
-            {view === "grid" ? (
-                <GridView groupedImages={groupedImages} onDeleteImage={onDeleteImage} />
-            ) : view === "row" ? (
-                <RowView groupedImages={groupedImages} onDeleteImage={onDeleteImage} />
-            ) : (
-                <></>
-            )}
-        </ScrollArea>
+        <>
+            <PreviewImageModal />
+            <ScrollArea style={{ height: areaHeight }}>
+                {view === "grid" ? (
+                    <GridView groupedImages={groupedImages} onDeleteImage={handleDeleteImage} />
+                ) : view === "list" ? (
+                    <ListView groupedImages={groupedImages} onDeleteImage={handleDeleteImage} />
+                ) : (
+                    <></>
+                )}
+            </ScrollArea>
+        </>
     );
 };

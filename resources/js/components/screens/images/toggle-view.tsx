@@ -16,7 +16,7 @@ export const ToggleView = ({
                 <GridIcon className="mr-2 h-4 w-4" />
                 Grid
             </ToggleGroupItem>
-            <ToggleGroupItem value="row" aria-label="Row view" className="cursor-pointer">
+            <ToggleGroupItem value="list" aria-label="List view" className="cursor-pointer">
                 <ListIcon className="mr-2 h-4 w-4" />
                 List
             </ToggleGroupItem>
