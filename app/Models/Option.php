@@ -47,16 +47,23 @@ class Option extends Model
     }
 
     /**
-     * Set the value attribute with serialization for array/json types.
+     * Set the value attribute with proper type conversion for database storage.
      */
     public function setValueAttribute(mixed $value): void
     {
-        if ($this->type && ($this->type === OptionType::ARRAY || $this->type === OptionType::JSON)) {
-            if (! is_string($value)) {
-                $value = json_encode($value);
-            }
+        if (! $this->type) {
+            $this->attributes['value'] = $value;
+
+            return;
         }
 
-        $this->attributes['value'] = $value;
+        $this->attributes['value'] = match ($this->type) {
+            OptionType::STRING => (string) $value,
+            OptionType::BOOLEAN => $value ? '1' : '0',
+            OptionType::INTEGER => (string) (int) $value,
+            OptionType::FLOAT => (string) (float) $value,
+            OptionType::ARRAY, OptionType::JSON => is_string($value) ? $value : json_encode($value),
+            default => $value,
+        };
     }
 }
