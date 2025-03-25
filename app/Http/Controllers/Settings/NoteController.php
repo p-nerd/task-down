@@ -15,6 +15,7 @@ class NoteController extends Controller
     public function edit(Request $request): Response
     {
         return inertia('settings/notes', [
+            'initial_sidebar_visibility' => true,
         ]);
     }
 
