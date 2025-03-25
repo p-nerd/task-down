@@ -15,18 +15,19 @@ const NotesSettings = ({ initial_sidebar_visibility }: { initial_sidebar_visibil
         initial_sidebar_visibility,
     });
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        patch("/settings/notes");
-    };
-
     return (
         <SettingsLayout title="Notes settings">
             <SettingsSection
                 title="Notes options"
                 description="Update your account's notes settings"
             >
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        patch("/settings/notes");
+                    }}
+                    className="space-y-6"
+                >
                     <div className="grid gap-4">
                         <div className="flex items-center gap-3">
                             <Switch
