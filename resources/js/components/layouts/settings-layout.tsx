@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { Heading } from "@/components/elements/heading";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Link } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import { ArrowLeftIcon, LockIcon, NotebookIcon, UserIcon } from "lucide-react";
 
 import { AppLayout } from "./app-layout";
@@ -34,9 +34,10 @@ const links: { title: string; route: string; icon: LucideIcon }[] = [
     // },
 ];
 
-const SettingsLayout = ({ children }: { children: ReactNode }) => {
+const SettingsLayout = ({ title, children }: { title: string; children: ReactNode }) => {
     return (
         <AppLayout>
+            <Head title={title} />
             <div className="px-4 py-6">
                 <div className="mb-6 flex items-center justify-between">
                     <Heading

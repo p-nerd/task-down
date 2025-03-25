@@ -3,16 +3,16 @@ import type { FormEventHandler } from "react";
 
 import { useForm, usePage } from "@inertiajs/react";
 
-import { HeadingSmall } from "@/components/elements/heading-small";
 import { Messsage } from "@/components/elements/message";
 import { SettingsLayout } from "@/components/layouts/settings-layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Transition } from "@headlessui/react";
-import { Head, Link } from "@inertiajs/react";
+import { Link } from "@inertiajs/react";
 
 import { DeleteUser } from "@/components/screens/settings/delete-user";
+import { SettingsSection } from "@/components/screens/settings/settings-section";
 
 const Profile = ({ mustVerifyEmail, status }: { mustVerifyEmail: boolean; status?: string }) => {
     const { auth } = usePage<TSharedData>().props;
@@ -36,14 +36,11 @@ const Profile = ({ mustVerifyEmail, status }: { mustVerifyEmail: boolean; status
     };
 
     return (
-        <SettingsLayout>
-            <Head title="Profile settings" />
-            <div className="space-y-6">
-                <HeadingSmall
-                    title="Profile information"
-                    description="Update your name and email address"
-                />
-
+        <SettingsLayout title="Profile settings">
+            <SettingsSection
+                title="Profile information"
+                description="Update your name and email address"
+            >
                 <form onSubmit={submit} className="space-y-6">
                     <div className="grid gap-2">
                         <Label htmlFor="name">Name</Label>
@@ -114,8 +111,7 @@ const Profile = ({ mustVerifyEmail, status }: { mustVerifyEmail: boolean; status
                         </Transition>
                     </div>
                 </form>
-            </div>
-
+            </SettingsSection>
             <DeleteUser />
         </SettingsLayout>
     );

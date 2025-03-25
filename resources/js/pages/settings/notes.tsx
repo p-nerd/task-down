@@ -1,13 +1,12 @@
 import { useForm } from "@inertiajs/react";
 
-import { HeadingSmall } from "@/components/elements/heading-small";
 import { SettingsLayout } from "@/components/layouts/settings-layout";
+import { SettingsSection } from "@/components/screens/settings/settings-section";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Transition } from "@headlessui/react";
-import { Head } from "@inertiajs/react";
 import { HelpCircle } from "lucide-react";
 
 const NotesSettings = ({ initial_sidebar_visibility }: { initial_sidebar_visibility: boolean }) => {
@@ -23,13 +22,11 @@ const NotesSettings = ({ initial_sidebar_visibility }: { initial_sidebar_visibil
     };
 
     return (
-        <SettingsLayout>
-            <Head title="Notes settings" />
-            <div className="space-y-6">
-                <HeadingSmall
-                    title="Notes options"
-                    description="Update your account's notes settings"
-                />
+        <SettingsLayout title="Notes settings">
+            <SettingsSection
+                title="Notes options"
+                description="Update your account's notes settings"
+            >
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid gap-4">
                         <div className="flex items-center gap-3">
@@ -72,7 +69,7 @@ const NotesSettings = ({ initial_sidebar_visibility }: { initial_sidebar_visibil
                         </Transition>
                     </div>
                 </form>
-            </div>
+            </SettingsSection>
         </SettingsLayout>
     );
 };

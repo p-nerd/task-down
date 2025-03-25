@@ -3,14 +3,13 @@ import type { FormEventHandler } from "react";
 import { useForm } from "@inertiajs/react";
 import { useRef } from "react";
 
-import { HeadingSmall } from "@/components/elements/heading-small";
 import { Messsage } from "@/components/elements/message";
 import { SettingsLayout } from "@/components/layouts/settings-layout";
+import { SettingsSection } from "@/components/screens/settings/settings-section";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Transition } from "@headlessui/react";
-import { Head } from "@inertiajs/react";
 
 const Password = () => {
     const passwordInput = useRef<HTMLInputElement>(null);
@@ -43,14 +42,11 @@ const Password = () => {
     };
 
     return (
-        <SettingsLayout>
-            <Head title="Profile settings" />
-            <div className="space-y-6">
-                <HeadingSmall
-                    title="Update password"
-                    description="Ensure your account is using a long, random password to stay secure"
-                />
-
+        <SettingsLayout title="Profile settings">
+            <SettingsSection
+                title="Update password"
+                description="Ensure your account is using a long, random password to stay secure"
+            >
                 <form onSubmit={updatePassword} className="space-y-6">
                     <div className="grid gap-2">
                         <Label htmlFor="current_password">Current password</Label>
@@ -116,7 +112,7 @@ const Password = () => {
                         </Transition>
                     </div>
                 </form>
-            </div>
+            </SettingsSection>
         </SettingsLayout>
     );
 };
