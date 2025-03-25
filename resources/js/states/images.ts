@@ -1,3 +1,5 @@
+import type { TImage } from "@/types/models";
+
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
@@ -6,9 +8,11 @@ export const useImagesStore = create(
         selectedImageIds: string[];
         setSelectedImageIds: (imageIds: string[]) => void;
         toggleSelectedImageId: (imageId: string) => void;
+        previewImage: TImage | null;
+        setPreviewImage: (image: TImage | null) => void;
     }>((set) => ({
         selectedImageIds: [],
-        setSelectedImageIds: (images: string[]) => set({ selectedImageIds: images }),
+        setSelectedImageIds: (images) => set({ selectedImageIds: images }),
         toggleSelectedImageId: (imageId) => {
             set((state) => {
                 if (state.selectedImageIds.includes(imageId)) {
@@ -18,5 +22,7 @@ export const useImagesStore = create(
                 }
             });
         },
+        previewImage: null,
+        setPreviewImage: (image) => set({ previewImage: image }),
     })),
 );

@@ -49,7 +49,7 @@ export const ListView = ({
     groupedImages: TGroupImage[];
     onDeleteImage: (imageId: string, onSuccess: () => void) => void;
 }) => {
-    const { selectedImageIds, toggleSelectedImageId } = useImagesStore();
+    const { selectedImageIds, toggleSelectedImageId, setPreviewImage } = useImagesStore();
 
     return (
         <div className="space-y-8 pr-4">
@@ -75,6 +75,7 @@ export const ListView = ({
                                         src={image.url}
                                         alt={image.filename}
                                         className="h-full w-full object-cover transition-transform group-hover:scale-105"
+                                        onClick={() => setPreviewImage(image)}
                                     />
                                 </div>
                                 <div className="min-w-0 flex-1">

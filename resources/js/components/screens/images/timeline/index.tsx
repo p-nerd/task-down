@@ -7,6 +7,7 @@ import { router } from "@inertiajs/react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { GridView, GridViewLoading } from "./grid-view";
 import { ListView, ListViewLoading } from "./list-view";
+import { PreviewImageModal } from "./preview-image-modal";
 
 export const Loading = ({ view: view }: { view: TTimelineView }) => {
     return (
@@ -32,14 +33,17 @@ export const Timeline = ({
     };
 
     return (
-        <ScrollArea style={{ height: areaHeight }}>
-            {view === "grid" ? (
-                <GridView groupedImages={groupedImages} onDeleteImage={handleDeleteImage} />
-            ) : view === "list" ? (
-                <ListView groupedImages={groupedImages} onDeleteImage={handleDeleteImage} />
-            ) : (
-                <></>
-            )}
-        </ScrollArea>
+        <>
+            <PreviewImageModal />
+            <ScrollArea style={{ height: areaHeight }}>
+                {view === "grid" ? (
+                    <GridView groupedImages={groupedImages} onDeleteImage={handleDeleteImage} />
+                ) : view === "list" ? (
+                    <ListView groupedImages={groupedImages} onDeleteImage={handleDeleteImage} />
+                ) : (
+                    <></>
+                )}
+            </ScrollArea>
+        </>
     );
 };

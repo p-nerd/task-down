@@ -48,7 +48,7 @@ export const GridView = ({
     groupedImages: TGroupImage[];
     onDeleteImage: (imageId: string, onSuccess: () => void) => void;
 }) => {
-    const { selectedImageIds, toggleSelectedImageId } = useImagesStore();
+    const { selectedImageIds, toggleSelectedImageId, setPreviewImage } = useImagesStore();
 
     return (
         <div className="space-y-10 pr-4">
@@ -67,6 +67,7 @@ export const GridView = ({
                                         src={image.url}
                                         alt={image.filename}
                                         className="object-cover transition-transform group-hover:scale-105"
+                                        onClick={() => setPreviewImage(image)}
                                     />
                                     <div
                                         className={cn(
