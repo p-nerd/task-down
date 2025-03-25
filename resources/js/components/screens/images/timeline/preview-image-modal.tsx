@@ -1,39 +1,19 @@
 import { useImagesStore } from "@/states/images";
 import { format } from "date-fns";
 
-import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { DownloadIcon } from "lucide-react";
+import { DownloadImageButton } from "./download-image-button";
 
 export const PreviewImageModal = () => {
     const { previewImage, setPreviewImage } = useImagesStore();
 
     if (!previewImage) return <></>;
 
-    const handleDownload = () => {
-        if (!previewImage) return;
-        const link = document.createElement("a");
-        link.href = previewImage.url;
-        link.download = previewImage.filename;
-        link.target = "_blank";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    };
-
     return (
         <Dialog open={!!previewImage} onOpenChange={(open) => !open && setPreviewImage(null)}>
             <DialogContent className="flex h-full max-h-[90vh] flex-col p-0 sm:max-w-4xl">
                 <div className="flex items-center space-x-3 border-b p-4">
-                    <Button
-                        variant="outline"
-                        size="icon"
-                        onClick={handleDownload}
-                        title="Download image"
-                        className="cursor-pointer"
-                    >
-                        <DownloadIcon className="h-4 w-4" />
-                    </Button>
+                    <DownloadImageButton />
                     <div>
                         <h3 className="font-medium">{previewImage.filename}</h3>
                         <p className="text-muted-foreground text-sm">
