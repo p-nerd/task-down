@@ -8,7 +8,7 @@ import { format } from "date-fns";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { DeleteImage } from "./delete-image";
+import { DeleteImageButton } from "./delete-image-button";
 import { GroupDateLabel } from "./group-date-label";
 
 export const GridViewLoading = () => {
@@ -41,13 +41,7 @@ export const GridViewLoading = () => {
     );
 };
 
-export const GridView = ({
-    groupedImages,
-    onDeleteImage,
-}: {
-    groupedImages: TGroupImage[];
-    onDeleteImage: (imageId: string, onSuccess: () => void) => void;
-}) => {
+export const GridView = ({ groupedImages }: { groupedImages: TGroupImage[] }) => {
     const { selectedImageIds, toggleSelectedImageId, setPreviewImage } = useImagesStore();
 
     return (
@@ -84,9 +78,8 @@ export const GridView = ({
                                             className="h-5 w-5 cursor-pointer rounded border-gray-300 bg-white"
                                         />
                                     </div>
-                                    <DeleteImage
+                                    <DeleteImageButton
                                         image={image}
-                                        onDelete={onDeleteImage}
                                         className={cn(
                                             buttonVariants({ variant: "destructive", size: "sm" }),
                                             "absolute top-2 right-2 cursor-pointer opacity-0 transition-opacity group-hover:opacity-100",

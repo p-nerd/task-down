@@ -2,7 +2,6 @@ import type { TTimelineView } from "@/types";
 import type { TImage } from "@/types/models";
 
 import { groupImagesByDate } from "@/lib/images";
-import { router } from "@inertiajs/react";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { GridView, GridViewLoading } from "./grid-view";
@@ -26,20 +25,14 @@ export const Timeline = ({
 }) => {
     const groupedImages = groupImagesByDate(images);
 
-    const handleDeleteImage = (id: string, onSuccess: () => void) => {
-        router.delete(route("images.destroy", id), {
-            onSuccess,
-        });
-    };
-
     return (
         <>
             <PreviewImageModal />
             <ScrollArea style={{ height: areaHeight }}>
                 {view === "grid" ? (
-                    <GridView groupedImages={groupedImages} onDeleteImage={handleDeleteImage} />
+                    <GridView groupedImages={groupedImages} />
                 ) : view === "list" ? (
-                    <ListView groupedImages={groupedImages} onDeleteImage={handleDeleteImage} />
+                    <ListView groupedImages={groupedImages} />
                 ) : (
                     <></>
                 )}

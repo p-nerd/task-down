@@ -44,8 +44,8 @@ export const DeleteBatch = () => {
                         undone.
                     </>
                 }
-                confirmActionText="Delete"
-                onConfirmAction={() => {
+                actionText="Delete"
+                onAction={() => {
                     router.delete(route("images.destroys"), {
                         data: { ids: selectedImageIds },
                         onSuccess: () => {

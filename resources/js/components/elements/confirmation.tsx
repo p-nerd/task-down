@@ -7,27 +7,27 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
+    AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
 import type { ReactNode } from "react";
 
 export const Confirmation = ({
-    open,
-    onOpen,
-    onConfirmAction,
     title,
     description,
-    confirmActionText,
+    actionText,
+    onAction,
+    children,
 }: {
-    open: boolean;
-    onOpen: (open: boolean) => void;
-    onConfirmAction: () => void;
     title?: string;
     description?: ReactNode;
-    confirmActionText?: string;
+    actionText?: string;
+    onAction: () => void;
+    children: ReactNode;
 }) => {
     return (
-        <AlertDialog open={open} onOpenChange={onOpen}>
+        <AlertDialog>
+            <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
             <AlertDialogContent>
                 <AlertDialogHeader>
                     <AlertDialogTitle>{title || "Are you absolutely sure?"}</AlertDialogTitle>
@@ -38,10 +38,10 @@ export const Confirmation = ({
                 <AlertDialogFooter>
                     <AlertDialogCancel className="cursor-pointer">Cancel</AlertDialogCancel>
                     <AlertDialogAction
-                        onClick={onConfirmAction}
+                        onClick={onAction}
                         className="bg-destructive hover:bg-destructive/90 cursor-pointer"
                     >
-                        {confirmActionText || "Continue"}
+                        {actionText || "Continue"}
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
