@@ -1,3 +1,4 @@
+import { useNotesStore } from "@/states/notes";
 import { router } from "@inertiajs/react";
 import { useState } from "react";
 
@@ -6,6 +7,7 @@ import { Trash2Icon } from "lucide-react";
 
 export const DeleteNoteButton = ({ noteId }: { noteId: string }) => {
     const [open, setOpen] = useState<boolean>(false);
+    const { sidebarVisible } = useNotesStore();
 
     return (
         <>
@@ -17,7 +19,9 @@ export const DeleteNoteButton = ({ noteId }: { noteId: string }) => {
                 onOpen={setOpen}
                 confirmActionText="Delete"
                 onConfirmAction={() => {
-                    router.delete(route("notes.destroy", noteId), { data: { show: true } });
+                    router.delete(route("notes.destroy", noteId), {
+                        data: { show: sidebarVisible },
+                    });
                 }}
             />
         </>
