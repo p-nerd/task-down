@@ -5,8 +5,10 @@ import { SettingsLayout } from "@/components/layouts/settings-layout";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Transition } from "@headlessui/react";
 import { Head } from "@inertiajs/react";
+import { HelpCircle } from "lucide-react";
 
 const NotesSettings = ({ initial_sidebar_visibility }: { initial_sidebar_visibility: boolean }) => {
     const { data, setData, patch, processing, recentlySuccessful } = useForm<{
@@ -17,11 +19,7 @@ const NotesSettings = ({ initial_sidebar_visibility }: { initial_sidebar_visibil
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        patch("/settings/notes", {
-            onSuccess: () => {
-                // Success handling if needed
-            },
-        });
+        patch("/settings/notes");
     };
 
     return (
@@ -42,10 +40,21 @@ const NotesSettings = ({ initial_sidebar_visibility }: { initial_sidebar_visibil
                                     setData("initial_sidebar_visibility", checked)
                                 }
                             />
-                            <Label htmlFor="sidebar-visibility">Initial Sidebar Visibility</Label>
-                            <p className="text-xs text-neutral-500">
-                                Show sidebar by default when opening single note
-                            </p>
+                            <Label htmlFor="initial-sidebar-visibility">
+                                Initial Sidebar Visibility
+                            </Label>
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <HelpCircle className="h-4 w-4 cursor-help" />
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p className="text-xs">
+                                            Show sidebar by default when opening single note
+                                        </p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
                         </div>
                     </div>
                     <div className="flex items-center gap-4">
