@@ -66,7 +66,7 @@ export const GridView = ({
                                     <img
                                         src={image.url}
                                         alt={image.filename}
-                                        className="object-cover transition-transform group-hover:scale-105"
+                                        className="h-full w-full object-contain transition-transform group-hover:scale-105"
                                         onClick={() => setPreviewImage(image)}
                                     />
                                     <div
