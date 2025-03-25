@@ -1,45 +1,31 @@
 import type { TNote } from "@/types/models";
 
-import { useNotes } from "@/hooks/use-notes";
 import { cn } from "@/lib/utils";
 import { useNotesStore } from "@/states/notes";
+import { useEffect } from "react";
 
 import { AppLayout } from "@/components/layouts/app-layout";
-import { CreateNote } from "@/components/screens/notes/create-note";
+import { CreateNoteButton } from "@/components/screens/notes/create-note-button";
+import { NotesViewToggleButton } from "@/components/screens/notes/notes-view-toggle-button";
 import { ShowContent } from "@/components/screens/notes/show-content";
 import { ShowListing } from "@/components/screens/notes/show-listing";
-import { Button } from "@/components/ui/button";
-import { Head, Link } from "@inertiajs/react";
-import { LayoutGridIcon, PanelLeftCloseIcon, PanelLeftIcon } from "lucide-react";
+import { SidebarToggleButton } from "@/components/screens/notes/sidebar-toggle-button";
+import { Head } from "@inertiajs/react";
 
 const Note = ({ note, ...props }: { note: TNote; notes: TNote[] }) => {
-    const { notes, handleCreateNote, handleDeleteNote } = useNotes(props.notes);
-    const { sidebarVisible, setSidebarVisible } = useNotesStore();
+    const { notes, setNotes, sidebarVisible } = useNotesStore();
+
+    useEffect(() => setNotes(props.notes), [props.notes]);
 
     return (
         <AppLayout className="flex h-full w-full flex-col">
             <Head title={`'${note.name}' Note`} />
             <div className="flex w-full justify-between pt-6">
                 <div className="flex w-[300px] items-center justify-between">
-                    <Button
-                        size="icon"
-                        variant="outline"
-                        onClick={() => setSidebarVisible(!sidebarVisible)}
-                        className="mr-2 cursor-pointer"
-                    >
-                        {sidebarVisible ? (
-                            <PanelLeftCloseIcon className="h-4 w-4" />
-                        ) : (
-                            <PanelLeftIcon className="h-4 w-4" />
-                        )}
-                    </Button>
-                    {sidebarVisible && <CreateNote onClick={() => handleCreateNote()} />}
+                    <SidebarToggleButton />
+                    {sidebarVisible && <CreateNoteButton />}
                 </div>
-                <Link href={route("notes.index")}>
-                    <Button size="icon" variant="outline" className="cursor-pointer">
-                        <LayoutGridIcon className="h-4 w-4" />
-                    </Button>
-                </Link>
+                <NotesViewToggleButton view="index" />
             </div>
             <div className="flex h-full w-full py-2">
                 {sidebarVisible && (
@@ -59,7 +45,7 @@ const Note = ({ note, ...props }: { note: TNote; notes: TNote[] }) => {
                         sidebarVisible ? "flex-1" : "w-full",
                     )}
                 >
-                    <ShowContent note={note} handleDeleteNote={handleDeleteNote} />
+                    <ShowContent note={note} />
                 </div>
             </div>
         </AppLayout>

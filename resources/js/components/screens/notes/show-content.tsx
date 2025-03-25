@@ -10,13 +10,7 @@ import { useCallback, useEffect, useState } from "react";
 import { MDXEditor } from "@mdxeditor/editor";
 import { DeleteNote } from "./delete-note";
 
-const ShowContent = ({
-    note,
-    handleDeleteNote,
-}: {
-    note: TNote;
-    handleDeleteNote: (noteId: string, options: { show?: boolean }) => void;
-}) => {
+const ShowContent = ({ note }: { note: TNote }) => {
     const [noteName, setNoteName] = useState(note.name);
 
     useEffect(() => {
@@ -79,7 +73,7 @@ const ShowContent = ({
                         <span className="text-muted-foreground text-sm whitespace-nowrap">
                             {time.format.shortt(note.updated_at)}
                         </span>
-                        <DeleteNote onClick={() => handleDeleteNote(note.id, { show: true })} />
+                        <DeleteNote noteId={note.id} />
                     </div>
                 </div>
             </div>
