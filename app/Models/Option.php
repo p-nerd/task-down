@@ -35,66 +35,28 @@ class Option extends Model
     }
 
     /**
-     * Get the setting value with appropriate casting.
+     * Get the value attribute with proper type casting.
      */
-    public function getTypedValueAttribute(): mixed
+    public function getValueAttribute(mixed $value): mixed
     {
-        return $this->type->castValue($this->value);
-    }
-
-    /**
-     * Set the value with appropriate handling based on type.
-     */
-    public function setTypedValueAttribute(mixed $value): void
-    {
-        if (in_array($this->type, [OptionType::ARRAY, OptionType::JSON]) && ! is_string($value)) {
-            $this->attributes['value'] = json_encode($value);
-        } else {
-            $this->attributes['value'] = (string) $value;
-        }
-    }
-
-    /**
-     * Get a setting by key.
-     */
-    public static function get(string $key, mixed $default = null): mixed
-    {
-        $setting = static::where('key', $key)->first();
-
-        if (! $setting) {
-            return $default;
+        if (! $this->type) {
+            return $value;
         }
 
-        return $setting->typed_value;
+        return $this->type->castValue($value);
     }
 
     /**
-     * Set a option value by key.
+     * Set the value attribute with serialization for array/json types.
      */
-    public static function set(string $key, mixed $value, ?string $type = null): Option
+    public function setValueAttribute(mixed $value): void
     {
-        $setting = static::firstOrNew(['key' => $key]);
-
-        if ($type) {
-            $setting->type = $type;
-        } elseif (! $setting->exists) {
-            // Auto-detect type if not specified and setting doesn't exist yet
-            if (is_bool($value)) {
-                $setting->type = OptionType::BOOLEAN;
-            } elseif (is_int($value)) {
-                $setting->type = OptionType::INTEGER;
-            } elseif (is_float($value)) {
-                $setting->type = OptionType::FLOAT;
-            } elseif (is_array($value)) {
-                $setting->type = OptionType::ARRAY;
-            } else {
-                $setting->type = OptionType::STRING;
+        if ($this->type && ($this->type === OptionType::ARRAY || $this->type === OptionType::JSON)) {
+            if (! is_string($value)) {
+                $value = json_encode($value);
             }
         }
 
-        $setting->typed_value = $value;
-        $setting->save();
-
-        return $setting;
+        $this->attributes['value'] = $value;
     }
 }
