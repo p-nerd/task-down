@@ -47,13 +47,11 @@ const SettingsLayout = ({ title, children }: { title: string; children: ReactNod
                     <Button
                         variant="ghost"
                         size="sm"
-                        asChild
                         className="text-muted-foreground hover:text-foreground flex items-center"
+                        onClick={() => history.back()}
                     >
-                        <Link href={route("notes.index")}>
-                            <ArrowLeftIcon className="size-4" />
-                            Got Back
-                        </Link>
+                        <ArrowLeftIcon className="size-4" />
+                        Got Back
                     </Button>
                 </div>
                 <div className="flex flex-col space-y-8 lg:flex-row lg:space-y-0 lg:space-x-12">
