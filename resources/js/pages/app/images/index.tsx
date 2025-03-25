@@ -24,7 +24,9 @@ const Images = ({ images }: { images: TImage[] }) => {
             <div className="container mx-auto px-4 pt-8">
                 <div className="mx-auto flex max-w-5xl flex-col space-y-6">
                     <div className="flex items-center justify-between">
-                        <h1 className="text-3xl font-bold">Your Images from Notes & Todos</h1>
+                        <h1 className="text-3xl font-bold">
+                            Your ({images.length}) Images from Notes & Todos
+                        </h1>
                         <ToggleView
                             view={view}
                             onChange={(value: TTimelineView) => {
