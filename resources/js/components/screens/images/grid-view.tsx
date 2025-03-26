@@ -13,7 +13,7 @@ import { GroupDateLabel } from "./group-date-label";
 
 export const GridViewLoading = () => {
     return (
-        <div className="space-y-10 pr-4">
+        <div className="space-y-10 py-5 pr-4">
             {[1, 2].map((group) => (
                 <div key={group} className="space-y-4">
                     <div className="flex items-center gap-2">

@@ -17,14 +17,10 @@ class ImageController extends Controller
      */
     public function index(Request $request)
     {
-        $page = request()->input('page', 1);
-
-        $perPage = 10;
-
         $imagesPagination = $request
             ->user()
             ->images()
-            ->paginate(perPage: $perPage, page: $page);
+            ->paginate(perPage: 10, page: $request->input('page', 1));
 
         $images = $imagesPagination->items();
 

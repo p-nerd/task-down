@@ -4,13 +4,14 @@ import { groupImagesByDate } from "@/lib/images";
 import { useImagesStore } from "@/states/images";
 
 import { AppLayout } from "@/components/layouts/app-layout";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Head, WhenVisible } from "@inertiajs/react";
+
 import { DeleteBatch } from "@/components/screens/images/delete-batch";
 import { GridView, GridViewLoading } from "@/components/screens/images/grid-view";
 import { ListView, ListViewLoading } from "@/components/screens/images/list-view";
 import { PreviewImageModal } from "@/components/screens/images/preview-image-modal";
 import { ToggleView } from "@/components/screens/images/toggle-view";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Head, WhenVisible } from "@inertiajs/react";
 
 const Images = ({
     images,
@@ -67,7 +68,7 @@ const Images = ({
                             </WhenVisible>
                         )}
                         {page >= last_page && (
-                            <p className="text-muted-foreground py-2 text-center">
+                            <p className="text-muted-foreground py-5 text-center">
                                 No more images to load.
                             </p>
                         )}
