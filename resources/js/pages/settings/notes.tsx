@@ -1,6 +1,7 @@
 import type { TEditorMode } from "@/states/notes";
 import type { TSharedData } from "@/types";
 
+import { useNotesStore } from "@/states/notes";
 import { useForm, usePage } from "@inertiajs/react";
 
 import { RadioOptions } from "@/components/inputs/radio-options";
@@ -10,6 +11,8 @@ import { SettingsSaveButton } from "@/components/screens/settings/settings-save-
 import { SettingsSection } from "@/components/screens/settings/settings-section";
 
 const NotesSettings = () => {
+    const { setSidebarVisible, setEditorMode } = useNotesStore();
+
     const options = usePage<TSharedData>().props.auth.options;
 
     const { data, setData, patch, errors, processing, recentlySuccessful } = useForm<{
@@ -29,6 +32,8 @@ const NotesSettings = () => {
                 <form
                     onSubmit={(e) => {
                         e.preventDefault();
+                        setSidebarVisible(data.notes_initial_sidebar_visibility);
+                        setEditorMode(data.notes_initial_editor_mode);
                         patch(route("settings.notes.update"));
                     }}
                     className="space-y-6"
