@@ -12,6 +12,7 @@ export type TSharedData = {
         user: TUser;
         options: {
             notes_initial_sidebar_visibility: boolean;
+            images_initial_view_mode: boolean;
         };
     };
     ziggy: Config & {

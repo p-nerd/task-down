@@ -11,31 +11,31 @@ const NotesSettings = () => {
     const options = usePage<TSharedData>().props.auth.options;
 
     const { data, setData, patch, processing, recentlySuccessful } = useForm<{
-        notes_initial_sidebar_visibility: boolean;
+        images_initial_view_mode: boolean;
     }>({
-        notes_initial_sidebar_visibility: options.notes_initial_sidebar_visibility,
+        images_initial_view_mode: options.images_initial_view_mode,
     });
 
     return (
-        <SettingsLayout title="Notes settings">
+        <SettingsLayout title="Images settings">
             <SettingsSection
-                title="Notes settings"
-                description="Update your account's notes options"
+                title="Images settings"
+                description="Update your account's images options"
             >
                 <form
                     onSubmit={(e) => {
                         e.preventDefault();
-                        patch(route("settings.notes.update"));
+                        patch(route("settings.images.update"));
                     }}
                     className="space-y-6"
                 >
                     <div className="grid gap-4">
                         <SwitchToggle
-                            name="initial-sidebar-visibility"
-                            value={data.notes_initial_sidebar_visibility}
-                            onValue={(value) => setData("notes_initial_sidebar_visibility", value)}
-                            label="Initial Sidebar Visibility"
-                            tooltip="Show sidebar by default when opening single note"
+                            name="initial-view-mode"
+                            value={data.images_initial_view_mode}
+                            onValue={(value) => setData("images_initial_view_mode", value)}
+                            label="Initial View Mode"
+                            tooltip="Toggle between Grid view (ON) and List view (OFF) as the default display mode when viewing images"
                         />
                     </div>
                     <SettingsSaveButton
