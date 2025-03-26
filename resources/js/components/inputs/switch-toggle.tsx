@@ -1,7 +1,6 @@
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { HelpCircle } from "lucide-react";
+import { TooltipInfo } from "../elements/tooltip-info";
 
 export const SwitchToggle = ({
     name,
@@ -25,18 +24,7 @@ export const SwitchToggle = ({
                 onCheckedChange={(checked) => onValue(checked)}
             />
             <Label htmlFor="initial-sidebar-visibility">{label}</Label>
-            {tooltip && (
-                <TooltipProvider>
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <HelpCircle className="h-4 w-4 cursor-help" />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                            <p className="text-xs">{tooltip}</p>
-                        </TooltipContent>
-                    </Tooltip>
-                </TooltipProvider>
-            )}
+            {tooltip && <TooltipInfo info={tooltip} />}
         </div>
     );
 };

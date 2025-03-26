@@ -51,6 +51,7 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
                 'options' => [
                     User::NOTES_INITIAL_SIDEBAR_VISIBILITY => $request->user()?->getNotesInitialSidebarVisibility(),
+                    'images_initial_view_mode' => false,
                 ],
             ],
             'ziggy' => fn (): array => [

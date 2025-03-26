@@ -1,17 +1,17 @@
-import type { TSharedData } from "@/types";
+import type { TImagesTimelineView, TSharedData } from "@/types";
 
 import { useForm, usePage } from "@inertiajs/react";
 
-import { SwitchToggle } from "@/components/inputs/switch-toggle";
+import { RadioOptions } from "@/components/inputs/radio-options";
 import { SettingsLayout } from "@/components/layouts/settings-layout";
 import { SettingsSaveButton } from "@/components/screens/settings/settings-save-button";
 import { SettingsSection } from "@/components/screens/settings/settings-section";
 
-const NotesSettings = () => {
+const ImagesSettings = () => {
     const options = usePage<TSharedData>().props.auth.options;
 
     const { data, setData, patch, processing, recentlySuccessful } = useForm<{
-        images_initial_view_mode: boolean;
+        images_initial_view_mode: TImagesTimelineView;
     }>({
         images_initial_view_mode: options.images_initial_view_mode,
     });
@@ -30,12 +30,18 @@ const NotesSettings = () => {
                     className="space-y-6"
                 >
                     <div className="grid gap-4">
-                        <SwitchToggle
+                        <RadioOptions
                             name="initial-view-mode"
-                            value={data.images_initial_view_mode}
-                            onValue={(value) => setData("images_initial_view_mode", value)}
+                            value={data.images_initial_view_mode as string}
+                            onValue={(value) =>
+                                setData("images_initial_view_mode", value as TImagesTimelineView)
+                            }
+                            options={[
+                                { label: "Grid View", value: "grid" },
+                                { label: "List View", value: "list" },
+                            ]}
                             label="Initial View Mode"
-                            tooltip="Toggle between Grid view (ON) and List view (OFF) as the default display mode when viewing images"
+                            tooltip="Select the default display mode when viewing images"
                         />
                     </div>
                     <SettingsSaveButton
@@ -48,4 +54,4 @@ const NotesSettings = () => {
     );
 };
 
-export default NotesSettings;
+export default ImagesSettings;

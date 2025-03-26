@@ -12,7 +12,7 @@ export type TSharedData = {
         user: TUser;
         options: {
             notes_initial_sidebar_visibility: boolean;
-            images_initial_view_mode: boolean;
+            images_initial_view_mode: TImagesTimelineView;
         };
     };
     ziggy: Config & {
@@ -32,7 +32,7 @@ export type TNavItem = {
     isActive?: boolean;
 };
 
-export type TTimelineView = "grid" | "list";
+export type TImagesTimelineView = "grid" | "list";
 
 export type TPaginate<T> = {
     current_page: number;
