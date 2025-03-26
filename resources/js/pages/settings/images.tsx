@@ -1,6 +1,7 @@
 import type { TViewMode } from "@/states/images";
 import type { TSharedData } from "@/types";
 
+import { useImagesStore } from "@/states/images";
 import { useForm, usePage } from "@inertiajs/react";
 
 import { RadioOptions } from "@/components/inputs/radio-options";
@@ -9,9 +10,11 @@ import { SettingsSaveButton } from "@/components/screens/settings/settings-save-
 import { SettingsSection } from "@/components/screens/settings/settings-section";
 
 const ImagesSettings = () => {
+    const { setViewMode } = useImagesStore();
+
     const options = usePage<TSharedData>().props.auth.options;
 
-    const { data, setData, patch, processing, recentlySuccessful } = useForm<{
+    const { data, setData, patch, errors, processing, recentlySuccessful } = useForm<{
         images_initial_view_mode: TViewMode;
     }>({
         images_initial_view_mode: options.images_initial_view_mode,
@@ -26,6 +29,7 @@ const ImagesSettings = () => {
                 <form
                     onSubmit={(e) => {
                         e.preventDefault();
+                        setViewMode(data.images_initial_view_mode);
                         patch(route("settings.images.update"));
                     }}
                     className="space-y-6"
@@ -43,6 +47,7 @@ const ImagesSettings = () => {
                             ]}
                             label="Initial View Mode"
                             tooltip="Select the default display mode when viewing images"
+                            error={errors.images_initial_view_mode}
                         />
                     </div>
                     <SettingsSaveButton

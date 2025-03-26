@@ -13,7 +13,7 @@ import {
 import { useForm } from "@inertiajs/react";
 import { useRef } from "react";
 
-import { Messsage } from "@/components/elements/message";
+import { Message } from "@/components/elements/message";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -86,7 +86,7 @@ const DeleteUser = () => {
                                     autoComplete="current-password"
                                 />
 
-                                <Messsage error={errors.password} />
+                                <Message error={errors.password} />
                             </div>
 
                             <DialogFooter className="gap-2">

@@ -3,7 +3,7 @@ import type { FormEventHandler } from "react";
 
 import { useForm, usePage } from "@inertiajs/react";
 
-import { Messsage } from "@/components/elements/message";
+import { Message } from "@/components/elements/message";
 import { SettingsLayout } from "@/components/layouts/settings-layout";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -54,7 +54,7 @@ const Profile = ({ mustVerifyEmail, status }: { mustVerifyEmail: boolean; status
                             placeholder="Full name"
                         />
 
-                        <Messsage className="mt-2" error={errors.name} />
+                        <Message className="mt-2" error={errors.name} />
                     </div>
 
                     <div className="grid gap-2">
@@ -71,7 +71,7 @@ const Profile = ({ mustVerifyEmail, status }: { mustVerifyEmail: boolean; status
                             placeholder="Email address"
                         />
 
-                        <Messsage className="mt-2" error={errors.email} />
+                        <Message className="mt-2" error={errors.email} />
                     </div>
 
                     {mustVerifyEmail && auth.user.email_verified_at === null && (

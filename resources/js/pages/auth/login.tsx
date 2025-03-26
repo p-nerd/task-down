@@ -2,7 +2,7 @@ import type { FormEventHandler } from "react";
 
 import { useForm } from "@inertiajs/react";
 
-import { Messsage } from "@/components/elements/message";
+import { Message } from "@/components/elements/message";
 import { TextLink } from "@/components/elements/text-link";
 import { AuthLayout } from "@/components/layouts/auth-layout";
 import { Button } from "@/components/ui/button";
@@ -54,7 +54,7 @@ const Login = ({ status, canResetPassword }: { status?: string; canResetPassword
                             onChange={(e) => setData("email", e.target.value)}
                             placeholder="email@example.com"
                         />
-                        <Messsage error={errors.email} />
+                        <Message error={errors.email} />
                     </div>
 
                     <div className="grid gap-2">
@@ -80,7 +80,7 @@ const Login = ({ status, canResetPassword }: { status?: string; canResetPassword
                             onChange={(e) => setData("password", e.target.value)}
                             placeholder="Password"
                         />
-                        <Messsage error={errors.password} />
+                        <Message error={errors.password} />
                     </div>
 
                     <div className="flex items-center space-x-3">

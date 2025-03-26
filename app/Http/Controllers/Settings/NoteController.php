@@ -23,9 +23,11 @@ class NoteController extends Controller
     {
         $validated = $request->validate([
             'notes_initial_sidebar_visibility' => ['required', 'boolean'],
+            'notes_initial_editor_mode' => ['required', 'string'],
         ]);
 
         $request->user()->setNotesInitialSidebarVisibility($validated['notes_initial_sidebar_visibility']);
+        $request->user()->setNotesInitialEditorMode($validated['notes_initial_editor_mode']);
 
         return redirect()->back()->with('success', 'Notes settings updated successfully.');
     }
