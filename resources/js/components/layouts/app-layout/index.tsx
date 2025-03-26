@@ -1,24 +1,18 @@
 import type { TSharedData } from "@/types";
 import type { ReactNode } from "react";
 
+import { useAppMount } from "@/hooks/use-app-mount";
 import { cn } from "@/lib/utils";
-import { useNotesStore } from "@/states/notes";
 import { usePage } from "@inertiajs/react";
-import { useEffect } from "react";
 
 import { BaseLayout } from "@/components/layouts/base-layout";
 import { HeaderNavigation } from "./header-navigation";
 import { ProfileDropdown } from "./profile-dropdown";
 
 const AppLayout = ({ children, className }: { children: ReactNode; className?: string }) => {
-    const { user, options } = usePage<TSharedData>().props.auth;
-    const { sidebarVisible, setSidebarVisible } = useNotesStore();
+    const { user } = usePage<TSharedData>().props.auth;
 
-    useEffect(() => {
-        if (sidebarVisible === null) {
-            setSidebarVisible(options.notes_initial_sidebar_visibility);
-        }
-    }, []);
+    useAppMount();
 
     return (
         <BaseLayout className="max-w-app mx-auto flex flex-col p-2">

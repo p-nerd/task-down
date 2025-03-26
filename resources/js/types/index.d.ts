@@ -32,8 +32,6 @@ export type TNavItem = {
     isActive?: boolean;
 };
 
-export type TImagesViewMode = "grid" | "list";
-
 export type TPaginate<T> = {
     current_page: number;
     data: T[];

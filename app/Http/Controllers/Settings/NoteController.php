@@ -22,7 +22,7 @@ class NoteController extends Controller
     public function update(Request $request)
     {
         $validated = $request->validate([
-            'notes_initial_sidebar_visibility' => 'required|boolean',
+            'notes_initial_sidebar_visibility' => ['required', 'boolean'],
         ]);
 
         $request->user()->setNotesInitialSidebarVisibility($validated['notes_initial_sidebar_visibility']);

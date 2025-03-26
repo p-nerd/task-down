@@ -3,16 +3,25 @@ import type { TImage } from "@/types/models";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
+export type TViewMode = "grid" | "list";
+
 export const useImagesStore = create(
     immer<{
+        viewMode: TViewMode | null;
+        setViewMode: (viewMode: TViewMode | null) => void;
+
         selectedImageIds: string[];
-        setSelectedImageIds: (imageIds: string[]) => void;
+        setSelectedImageIds: (selectedImageIds: string[]) => void;
         toggleSelectedImageId: (imageId: string) => void;
+
         previewImage: TImage | null;
         setPreviewImage: (image: TImage | null) => void;
     }>((set) => ({
+        viewMode: null,
+        setViewMode: (viewMode) => set({ viewMode }),
+
         selectedImageIds: [],
-        setSelectedImageIds: (images) => set({ selectedImageIds: images }),
+        setSelectedImageIds: (selectedImageIds) => set({ selectedImageIds }),
         toggleSelectedImageId: (imageId) => {
             set((state) => {
                 if (state.selectedImageIds.includes(imageId)) {
@@ -22,6 +31,7 @@ export const useImagesStore = create(
                 }
             });
         },
+
         previewImage: null,
         setPreviewImage: (image) => set({ previewImage: image }),
     })),
