@@ -69,11 +69,24 @@ class Option extends Model
     }
 
     /**
-     * Get an option value by key.
+     * Get an option by key.
      */
     public static function get(string $key, string $userId, mixed $default = null): mixed
     {
         $option = static::where('key', $key)->where('user_id', $userId)->first();
+        if (! $option) {
+            return $default;
+        }
+
+        return $option;
+    }
+
+    /**
+     * Get an option value by key.
+     */
+    public static function getValue(string $key, string $userId, mixed $default = null): mixed
+    {
+        $option = static::get($key, $userId);
         if (! $option) {
             return $default;
         }

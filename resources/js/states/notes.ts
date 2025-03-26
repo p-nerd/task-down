@@ -7,12 +7,12 @@ export const useNotesStore = create(
     immer<{
         notes: TNote[];
         setNotes: (notes: TNote[]) => void;
-        sidebarVisible: boolean;
+        sidebarVisible: boolean | null;
         setSidebarVisible: (value: boolean) => void;
     }>((set) => ({
         notes: [],
         setNotes: (notes) => set({ notes }),
-        sidebarVisible: true,
+        sidebarVisible: null,
         setSidebarVisible: (value) => set({ sidebarVisible: value }),
     })),
 );

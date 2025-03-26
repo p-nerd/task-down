@@ -69,14 +69,14 @@ class User extends Authenticatable
     /**
      * Option key for controlling the initial visibility state of the notes sidebar
      */
-    public const NOTES_INITIAL_SIDEBAR_VISIBILITY = 'notes-initial-sidebar-visibility';
+    public const NOTES_INITIAL_SIDEBAR_VISIBILITY = 'notes_initial_sidebar_visibility';
 
     /**
      * Retrieves the global setting for initial sidebar visibility state
      */
-    public function getNotesInitialSidebarVisibility(): ?Option
+    public function getNotesInitialSidebarVisibility(): ?bool
     {
-        return Option::get(self::NOTES_INITIAL_SIDEBAR_VISIBILITY, $this->id, true);
+        return Option::getValue(self::NOTES_INITIAL_SIDEBAR_VISIBILITY, $this->id, true);
     }
 
     /**

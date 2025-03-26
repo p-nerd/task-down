@@ -27,5 +27,6 @@ Route::prefix('/settings')->middleware('auth')->group(function () {
 
     Route::prefix('/notes')->group(function () {
         Route::get('/', [NoteController::class, 'edit'])->name('settings.notes.edit');
+        Route::patch('/', [NoteController::class, 'update'])->name('settings.notes.update');
     });
 });

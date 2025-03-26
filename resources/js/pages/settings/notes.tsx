@@ -1,4 +1,6 @@
-import { useForm } from "@inertiajs/react";
+import type { TSharedData } from "@/types";
+
+import { useForm, usePage } from "@inertiajs/react";
 
 import { SettingsLayout } from "@/components/layouts/settings-layout";
 import { SettingsSaveButton } from "@/components/screens/settings/settings-save-button";
@@ -8,11 +10,13 @@ import { Switch } from "@/components/ui/switch";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { HelpCircle } from "lucide-react";
 
-const NotesSettings = ({ initial_sidebar_visibility }: { initial_sidebar_visibility: boolean }) => {
+const NotesSettings = () => {
+    const options = usePage<TSharedData>().props.auth.options;
+
     const { data, setData, patch, processing, recentlySuccessful } = useForm<{
-        initial_sidebar_visibility: boolean;
+        notes_initial_sidebar_visibility: boolean;
     }>({
-        initial_sidebar_visibility,
+        notes_initial_sidebar_visibility: options.notes_initial_sidebar_visibility,
     });
 
     return (
@@ -24,7 +28,7 @@ const NotesSettings = ({ initial_sidebar_visibility }: { initial_sidebar_visibil
                 <form
                     onSubmit={(e) => {
                         e.preventDefault();
-                        patch("/settings/notes");
+                        patch(route("settings.notes.update"));
                     }}
                     className="space-y-6"
                 >
@@ -32,9 +36,9 @@ const NotesSettings = ({ initial_sidebar_visibility }: { initial_sidebar_visibil
                         <div className="flex items-center gap-3">
                             <Switch
                                 id="initial-sidebar-visibility"
-                                checked={data.initial_sidebar_visibility}
+                                checked={data.notes_initial_sidebar_visibility}
                                 onCheckedChange={(checked) =>
-                                    setData("initial_sidebar_visibility", checked)
+                                    setData("notes_initial_sidebar_visibility", checked)
                                 }
                             />
                             <Label htmlFor="initial-sidebar-visibility">

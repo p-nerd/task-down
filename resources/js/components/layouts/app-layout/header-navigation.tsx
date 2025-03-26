@@ -60,8 +60,8 @@ const Item = ({ item }: { item: TItem }) => {
 const HeaderNavigation = () => {
     return (
         <div className="flex flex-1 overflow-hidden">
-            {items.map((item) => (
-                <Item item={item} />
+            {items.map((item, index) => (
+                <Item item={item} key={index} />
             ))}
         </div>
     );

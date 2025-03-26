@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -42,9 +43,20 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'name' => config('app.name'),
-            'quote' => ['message' => trim($message), 'author' => trim($author)],
-            'auth' => ['user' => $request->user()],
-            'ziggy' => fn (): array => [...(new Ziggy)->toArray(), 'location' => $request->url()],
+            'quote' => [
+                'message' => trim($message),
+                'author' => trim($author),
+            ],
+            'auth' => [
+                'user' => $request->user(),
+                'options' => [
+                    User::NOTES_INITIAL_SIDEBAR_VISIBILITY => $request->user()?->getNotesInitialSidebarVisibility(),
+                ],
+            ],
+            'ziggy' => fn (): array => [
+                ...(new Ziggy)->toArray(),
+                'location' => $request->url(),
+            ],
         ];
     }
 }

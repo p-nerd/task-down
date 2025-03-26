@@ -4,9 +4,19 @@ import type { TUser } from "./models";
 
 export type TSharedData = {
     name: string;
-    quote: { message: string; author: string };
-    auth: { user: TUser };
-    ziggy: Config & { location: string };
+    quote: {
+        message: string;
+        author: string;
+    };
+    auth: {
+        user: TUser;
+        options: {
+            notes_initial_sidebar_visibility: boolean;
+        };
+    };
+    ziggy: Config & {
+        location: string;
+    };
 };
 
 export type TBreadcrumbItem = {
