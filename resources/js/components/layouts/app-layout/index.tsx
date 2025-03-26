@@ -1,6 +1,7 @@
 import type { TSharedData } from "@/types";
 import type { ReactNode } from "react";
 
+import { useAppMount } from "@/hooks/use-app-mount";
 import { cn } from "@/lib/utils";
 import { usePage } from "@inertiajs/react";
 
@@ -10,6 +11,8 @@ import { ProfileDropdown } from "./profile-dropdown";
 
 const AppLayout = ({ children, className }: { children: ReactNode; className?: string }) => {
     const { user } = usePage<TSharedData>().props.auth;
+
+    useAppMount();
 
     return (
         <BaseLayout className="max-w-app mx-auto flex flex-col p-2">

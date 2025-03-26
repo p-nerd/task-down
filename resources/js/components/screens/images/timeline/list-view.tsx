@@ -9,7 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { FileIcon } from "lucide-react";
-import { DeleteImage } from "./delete-image";
+import { DeleteImageButton } from "./delete-image-button";
 import { GroupDateLabel } from "./group-date-label";
 
 export const ListViewLoading = () => {
@@ -42,13 +42,7 @@ export const ListViewLoading = () => {
     );
 };
 
-export const ListView = ({
-    groupedImages,
-    onDeleteImage,
-}: {
-    groupedImages: TGroupImage[];
-    onDeleteImage: (imageId: string, onSuccess: () => void) => void;
-}) => {
+export const ListView = ({ groupedImages }: { groupedImages: TGroupImage[] }) => {
     const { selectedImageIds, toggleSelectedImageId, setPreviewImage } = useImagesStore();
 
     return (
@@ -87,9 +81,8 @@ export const ListView = ({
                                         {format(image.created_at, "h:mm a")}
                                     </p>
                                 </div>
-                                <DeleteImage
+                                <DeleteImageButton
                                     image={image}
-                                    onDelete={onDeleteImage}
                                     className={cn(
                                         buttonVariants({ variant: "ghost", size: "icon" }),
                                         "text-destructive hover:bg-destructive/10 cursor-pointer",

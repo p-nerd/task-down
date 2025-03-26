@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -39,12 +40,26 @@ class HandleInertiaRequests extends Middleware
     {
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
 
+        $user = $request->user();
+
         return [
             ...parent::share($request),
             'name' => config('app.name'),
-            'quote' => ['message' => trim($message), 'author' => trim($author)],
-            'auth' => ['user' => $request->user()],
-            'ziggy' => fn (): array => [...(new Ziggy)->toArray(), 'location' => $request->url()],
+            'quote' => [
+                'message' => trim($message),
+                'author' => trim($author),
+            ],
+            'auth' => [
+                'user' => $user,
+                'options' => [
+                    User::NOTES_INITIAL_SIDEBAR_VISIBILITY => $user?->getNotesInitialSidebarVisibility(),
+                    User::IMAGES_INITIAL_VIEW_MODE => $user?->getImagesInitialViewMode(),
+                ],
+            ],
+            'ziggy' => fn (): array => [
+                ...(new Ziggy)->toArray(),
+                'location' => $request->url(),
+            ],
         ];
     }
 }

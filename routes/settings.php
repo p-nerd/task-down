@@ -1,6 +1,9 @@
 <?php
 
 // use App\Http\Controllers\Settings\AppearanceController;
+
+use App\Http\Controllers\Settings\ImageController;
+use App\Http\Controllers\Settings\NoteController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -22,4 +25,14 @@ Route::prefix('/settings')->middleware('auth')->group(function () {
     // Route::prefix('/appearance')->group(function () {
     //     Route::get('/', [AppearanceController::class, 'edit'])->name('settings.appearance.edit');
     // });
+
+    Route::prefix('/notes')->group(function () {
+        Route::get('/', [NoteController::class, 'edit'])->name('settings.notes.edit');
+        Route::patch('/', [NoteController::class, 'update'])->name('settings.notes.update');
+    });
+
+    Route::prefix('/images')->group(function () {
+        Route::get('/', [ImageController::class, 'edit'])->name('settings.images.edit');
+        Route::patch('/', [ImageController::class, 'update'])->name('settings.images.update');
+    });
 });

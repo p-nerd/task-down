@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Image;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class ImageSeeder extends Seeder
+class OptionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,5 @@ class ImageSeeder extends Seeder
         if (production()) {
             return;
         }
-
-        Image::factory(20)->create();
     }
 }

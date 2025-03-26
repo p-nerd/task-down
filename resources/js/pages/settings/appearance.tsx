@@ -4,9 +4,8 @@ import type { LucideIcon } from "lucide-react";
 import { useAppearance } from "@/hooks/use-appearance";
 import { cn } from "@/lib/utils";
 
-import { HeadingSmall } from "@/components/elements/heading-small";
 import { SettingsLayout } from "@/components/layouts/settings-layout";
-import { Head } from "@inertiajs/react";
+import { SettingsSection } from "@/components/screens/settings/settings-section";
 import { MonitorIcon, MoonIcon, SunIcon } from "lucide-react";
 
 const tabs: { value: TAppearance; icon: LucideIcon; label: string }[] = [
@@ -19,13 +18,11 @@ const Appearance = () => {
     const { appearance, updateAppearance } = useAppearance();
 
     return (
-        <SettingsLayout>
-            <Head title="Appearance settings" />
-            <div className="space-y-6">
-                <HeadingSmall
-                    title="Appearance settings"
-                    description="Update your account's appearance settings"
-                />
+        <SettingsLayout title="Appearance settings">
+            <SettingsSection
+                title="Appearance settings"
+                description="Update your account's appearance settings"
+            >
                 <div className="inline-flex gap-1 rounded-lg bg-neutral-100 p-1 dark:bg-neutral-800">
                     {tabs.map(({ value, icon: Icon, label }) => (
                         <button
@@ -43,7 +40,7 @@ const Appearance = () => {
                         </button>
                     ))}
                 </div>
-            </div>
+            </SettingsSection>
         </SettingsLayout>
     );
 };

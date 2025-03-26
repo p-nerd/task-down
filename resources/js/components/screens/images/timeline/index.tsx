@@ -1,47 +1,32 @@
-import type { TTimelineView } from "@/types";
 import type { TImage } from "@/types/models";
 
 import { groupImagesByDate } from "@/lib/images";
-import { router } from "@inertiajs/react";
+import { useImagesStore } from "@/states/images";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { GridView, GridViewLoading } from "./grid-view";
 import { ListView, ListViewLoading } from "./list-view";
 import { PreviewImageModal } from "./preview-image-modal";
 
-export const Loading = ({ view: view }: { view: TTimelineView }) => {
-    return (
-        <>{view === "grid" ? <GridViewLoading /> : view === "list" ? <ListViewLoading /> : <></>}</>
-    );
+export const Loading = () => {
+    const { viewMode } = useImagesStore();
+
+    return <>{viewMode === "grid" ? <GridViewLoading /> : <ListViewLoading />}</>;
 };
 
-export const Timeline = ({
-    images,
-    view,
-    areaHeight,
-}: {
-    images: TImage[];
-    view: TTimelineView;
-    areaHeight: string;
-}) => {
+export const Timeline = ({ images, areaHeight }: { images: TImage[]; areaHeight: string }) => {
     const groupedImages = groupImagesByDate(images);
 
-    const handleDeleteImage = (id: string, onSuccess: () => void) => {
-        router.delete(route("images.destroy", id), {
-            onSuccess,
-        });
-    };
+    const { viewMode } = useImagesStore();
 
     return (
         <>
             <PreviewImageModal />
             <ScrollArea style={{ height: areaHeight }}>
-                {view === "grid" ? (
-                    <GridView groupedImages={groupedImages} onDeleteImage={handleDeleteImage} />
-                ) : view === "list" ? (
-                    <ListView groupedImages={groupedImages} onDeleteImage={handleDeleteImage} />
+                {viewMode === "grid" ? (
+                    <GridView groupedImages={groupedImages} />
                 ) : (
-                    <></>
+                    <ListView groupedImages={groupedImages} />
                 )}
             </ScrollArea>
         </>

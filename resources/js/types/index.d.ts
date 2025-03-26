@@ -4,9 +4,20 @@ import type { TUser } from "./models";
 
 export type TSharedData = {
     name: string;
-    quote: { message: string; author: string };
-    auth: { user: TUser };
-    ziggy: Config & { location: string };
+    quote: {
+        message: string;
+        author: string;
+    };
+    auth: {
+        user: TUser;
+        options: {
+            notes_initial_sidebar_visibility: boolean;
+            images_initial_view_mode: TImagesViewMode;
+        };
+    };
+    ziggy: Config & {
+        location: string;
+    };
 };
 
 export type TBreadcrumbItem = {
@@ -20,8 +31,6 @@ export type TNavItem = {
     icon?: LucideIcon | null;
     isActive?: boolean;
 };
-
-export type TTimelineView = "grid" | "list";
 
 export type TPaginate<T> = {
     current_page: number;

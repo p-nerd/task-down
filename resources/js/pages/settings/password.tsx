@@ -3,14 +3,12 @@ import type { FormEventHandler } from "react";
 import { useForm } from "@inertiajs/react";
 import { useRef } from "react";
 
-import { HeadingSmall } from "@/components/elements/heading-small";
 import { Messsage } from "@/components/elements/message";
 import { SettingsLayout } from "@/components/layouts/settings-layout";
-import { Button } from "@/components/ui/button";
+import { SettingsSaveButton } from "@/components/screens/settings/settings-save-button";
+import { SettingsSection } from "@/components/screens/settings/settings-section";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Transition } from "@headlessui/react";
-import { Head } from "@inertiajs/react";
 
 const Password = () => {
     const passwordInput = useRef<HTMLInputElement>(null);
@@ -43,14 +41,11 @@ const Password = () => {
     };
 
     return (
-        <SettingsLayout>
-            <Head title="Profile settings" />
-            <div className="space-y-6">
-                <HeadingSmall
-                    title="Update password"
-                    description="Ensure your account is using a long, random password to stay secure"
-                />
-
+        <SettingsLayout title="Profile settings">
+            <SettingsSection
+                title="Update password"
+                description="Ensure your account is using a long, random password to stay secure"
+            >
                 <form onSubmit={updatePassword} className="space-y-6">
                     <div className="grid gap-2">
                         <Label htmlFor="current_password">Current password</Label>
@@ -102,21 +97,13 @@ const Password = () => {
                         <Messsage error={errors.password_confirmation} />
                     </div>
 
-                    <div className="flex items-center gap-4">
-                        <Button disabled={processing}>Save password</Button>
-
-                        <Transition
-                            show={recentlySuccessful}
-                            enter="transition ease-in-out"
-                            enterFrom="opacity-0"
-                            leave="transition ease-in-out"
-                            leaveTo="opacity-0"
-                        >
-                            <p className="text-sm text-neutral-600">Saved</p>
-                        </Transition>
-                    </div>
+                    <SettingsSaveButton
+                        processing={processing}
+                        recentlySuccessful={recentlySuccessful}
+                        buttonText="Save password"
+                    />
                 </form>
-            </div>
+            </SettingsSection>
         </SettingsLayout>
     );
 };

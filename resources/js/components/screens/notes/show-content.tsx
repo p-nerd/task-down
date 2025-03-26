@@ -8,6 +8,7 @@ import { router } from "@inertiajs/react";
 import { useCallback, useEffect, useState } from "react";
 
 import { MDXEditor } from "@mdxeditor/editor";
+import { DeleteNoteButton } from "./delete-note-button";
 
 const ShowContent = ({ note }: { note: TNote }) => {
     const [noteName, setNoteName] = useState(note.name);
@@ -68,9 +69,12 @@ const ShowContent = ({ note }: { note: TNote }) => {
                         className="mr-4 w-full bg-transparent text-2xl font-bold focus:outline-none"
                         placeholder="Note Title"
                     />
-                    <span className="text-muted-foreground text-sm whitespace-nowrap">
-                        {time.format.shortt(note.updated_at)}
-                    </span>
+                    <div className="flex items-center space-x-2">
+                        <span className="text-muted-foreground text-sm whitespace-nowrap">
+                            {time.format.shortt(note.updated_at)}
+                        </span>
+                        <DeleteNoteButton noteId={note.id} />
+                    </div>
                 </div>
             </div>
             <MDXEditor

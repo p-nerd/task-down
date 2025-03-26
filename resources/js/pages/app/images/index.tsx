@@ -1,9 +1,6 @@
-import type { TTimelineView } from "@/types";
 import type { TImage } from "@/types/models";
 
-import { getQueryParam, replaceQueryParam } from "@/lib/url";
 import { useImagesStore } from "@/states/images";
-import { router } from "@inertiajs/react";
 
 import { AppLayout } from "@/components/layouts/app-layout";
 import { DeleteBatch } from "@/components/screens/images/delete-batch";
@@ -12,10 +9,6 @@ import { ToggleView } from "@/components/screens/images/toggle-view";
 import { Head } from "@inertiajs/react";
 
 const Images = ({ images }: { images: TImage[] }) => {
-    const href = window.location.href;
-
-    const view = getQueryParam(href, "view", "grid") as TTimelineView;
-
     const { selectedImageIds } = useImagesStore();
 
     return (
@@ -27,17 +20,11 @@ const Images = ({ images }: { images: TImage[] }) => {
                         <h1 className="text-3xl font-bold">
                             Your ({images.length}) Images from Notes & Todos
                         </h1>
-                        <ToggleView
-                            view={view}
-                            onChange={(value: TTimelineView) => {
-                                router.get(replaceQueryParam(href, "view", value));
-                            }}
-                        />
+                        <ToggleView />
                     </div>
                     {selectedImageIds.length > 0 && <DeleteBatch />}
                     <Timeline
                         images={images}
-                        view={view}
                         areaHeight={
                             selectedImageIds.length > 0
                                 ? "calc(100vh - 14.5rem)"

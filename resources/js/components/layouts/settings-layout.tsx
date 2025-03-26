@@ -6,8 +6,8 @@ import { cn } from "@/lib/utils";
 import { Heading } from "@/components/elements/heading";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Link } from "@inertiajs/react";
-import { ArrowLeftIcon, LockIcon, UserIcon } from "lucide-react";
+import { Head, Link } from "@inertiajs/react";
+import { ArrowLeftIcon, ImagesIcon, LockIcon, NotebookIcon, UserIcon } from "lucide-react";
 
 import { AppLayout } from "./app-layout";
 
@@ -27,11 +27,22 @@ const links: { title: string; route: string; icon: LucideIcon }[] = [
     //     route: "settings.appearance.edit",
     //     icon: PaletteIcon,
     // },
+    {
+        title: "Notes",
+        route: "settings.notes.edit",
+        icon: NotebookIcon,
+    },
+    {
+        title: "Images",
+        route: "settings.images.edit",
+        icon: ImagesIcon,
+    },
 ];
 
-const SettingsLayout = ({ children }: { children: ReactNode }) => {
+const SettingsLayout = ({ title, children }: { title: string; children: ReactNode }) => {
     return (
         <AppLayout>
+            <Head title={title} />
             <div className="px-4 py-6">
                 <div className="mb-6 flex items-center justify-between">
                     <Heading
@@ -41,13 +52,11 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
                     <Button
                         variant="ghost"
                         size="sm"
-                        asChild
                         className="text-muted-foreground hover:text-foreground flex items-center"
+                        onClick={() => history.back()}
                     >
-                        <Link href={route("notes.index")}>
-                            <ArrowLeftIcon className="size-4" />
-                            Got Back
-                        </Link>
+                        <ArrowLeftIcon className="size-4" />
+                        Got Back
                     </Button>
                 </div>
                 <div className="flex flex-col space-y-8 lg:flex-row lg:space-y-0 lg:space-x-12">
