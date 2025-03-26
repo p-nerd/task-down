@@ -98,4 +98,16 @@ class User extends Authenticatable
     {
         return Option::set(self::IMAGES_INITIAL_VIEW_MODE, $value, OptionType::STRING, $this->id); // @phpstan-ignore-line
     }
+
+    public const NOTES_INITIAL_EDITOR_MODE = 'notes_initial_editor_mode';
+
+    public function getNotesInitialEditorMode(): string
+    {
+        return Option::getValue(self::NOTES_INITIAL_EDITOR_MODE, $this->id, 'rich'); // @phpstan-ignore-line
+    }
+
+    public function setNotesInitialEditorMode(string $value): Option
+    {
+        return Option::set(self::NOTES_INITIAL_EDITOR_MODE, $value, OptionType::STRING, $this->id); // @phpstan-ignore-line
+    }
 }

@@ -7,12 +7,18 @@ import { useEffect } from "react";
 
 export const useAppMount = () => {
     const { options } = usePage<TSharedData>().props.auth;
-    const { sidebarVisible, setSidebarVisible } = useNotesStore();
+    const { sidebarVisible, setSidebarVisible, editorMode, setEditorMode } = useNotesStore();
     const { viewMode, setViewMode } = useImagesStore();
 
     useEffect(() => {
         if (sidebarVisible === null) {
             setSidebarVisible(options.notes_initial_sidebar_visibility);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (editorMode === null) {
+            setEditorMode(options.notes_initial_editor_mode);
         }
     }, []);
 

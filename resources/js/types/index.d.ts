@@ -1,3 +1,5 @@
+import type { TViewMode } from "@/states/images";
+import type { TEditorMode } from "@/states/notes";
 import type { LucideIcon } from "lucide-react";
 import type { Config } from "ziggy-js";
 import type { TUser } from "./models";
@@ -12,7 +14,8 @@ export type TSharedData = {
         user: TUser;
         options: {
             notes_initial_sidebar_visibility: boolean;
-            images_initial_view_mode: TImagesViewMode;
+            images_initial_view_mode: TViewMode;
+            notes_initial_editor_mode: TEditorMode;
         };
     };
     ziggy: Config & {

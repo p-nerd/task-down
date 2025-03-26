@@ -53,6 +53,7 @@ class HandleInertiaRequests extends Middleware
                 'user' => $user,
                 'options' => [
                     User::NOTES_INITIAL_SIDEBAR_VISIBILITY => $user?->getNotesInitialSidebarVisibility(),
+                    User::NOTES_INITIAL_EDITOR_MODE => $user?->getNotesInitialEditorMode(),
                     User::IMAGES_INITIAL_VIEW_MODE => $user?->getImagesInitialViewMode(),
                 ],
             ],
