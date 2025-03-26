@@ -16,8 +16,11 @@ class ImageController extends Controller
      */
     public function index(Request $request)
     {
+        $page = 2;
+        $perPage = 10;
+
         return inertia('app/images/index', [
-            'images' => $request->user()->images()->get(),
+            'images' => $request->user()->images()->paginate(perPage: $perPage, page: $page),
         ]);
     }
 
