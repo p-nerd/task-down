@@ -1,4 +1,4 @@
-import type { TImagesTimelineView } from "@/types";
+import type { TImagesViewMode } from "@/types";
 
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { GridIcon, ListIcon } from "lucide-react";
@@ -7,8 +7,8 @@ export const ToggleView = ({
     view,
     onChange,
 }: {
-    view: TImagesTimelineView;
-    onChange: (view: TImagesTimelineView) => void;
+    view: TImagesViewMode;
+    onChange: (view: TImagesViewMode) => void;
 }) => {
     return (
         <ToggleGroup type="single" value={view} onValueChange={onChange} className="shadow-xs">

@@ -1,4 +1,4 @@
-import type { TImagesTimelineView, TSharedData } from "@/types";
+import type { TImagesViewMode, TSharedData } from "@/types";
 
 import { useForm, usePage } from "@inertiajs/react";
 
@@ -11,7 +11,7 @@ const ImagesSettings = () => {
     const options = usePage<TSharedData>().props.auth.options;
 
     const { data, setData, patch, processing, recentlySuccessful } = useForm<{
-        images_initial_view_mode: TImagesTimelineView;
+        images_initial_view_mode: TImagesViewMode;
     }>({
         images_initial_view_mode: options.images_initial_view_mode,
     });
@@ -34,7 +34,7 @@ const ImagesSettings = () => {
                             name="initial-view-mode"
                             value={data.images_initial_view_mode as string}
                             onValue={(value) =>
-                                setData("images_initial_view_mode", value as TImagesTimelineView)
+                                setData("images_initial_view_mode", value as TImagesViewMode)
                             }
                             options={[
                                 { label: "Grid View", value: "grid" },

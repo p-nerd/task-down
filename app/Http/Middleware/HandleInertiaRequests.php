@@ -40,6 +40,8 @@ class HandleInertiaRequests extends Middleware
     {
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
 
+        $user = $request->user();
+
         return [
             ...parent::share($request),
             'name' => config('app.name'),
@@ -48,10 +50,10 @@ class HandleInertiaRequests extends Middleware
                 'author' => trim($author),
             ],
             'auth' => [
-                'user' => $request->user(),
+                'user' => $user,
                 'options' => [
-                    User::NOTES_INITIAL_SIDEBAR_VISIBILITY => $request->user()?->getNotesInitialSidebarVisibility(),
-                    'images_initial_view_mode' => false,
+                    User::NOTES_INITIAL_SIDEBAR_VISIBILITY => $user?->getNotesInitialSidebarVisibility(),
+                    User::IMAGES_INITIAL_VIEW_MODE => $user?->getImagesInitialViewMode(),
                 ],
             ],
             'ziggy' => fn (): array => [

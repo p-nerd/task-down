@@ -74,7 +74,7 @@ class User extends Authenticatable
     /**
      * Retrieves the global setting for initial sidebar visibility state
      */
-    public function getNotesInitialSidebarVisibility(): ?bool
+    public function getNotesInitialSidebarVisibility(): bool
     {
         return Option::getValue(self::NOTES_INITIAL_SIDEBAR_VISIBILITY, $this->id, true);
     }
@@ -85,5 +85,17 @@ class User extends Authenticatable
     public function setNotesInitialSidebarVisibility(int $value): Option
     {
         return Option::set(self::NOTES_INITIAL_SIDEBAR_VISIBILITY, $value, OptionType::BOOLEAN, $this->id);
+    }
+
+    public const IMAGES_INITIAL_VIEW_MODE = 'images_initial_view_mode';
+
+    public function getImagesInitialViewMode(): string
+    {
+        return Option::getValue(self::IMAGES_INITIAL_VIEW_MODE, $this->id, 'list');
+    }
+
+    public function setImagesInitialViewMode(string $value): Option
+    {
+        return Option::set(self::IMAGES_INITIAL_VIEW_MODE, $value, OptionType::STRING, $this->id);
     }
 }

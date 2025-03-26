@@ -1,4 +1,4 @@
-import type { TImagesTimelineView } from "@/types";
+import type { TImagesViewMode } from "@/types";
 import type { TImage } from "@/types/models";
 
 import { groupImagesByDate } from "@/lib/images";
@@ -8,7 +8,7 @@ import { GridView, GridViewLoading } from "./grid-view";
 import { ListView, ListViewLoading } from "./list-view";
 import { PreviewImageModal } from "./preview-image-modal";
 
-export const Loading = ({ view: view }: { view: TImagesTimelineView }) => {
+export const Loading = ({ view: view }: { view: TImagesViewMode }) => {
     return (
         <>{view === "grid" ? <GridViewLoading /> : view === "list" ? <ListViewLoading /> : <></>}</>
     );
@@ -20,7 +20,7 @@ export const Timeline = ({
     areaHeight,
 }: {
     images: TImage[];
-    view: TImagesTimelineView;
+    view: TImagesViewMode;
     areaHeight: string;
 }) => {
     const groupedImages = groupImagesByDate(images);

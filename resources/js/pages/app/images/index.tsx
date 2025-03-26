@@ -1,4 +1,4 @@
-import type { TImagesTimelineView } from "@/types";
+import type { TImagesViewMode } from "@/types";
 import type { TImage } from "@/types/models";
 
 import { getQueryParam, replaceQueryParam } from "@/lib/url";
@@ -14,7 +14,7 @@ import { Head } from "@inertiajs/react";
 const Images = ({ images }: { images: TImage[] }) => {
     const href = window.location.href;
 
-    const view = getQueryParam(href, "view", "grid") as TImagesTimelineView;
+    const view = getQueryParam(href, "view", "grid") as TImagesViewMode;
 
     const { selectedImageIds } = useImagesStore();
 
@@ -29,7 +29,7 @@ const Images = ({ images }: { images: TImage[] }) => {
                         </h1>
                         <ToggleView
                             view={view}
-                            onChange={(value: TImagesTimelineView) => {
+                            onChange={(value: TImagesViewMode) => {
                                 router.get(replaceQueryParam(href, "view", value));
                             }}
                         />
