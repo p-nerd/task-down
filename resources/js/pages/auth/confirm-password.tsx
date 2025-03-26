@@ -2,7 +2,7 @@ import type { FormEventHandler } from "react";
 
 import { useForm } from "@inertiajs/react";
 
-import { Messsage } from "@/components/elements/message";
+import { Message } from "@/components/elements/message";
 import { AuthLayout } from "@/components/layouts/auth-layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -47,7 +47,7 @@ const ConfirmPassword = () => {
                             onChange={(e) => setData("password", e.target.value)}
                         />
 
-                        <Messsage error={errors.password} />
+                        <Message error={errors.password} />
                     </div>
 
                     <div className="flex items-center">

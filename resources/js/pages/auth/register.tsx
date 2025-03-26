@@ -2,7 +2,7 @@ import type { FormEventHandler } from "react";
 
 import { useForm } from "@inertiajs/react";
 
-import { Messsage } from "@/components/elements/message";
+import { Message } from "@/components/elements/message";
 import { TextLink } from "@/components/elements/text-link";
 import { AuthLayout } from "@/components/layouts/auth-layout";
 import { Button } from "@/components/ui/button";
@@ -55,7 +55,7 @@ const Register = () => {
                             disabled={processing}
                             placeholder="Full name"
                         />
-                        <Messsage error={errors.name} className="mt-2" />
+                        <Message error={errors.name} className="mt-2" />
                     </div>
 
                     <div className="grid gap-2">
@@ -71,7 +71,7 @@ const Register = () => {
                             disabled={processing}
                             placeholder="email@example.com"
                         />
-                        <Messsage error={errors.email} />
+                        <Message error={errors.email} />
                     </div>
 
                     <div className="grid gap-2">
@@ -87,7 +87,7 @@ const Register = () => {
                             disabled={processing}
                             placeholder="Password"
                         />
-                        <Messsage error={errors.password} />
+                        <Message error={errors.password} />
                     </div>
 
                     <div className="grid gap-2">
@@ -103,7 +103,7 @@ const Register = () => {
                             disabled={processing}
                             placeholder="Confirm password"
                         />
-                        <Messsage error={errors.password_confirmation} />
+                        <Message error={errors.password_confirmation} />
                     </div>
 
                     <Button

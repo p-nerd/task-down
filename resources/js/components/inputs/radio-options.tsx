@@ -1,5 +1,6 @@
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Message } from "../elements/message";
 import { TooltipInfo } from "../elements/tooltip-info";
 
 export const RadioOptions = ({
@@ -9,6 +10,7 @@ export const RadioOptions = ({
     options,
     label,
     tooltip,
+    error,
 }: {
     name: string;
     value: string;
@@ -16,9 +18,10 @@ export const RadioOptions = ({
     options: { label: string; value: string }[];
     label: string;
     tooltip?: string;
+    error?: string;
 }) => {
     return (
-        <div className="space-y-2">
+        <div>
             <div className="flex items-center space-x-2">
                 <div className="text-sm font-medium">{label}</div>
                 {tooltip && <TooltipInfo info={tooltip} />}
@@ -37,6 +40,7 @@ export const RadioOptions = ({
                     </div>
                 ))}
             </RadioGroup>
+            <Message error={error} />
         </div>
     );
 };

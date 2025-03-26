@@ -2,7 +2,7 @@ import type { HTMLAttributes } from "react";
 
 import { cn } from "@/lib/utils";
 
-const Messsage = ({
+export const Message = ({
     error: message,
     className = "",
     ...props
@@ -13,5 +13,3 @@ const Messsage = ({
         </p>
     ) : null;
 };
-
-export { Messsage };

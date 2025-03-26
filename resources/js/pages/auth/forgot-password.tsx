@@ -5,7 +5,7 @@ import { useForm } from "@inertiajs/react";
 import { Head } from "@inertiajs/react";
 import { LoaderCircleIcon } from "lucide-react";
 
-import { Messsage } from "@/components/elements/message";
+import { Message } from "@/components/elements/message";
 import { TextLink } from "@/components/elements/text-link";
 import { AuthLayout } from "@/components/layouts/auth-layout";
 import { Button } from "@/components/ui/button";
@@ -49,7 +49,7 @@ const ForgotPassword = ({ status }: { status?: string }) => {
                             placeholder="email@example.com"
                         />
 
-                        <Messsage error={errors.email} />
+                        <Message error={errors.email} />
                     </div>
 
                     <div className="my-6 flex items-center justify-start">

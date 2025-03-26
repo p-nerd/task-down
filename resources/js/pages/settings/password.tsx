@@ -3,7 +3,7 @@ import type { FormEventHandler } from "react";
 import { useForm } from "@inertiajs/react";
 import { useRef } from "react";
 
-import { Messsage } from "@/components/elements/message";
+import { Message } from "@/components/elements/message";
 import { SettingsLayout } from "@/components/layouts/settings-layout";
 import { SettingsSaveButton } from "@/components/screens/settings/settings-save-button";
 import { SettingsSection } from "@/components/screens/settings/settings-section";
@@ -61,7 +61,7 @@ const Password = () => {
                             placeholder="Current password"
                         />
 
-                        <Messsage error={errors.current_password} />
+                        <Message error={errors.current_password} />
                     </div>
 
                     <div className="grid gap-2">
@@ -78,7 +78,7 @@ const Password = () => {
                             placeholder="New password"
                         />
 
-                        <Messsage error={errors.password} />
+                        <Message error={errors.password} />
                     </div>
 
                     <div className="grid gap-2">
@@ -94,7 +94,7 @@ const Password = () => {
                             placeholder="Confirm password"
                         />
 
-                        <Messsage error={errors.password_confirmation} />
+                        <Message error={errors.password_confirmation} />
                     </div>
 
                     <SettingsSaveButton

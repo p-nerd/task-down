@@ -2,7 +2,7 @@ import type { FormEventHandler } from "react";
 
 import { useForm } from "@inertiajs/react";
 
-import { Messsage } from "@/components/elements/message";
+import { Message } from "@/components/elements/message";
 import { AuthLayout } from "@/components/layouts/auth-layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -50,7 +50,7 @@ const ResetPassword = ({ token, email }: { token: string; email: string }) => {
                             readOnly
                             onChange={(e) => setData("email", e.target.value)}
                         />
-                        <Messsage error={errors.email} className="mt-2" />
+                        <Message error={errors.email} className="mt-2" />
                     </div>
 
                     <div className="grid gap-2">
@@ -66,7 +66,7 @@ const ResetPassword = ({ token, email }: { token: string; email: string }) => {
                             onChange={(e) => setData("password", e.target.value)}
                             placeholder="Password"
                         />
-                        <Messsage error={errors.password} />
+                        <Message error={errors.password} />
                     </div>
 
                     <div className="grid gap-2">
@@ -81,7 +81,7 @@ const ResetPassword = ({ token, email }: { token: string; email: string }) => {
                             onChange={(e) => setData("password_confirmation", e.target.value)}
                             placeholder="Confirm password"
                         />
-                        <Messsage error={errors.password_confirmation} className="mt-2" />
+                        <Message error={errors.password_confirmation} className="mt-2" />
                     </div>
 
                     <Button type="submit" className="mt-4 w-full" disabled={processing}>
