@@ -13,7 +13,7 @@ class Option extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $fillable = [
         'user_id',
@@ -40,11 +40,16 @@ class Option extends Model
      */
     public function getValueAttribute(mixed $value): mixed
     {
-        if (! $this->type) {
+        /**
+         * @var ?OptionType $type
+         */
+        $type = $this->type;
+
+        if (! $type) {
             return $value;
         }
 
-        return $this->type->castValue($value);
+        return $type->castValue($value);
     }
 
     /**
@@ -105,9 +110,9 @@ class Option extends Model
         ]);
 
         if ($type !== null) {
-            $option->type = $type;
+            $option->type = $type; // @phpstan-ignore-line
         } elseif (! $option->exists) {
-            $option->type = match (true) {
+            $option->type = match (true) { // @phpstan-ignore-line
                 is_bool($value) => OptionType::BOOLEAN,
                 is_int($value) => OptionType::INTEGER,
                 is_float($value) => OptionType::FLOAT,

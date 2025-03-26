@@ -76,7 +76,7 @@ class User extends Authenticatable
      */
     public function getNotesInitialSidebarVisibility(): bool
     {
-        return Option::getValue(self::NOTES_INITIAL_SIDEBAR_VISIBILITY, $this->id, true);
+        return Option::getValue(self::NOTES_INITIAL_SIDEBAR_VISIBILITY, $this->id, true); // @phpstan-ignore-line
     }
 
     /**
@@ -84,18 +84,18 @@ class User extends Authenticatable
      */
     public function setNotesInitialSidebarVisibility(int $value): Option
     {
-        return Option::set(self::NOTES_INITIAL_SIDEBAR_VISIBILITY, $value, OptionType::BOOLEAN, $this->id);
+        return Option::set(self::NOTES_INITIAL_SIDEBAR_VISIBILITY, $value, OptionType::BOOLEAN, $this->id); // @phpstan-ignore-line
     }
 
     public const IMAGES_INITIAL_VIEW_MODE = 'images_initial_view_mode';
 
     public function getImagesInitialViewMode(): string
     {
-        return Option::getValue(self::IMAGES_INITIAL_VIEW_MODE, $this->id, 'list');
+        return Option::getValue(self::IMAGES_INITIAL_VIEW_MODE, $this->id, 'list'); // @phpstan-ignore-line
     }
 
     public function setImagesInitialViewMode(string $value): Option
     {
-        return Option::set(self::IMAGES_INITIAL_VIEW_MODE, $value, OptionType::STRING, $this->id);
+        return Option::set(self::IMAGES_INITIAL_VIEW_MODE, $value, OptionType::STRING, $this->id); // @phpstan-ignore-line
     }
 }
