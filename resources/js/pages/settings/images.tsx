@@ -11,7 +11,7 @@ import { SettingsSection } from "@/components/screens/settings/settings-section"
 const ImagesSettings = () => {
     const options = usePage<TSharedData>().props.auth.options;
 
-    const { data, setData, patch, processing, recentlySuccessful } = useForm<{
+    const { data, setData, patch, errors, processing, recentlySuccessful } = useForm<{
         images_initial_view_mode: TViewMode;
     }>({
         images_initial_view_mode: options.images_initial_view_mode,
@@ -43,6 +43,7 @@ const ImagesSettings = () => {
                             ]}
                             label="Initial View Mode"
                             tooltip="Select the default display mode when viewing images"
+                            error={errors.images_initial_view_mode}
                         />
                     </div>
                     <SettingsSaveButton
