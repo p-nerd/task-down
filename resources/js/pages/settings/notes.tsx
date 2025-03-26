@@ -22,8 +22,8 @@ const NotesSettings = () => {
     return (
         <SettingsLayout title="Notes settings">
             <SettingsSection
-                title="Notes options"
-                description="Update your account's notes settings"
+                title="Notes settings"
+                description="Update your account's notes options"
             >
                 <form
                     onSubmit={(e) => {
