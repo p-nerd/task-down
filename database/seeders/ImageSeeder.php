@@ -16,6 +16,6 @@ class ImageSeeder extends Seeder
             return;
         }
 
-        Image::factory(20)->create();
+        Image::factory(50)->create();
     }
 }

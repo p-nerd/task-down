@@ -14,7 +14,7 @@ import { GroupDateLabel } from "./group-date-label";
 
 export const ListViewLoading = () => {
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 py-4 pr-4">
             {[1, 2, 3].map((group) => (
                 <div key={group} className="space-y-4">
                     <div className="flex items-center gap-2">

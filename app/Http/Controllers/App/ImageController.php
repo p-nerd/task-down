@@ -19,7 +19,7 @@ class ImageController extends Controller
     {
         $page = request()->input('page', 1);
 
-        $perPage = 5;
+        $perPage = 10;
 
         $imagesPagination = $request
             ->user()
