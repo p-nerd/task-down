@@ -40,7 +40,7 @@ const NotesSettings = () => {
                             onValue={(value) => setData("notes_initial_sidebar_visibility", value)}
                             label="Initial Sidebar Visibility"
                             tooltip="Show sidebar by default when opening single note"
-                            error={errors.notes_initial_sidebar_visibility}
+                            // error={errors.notes_initial_sidebar_visibility}
                         />
                         <RadioOptions
                             name="initial-default-editor-mode"
@@ -54,7 +54,7 @@ const NotesSettings = () => {
                             ]}
                             label="Initial Content Editor Mode"
                             tooltip="Choose which editor mode will be active by default when creating or opening notes"
-                            error={errors.notes_initial_editor_mode}
+                            // error={errors.notes_initial_editor_mode}
                         />
                     </div>
                     <SettingsSaveButton
