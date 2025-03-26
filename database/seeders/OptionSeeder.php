@@ -12,6 +12,8 @@ class OptionSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        if (production()) {
+            return;
+        }
     }
 }

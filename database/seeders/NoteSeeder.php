@@ -12,6 +12,10 @@ class NoteSeeder extends Seeder
      */
     public function run(): void
     {
+        if (production()) {
+            return;
+        }
+
         Note::factory(10)->create();
     }
 }
