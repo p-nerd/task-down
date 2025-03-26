@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\OptionType;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -29,5 +30,19 @@ class Note extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public static function getInitialSidebarVisibility(): ?Option
+    {
+        return Option::get(Option::NOTES_INITIAL_SIDEBAR_VISIBILITY);
+    }
+
+    public static function setInitialSidebarVisibility(int $value): Option
+    {
+        return Option::set(
+            key: Option::NOTES_INITIAL_SIDEBAR_VISIBILITY,
+            value: $value,
+            type: OptionType::INTEGER,
+        );
     }
 }

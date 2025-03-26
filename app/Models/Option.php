@@ -10,6 +10,8 @@ class Option extends Model
 {
     use HasUuids;
 
+    public const NOTES_INITIAL_SIDEBAR_VISIBILITY = 'notes-initial-sidebar-visibility';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -65,5 +67,49 @@ class Option extends Model
             OptionType::ARRAY, OptionType::JSON => is_string($value) ? $value : json_encode($value),
             default => $value,
         };
+    }
+
+    /**
+     * Get an option value by key.
+     */
+    public static function get(string $key, mixed $default = null): mixed
+    {
+        $option = static::where('key', $key)->first();
+
+        if (! $option) {
+            return $default;
+        }
+
+        return $option->value;
+    }
+
+    /**
+     * Set an option value by key.
+     */
+    public static function set(string $key, mixed $value, ?OptionType $type = null, ?string $description = null): Option
+    {
+        $option = static::firstOrNew(['key' => $key]);
+
+        if ($type !== null) {
+            $option->type = $type;
+        } elseif (! $option->exists) {
+            $option->type = match (true) {
+                is_bool($value) => OptionType::BOOLEAN,
+                is_int($value) => OptionType::INTEGER,
+                is_float($value) => OptionType::FLOAT,
+                is_array($value) => OptionType::ARRAY,
+                default => OptionType::STRING,
+            };
+        }
+
+        $option->value = $value;
+
+        if ($description !== null) {
+            $option->description = $description;
+        }
+
+        $option->save();
+
+        return $option;
     }
 }
