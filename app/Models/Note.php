@@ -32,17 +32,19 @@ class Note extends Model
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Retrieves the global setting for initial sidebar visibility state
+     */
     public static function getInitialSidebarVisibility(): ?Option
     {
         return Option::get(Option::NOTES_INITIAL_SIDEBAR_VISIBILITY);
     }
 
+    /**
+     * Updates the global setting for initial sidebar visibility state
+     */
     public static function setInitialSidebarVisibility(int $value): Option
     {
-        return Option::set(
-            key: Option::NOTES_INITIAL_SIDEBAR_VISIBILITY,
-            value: $value,
-            type: OptionType::INTEGER,
-        );
+        return Option::set(Option::NOTES_INITIAL_SIDEBAR_VISIBILITY, $value, OptionType::BOOLEAN);
     }
 }

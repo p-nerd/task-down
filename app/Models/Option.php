@@ -10,6 +10,9 @@ class Option extends Model
 {
     use HasUuids;
 
+    /**
+     * Option key for controlling the initial visibility state of the notes sidebar
+     */
     public const NOTES_INITIAL_SIDEBAR_VISIBILITY = 'notes-initial-sidebar-visibility';
 
     /**
