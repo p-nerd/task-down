@@ -1,4 +1,3 @@
-import type { TPaginate } from "@/types";
 import type { TImage } from "@/types/models";
 
 import { useImagesStore } from "@/states/images";
@@ -9,10 +8,18 @@ import { Timeline } from "@/components/screens/images/timeline";
 import { ToggleView } from "@/components/screens/images/toggle-view";
 import { Head } from "@inertiajs/react";
 
-const Images = ({ images }: { images: TPaginate<TImage> }) => {
+const Images = ({
+    images,
+    page,
+    last_page,
+}: {
+    images: TImage[];
+    page: number;
+    last_page: number;
+}) => {
     const { selectedImageIds } = useImagesStore();
 
-    console.log(images);
+    console.log(images, page, last_page);
 
     return (
         <AppLayout className="flex h-full w-full flex-col">
@@ -21,13 +28,15 @@ const Images = ({ images }: { images: TPaginate<TImage> }) => {
                 <div className="mx-auto flex max-w-5xl flex-col space-y-6">
                     <div className="flex items-center justify-between">
                         <h1 className="text-3xl font-bold">
-                            Your ({images.data.length}) Images from Notes & Todos
+                            Your ({images.length}) Images from Notes & Todos
                         </h1>
                         <ToggleView />
                     </div>
                     {selectedImageIds.length > 0 && <DeleteBatch />}
                     <Timeline
-                        images={images.data}
+                        images={images}
+                        page={page}
+                        lastPage={last_page}
                         areaHeight={
                             selectedImageIds.length > 0
                                 ? "calc(100vh - 14.5rem)"

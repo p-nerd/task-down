@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class ImageController extends Controller
 {
@@ -16,11 +17,21 @@ class ImageController extends Controller
      */
     public function index(Request $request)
     {
-        $page = 2;
-        $perPage = 10;
+        $page = request()->input('page', 1);
+
+        $perPage = 5;
+
+        $imagesPagination = $request
+            ->user()
+            ->images()
+            ->paginate(perPage: $perPage, page: $page);
+
+        $images = $imagesPagination->items();
 
         return inertia('app/images/index', [
-            'images' => $request->user()->images()->paginate(perPage: $perPage, page: $page),
+            'images' => Inertia::merge(fn () => $images),
+            'page' => $imagesPagination->currentPage(),
+            'last_page' => $imagesPagination->lastPage(),
         ]);
     }
 
