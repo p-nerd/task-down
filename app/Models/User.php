@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Enums\OptionType;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -63,5 +64,26 @@ class User extends Authenticatable
     public function notes(): HasMany
     {
         return $this->hasMany(Note::class);
+    }
+
+    /**
+     * Option key for controlling the initial visibility state of the notes sidebar
+     */
+    public const NOTES_INITIAL_SIDEBAR_VISIBILITY = 'notes-initial-sidebar-visibility';
+
+    /**
+     * Retrieves the global setting for initial sidebar visibility state
+     */
+    public function getNotesInitialSidebarVisibility(): ?Option
+    {
+        return Option::get(self::NOTES_INITIAL_SIDEBAR_VISIBILITY, $this->id, true);
+    }
+
+    /**
+     * Updates the global setting for initial sidebar visibility state
+     */
+    public function setNotesInitialSidebarVisibility(int $value): Option
+    {
+        return Option::set(self::NOTES_INITIAL_SIDEBAR_VISIBILITY, $value, OptionType::BOOLEAN, $this->id);
     }
 }

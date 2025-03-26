@@ -11,16 +11,12 @@ class Option extends Model
     use HasUuids;
 
     /**
-     * Option key for controlling the initial visibility state of the notes sidebar
-     */
-    public const NOTES_INITIAL_SIDEBAR_VISIBILITY = 'notes-initial-sidebar-visibility';
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
+        'user_id',
         'key',
         'value',
         'type',
@@ -75,10 +71,9 @@ class Option extends Model
     /**
      * Get an option value by key.
      */
-    public static function get(string $key, mixed $default = null): mixed
+    public static function get(string $key, string $userId, mixed $default = null): mixed
     {
-        $option = static::where('key', $key)->first();
-
+        $option = static::where('key', $key)->where('user_id', $userId)->first();
         if (! $option) {
             return $default;
         }
@@ -89,9 +84,12 @@ class Option extends Model
     /**
      * Set an option value by key.
      */
-    public static function set(string $key, mixed $value, ?OptionType $type = null, ?string $description = null): Option
+    public static function set(string $key, mixed $value, ?OptionType $type, ?string $userId = null, ?string $description = null): Option
     {
-        $option = static::firstOrNew(['key' => $key]);
+        $option = static::firstOrNew([
+            'key' => $key,
+            'user_id' => $userId,
+        ]);
 
         if ($type !== null) {
             $option->type = $type;
