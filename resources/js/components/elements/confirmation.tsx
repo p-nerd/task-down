@@ -12,6 +12,8 @@ import {
 
 import type { ReactNode } from "react";
 
+import { CheckIcon, XIcon } from "lucide-react";
+
 export const Confirmation = ({
     title,
     description,
@@ -36,11 +38,15 @@ export const Confirmation = ({
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <AlertDialogCancel className="cursor-pointer">Cancel</AlertDialogCancel>
+                    <AlertDialogCancel className="cursor-pointer">
+                        <XIcon className="mr-2 h-4 w-4" />
+                        Cancel
+                    </AlertDialogCancel>
                     <AlertDialogAction
                         onClick={onAction}
                         className="bg-destructive hover:bg-destructive/90 cursor-pointer"
                     >
+                        <CheckIcon className="mr-2 h-4 w-4" />
                         {actionText || "Continue"}
                     </AlertDialogAction>
                 </AlertDialogFooter>
