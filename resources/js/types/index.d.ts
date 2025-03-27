@@ -4,7 +4,7 @@ import type { LucideIcon } from "lucide-react";
 import type { Config } from "ziggy-js";
 import type { TUser } from "./models";
 
-export type TSharedData = {
+export type TSharedData<T> = {
     name: string;
     quote: {
         message: string;
@@ -21,7 +21,7 @@ export type TSharedData = {
     ziggy: Config & {
         location: string;
     };
-};
+} & T;
 
 export type TBreadcrumbItem = {
     title: string;
