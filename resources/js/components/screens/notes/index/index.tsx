@@ -22,7 +22,7 @@ export const Index = () => {
                     {notes.length === 0 ? (
                         <div className="text-muted-foreground pt-4 text-center">No Notes Yet!</div>
                     ) : (
-                        <Listing notes={notes} />
+                        <Listing />
                     )}
                 </div>
             </div>

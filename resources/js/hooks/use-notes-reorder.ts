@@ -5,7 +5,7 @@ import { router } from "@inertiajs/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createSwapy, utils } from "swapy";
 
-export const useNotesReorder = (notes: TNote[]) => {
+export const useNotesReorder = (notes: TNote[], note: TNote | null) => {
     const [slotItemMap, setSlotItemMap] = useState<SlotItemMapArray>(
         utils.initSlotItemMap(notes, "id"),
     );
@@ -41,6 +41,7 @@ export const useNotesReorder = (notes: TNote[]) => {
                     route("notes.reorder"),
                     {
                         notes: e.slotItemMap.asArray.map((t, i) => ({ id: t.item, order: i })),
+                        selected_note_id: note?.id || null,
                     },
                     {
                         onFinish: swapyRef.current?.update,

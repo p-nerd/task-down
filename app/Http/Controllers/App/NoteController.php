@@ -44,16 +44,20 @@ class NoteController extends Controller
             'notes' => ['required', 'array'],
             'notes.*.id' => ['required', 'string', 'exists:notes,id'],
             'notes.*.order' => ['required', 'integer', 'min:0'],
+            'selected_note_id' => ['nullable', 'exists:notes,id'],
         ]);
 
         foreach ($payload['notes'] as $update) {
             $note = Note::find($update['id']);
+
             Gate::allowIf(fn (User $user) => $user->id === $note->user_id);
 
             $note->update(['order' => $update['order']]);
         }
 
-        $request->session()->flash('notes.selected_note_id', $note->id); // @phpstan-ignore-line
+        if (collect($payload)->has('selected_note_id')) {
+            $request->session()->flash('notes.selected_note_id', $payload['selected_note_id']); // @phpstan-ignore-line
+        }
 
         return redirect()->back();
     }

@@ -1,12 +1,12 @@
-import type { TNote } from "@/types/models";
-
 import { useNotesReorder } from "@/hooks/use-notes-reorder";
 import { useNotesStore } from "@/states/notes";
 
 import { NoteItem } from "../note-item";
 
-export const Listing = ({ notes }: { notes: TNote[] }) => {
-    const { containerRef, slottedItems } = useNotesReorder(notes);
+export const Listing = () => {
+    const { notes, note } = useNotesStore();
+
+    const { containerRef, slottedItems } = useNotesReorder(notes, note);
     const { setNote } = useNotesStore();
 
     return (
