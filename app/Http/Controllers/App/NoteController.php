@@ -22,13 +22,15 @@ class NoteController extends Controller
 
         $notes = $notesPagination->items();
 
-        $noteId = $request->session()->get('notes.selected_note_id');
+        $noteId = $request->session()->get('notes.selected_note_id') ?? $request->input('noteId');
+
+        $note = Note::find($noteId);
 
         return inertia('app/notes', [
             'notes' => Inertia::merge(fn () => $notes),
             'page' => $notesPagination->currentPage(),
             'lastPage' => $notesPagination->lastPage(),
-            'noteId' => $noteId ?? null,
+            'note' => $note ?? null,
         ]);
     }
 

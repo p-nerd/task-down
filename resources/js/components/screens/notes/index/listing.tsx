@@ -1,8 +1,7 @@
 import { useNotesReorder } from "@/hooks/use-notes-reorder";
 import { useNotesStore } from "@/states/notes";
 
-import { Skeleton } from "@/components/ui/skeleton";
-import { NoteItem } from "../note-item";
+import { NoteItem, NoteItemLoading } from "../note-item";
 
 export const ListingLoading = () => {
     return (
@@ -10,15 +9,7 @@ export const ListingLoading = () => {
             {Array(8)
                 .fill(0)
                 .map((_, index) => (
-                    <div key={index} className="w-full">
-                        <div className="h-full w-full">
-                            <div className="bg-secondary w-full rounded-md px-2.5 py-3">
-                                <Skeleton className="mb-1 h-6 w-2/3" />
-                                <Skeleton className="h-[100px] w-full" />
-                                <Skeleton className="mt-1 h-3 w-1/4" />
-                            </div>
-                        </div>
-                    </div>
+                    <NoteItemLoading key={index} />
                 ))}
         </div>
     );

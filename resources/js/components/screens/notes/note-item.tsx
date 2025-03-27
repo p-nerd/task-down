@@ -4,6 +4,22 @@ import { md } from "@/lib/md";
 import { time } from "@/lib/time";
 import { cn } from "@/lib/utils";
 
+import { Skeleton } from "@/components/ui/skeleton";
+
+export const NoteItemLoading = () => {
+    return (
+        <div className="w-full">
+            <div className="h-full w-full">
+                <div className="bg-secondary w-full rounded-md px-2.5 py-3">
+                    <Skeleton className="mb-1 h-6 w-2/3" />
+                    <Skeleton className="h-[100px] w-full" />
+                    <Skeleton className="mt-1 h-3 w-1/4" />
+                </div>
+            </div>
+        </div>
+    );
+};
+
 export const NoteItem = ({
     note,
     active,
