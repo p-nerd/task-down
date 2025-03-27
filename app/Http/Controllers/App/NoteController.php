@@ -65,12 +65,20 @@ class NoteController extends Controller
     {
         Gate::allowIf(fn (User $user) => $user->id === $note->user_id);
 
-        $payload = $request->validate([
-            'name' => ['sometimes', 'string', 'max:255'],
-            'content' => ['sometimes', 'string'],
-        ]);
+        $payload = collect($request->validate([
+            'name' => ['sometimes', 'string', 'max:255', 'nullable'],
+            'content' => ['sometimes', 'string', 'nullable'],
+        ]));
 
-        $note->update($payload);
+        if ($payload->has('name')) {
+            $note->name = $payload->get('name') ?? '';
+        }
+
+        if ($payload->has('content')) {
+            $note->content = $payload->get('content') ?? '';
+        }
+
+        $note->save();
 
         $request->session()->flash('notes.selected_note_id', $note->id);
 
