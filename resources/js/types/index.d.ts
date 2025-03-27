@@ -4,7 +4,7 @@ import type { LucideIcon } from "lucide-react";
 import type { Config } from "ziggy-js";
 import type { TUser } from "./models";
 
-export type TSharedData<T> = {
+export type TSharedData<T = unknown> = {
     name: string;
     quote: {
         message: string;

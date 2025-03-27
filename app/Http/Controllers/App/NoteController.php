@@ -61,11 +61,7 @@ class NoteController extends Controller
             $note->update(['order' => $update['order']]);
         }
 
-        if (collect($payload)->has('selected_note_id')) {
-            $request->session()->flash('notes.selected_note_id', $payload['selected_note_id']);
-        }
-
-        return redirect()->back();
+        return response()->json(['message' => 'fine']);
     }
 
     /**

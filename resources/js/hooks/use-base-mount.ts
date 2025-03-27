@@ -9,12 +9,7 @@ export const useBaseMount = () => {
 
     useEffect(() => {
         for (const error in errors) {
-            toast.error(errors[error], {
-                action: {
-                    label: "Hide",
-                    onClick: () => {},
-                },
-            });
+            toast.error(errors[error]);
         }
     }, [errors]);
 };
