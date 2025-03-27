@@ -22,11 +22,14 @@ export const Listing = () => {
 
     return (
         <div className="flex flex-col space-y-2 pr-4">
-            {notes.map((n) => (
-                <div ref={n.id === note?.id ? scrollIntoViewRef : null}>
-                    <div onClick={() => setNote(n)} className="h-full w-full">
-                        <NoteItem note={n} active={n.id === note?.id} strikable={true} />
-                    </div>
+            {notes.map((n, i) => (
+                <div
+                    key={i}
+                    ref={n.id === note?.id ? scrollIntoViewRef : null}
+                    onClick={() => setNote(n)}
+                    className="h-full w-full"
+                >
+                    <NoteItem note={n} active={n.id === note?.id} strikable={true} />
                 </div>
             ))}
         </div>

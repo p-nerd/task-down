@@ -12,7 +12,7 @@ import { Listing, Loading } from "./listing";
 import { SidebarToggle } from "./sidebar-toggle";
 
 import { Create } from "../create";
-import { LoadMoreNotes } from "../load-more-notes";
+import { LoadMore } from "../load-more";
 
 export const Show = ({ note }: { note: TNote }) => {
     const { notes, sidebarVisible } = useNotesStore();
@@ -37,7 +37,7 @@ export const Show = ({ note }: { note: TNote }) => {
                         ) : (
                             <>
                                 <Listing />
-                                <LoadMoreNotes loading={<Loading />} />
+                                <LoadMore loading={<Loading />} />
                             </>
                         )}
                     </div>

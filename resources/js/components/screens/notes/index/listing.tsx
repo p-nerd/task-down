@@ -1,9 +1,8 @@
-import { useNotesReorder } from "@/hooks/use-notes-reorder";
 import { useNotesStore } from "@/states/notes";
 
 import { NoteItem, NoteItemLoading } from "../note-item";
 
-export const ListingLoading = () => {
+export const Loading = () => {
     return (
         <div className="grid w-full grid-cols-4 gap-3 px-10 py-5">
             {Array(8)
@@ -16,28 +15,15 @@ export const ListingLoading = () => {
 };
 
 export const Listing = () => {
-    const { notes, note } = useNotesStore();
-
-    const { containerRef, slottedItems } = useNotesReorder(notes, note);
-    const { setNote } = useNotesStore();
+    const { notes, setNote } = useNotesStore();
 
     return (
-        <div className="grid w-full grid-cols-4 gap-3 px-10" ref={containerRef}>
-            {slottedItems.map(
-                ({ slotId, itemId, item }) =>
-                    item && (
-                        <div key={slotId} data-swapy-slot={slotId}>
-                            <div
-                                key={itemId}
-                                data-swapy-item={itemId}
-                                onClick={() => setNote(item)}
-                                className="h-full w-full"
-                            >
-                                <NoteItem note={item} />
-                            </div>
-                        </div>
-                    ),
-            )}
+        <div className="grid w-full grid-cols-4 gap-3 px-10">
+            {notes.map((n, i) => (
+                <div key={i} onClick={() => setNote(n)} className="h-full w-full">
+                    <NoteItem note={n} />
+                </div>
+            ))}
         </div>
     );
 };

@@ -4,10 +4,10 @@ import { AppLayout } from "@/components/layouts/app-layout";
 import { NotesViewToggleButton } from "@/components/screens/notes/notes-view-toggle-button";
 import { Head } from "@inertiajs/react";
 
-import { LoadMoreNotes } from "../load-more-notes";
-import { Listing, ListingLoading } from "./listing";
+import { Listing, Loading } from "./listing";
 
 import { Create } from "../create";
+import { LoadMore } from "../load-more";
 
 export const Index = () => {
     const { notes } = useNotesStore();
@@ -26,7 +26,7 @@ export const Index = () => {
                     ) : (
                         <>
                             <Listing />
-                            <LoadMoreNotes loading={<ListingLoading />} />
+                            <LoadMore loading={<Loading />} />
                         </>
                     )}
                 </div>
