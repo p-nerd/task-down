@@ -92,27 +92,15 @@ class NoteController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, Note $note)
+    public function destroy(Note $note)
     {
+        abort(404, 'Hello');
+
         Gate::allowIf(fn (User $user) => $user->id === $note->user_id);
-
-        $notes = $this
-            ->notesQuery($request)
-            ->get();
-
-        $nextNote = collect($notes)->after($note);
-        if ($nextNote) {
-            $request->session()->flash('notes.selected_note_id', $nextNote->id);
-        } else {
-            $beforeNote = collect($notes)->before($note);
-            if ($beforeNote) {
-                $request->session()->flash('notes.selected_note_id', $beforeNote->id);
-            }
-        }
 
         $note->delete();
 
-        return redirect()->back();
+        return response()->json(['message' => 'fine']);
     }
 
     /**

@@ -80,7 +80,7 @@ export const Content = ({ note }: { note: TNote }) => {
                         <span className="text-muted-foreground text-sm whitespace-nowrap">
                             {time.format.shortt(note.updated_at)}
                         </span>
-                        <Delete noteId={note.id} />
+                        <Delete note={note} />
                     </div>
                 </div>
             </div>

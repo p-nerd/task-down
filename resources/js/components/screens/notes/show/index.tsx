@@ -35,7 +35,7 @@ export const Show = ({ note }: { note: TNote }) => {
                             </div>
                         ) : (
                             <>
-                                <Listing notes={notes} note={note} />
+                                <Listing note={note} />
                                 <LoadMoreNotes loading={<ListingLoading />} />
                             </>
                         )}

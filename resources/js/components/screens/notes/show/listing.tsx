@@ -18,10 +18,10 @@ export const ListingLoading = () => {
     );
 };
 
-export const Listing = ({ notes, note }: { notes: TNote[]; note: TNote }) => {
+export const Listing = ({ note }: { note: TNote }) => {
     const { scrollIntoViewRef } = useScrollIntoView();
 
-    const { setNote } = useNotesStore();
+    const { notes, setNote } = useNotesStore();
 
     const { containerRef, slottedItems } = useNotesReorder(notes, note);
 
