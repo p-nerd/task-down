@@ -17,7 +17,7 @@ class NoteController extends Controller
     {
         $noteId = $request->session()->get('notes.selected_note_id');
 
-        return inertia('app/notes/index', [
+        return inertia('app/notes', [
             'notes' => $this->fetchNotes($request),
             'noteId' => $noteId ?? null,
         ]);

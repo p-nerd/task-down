@@ -4,9 +4,9 @@ import { useNotesReorder } from "@/hooks/use-notes-reorder";
 import { useScrollIntoView } from "@/hooks/use-scroll-into-view";
 import { useNotesStore } from "@/states/notes";
 
-import { NoteItem } from "./note-item";
+import { NoteItem } from "../note-item";
 
-const ShowListing = ({ notes, note }: { notes: TNote[]; note: TNote }) => {
+export const Listing = ({ notes, note }: { notes: TNote[]; note: TNote }) => {
     const { scrollIntoViewRef } = useScrollIntoView();
     const { containerRef, slottedItems } = useNotesReorder(notes);
     const { setNote } = useNotesStore();
@@ -39,5 +39,3 @@ const ShowListing = ({ notes, note }: { notes: TNote[]; note: TNote }) => {
         </div>
     );
 };
-
-export { ShowListing };

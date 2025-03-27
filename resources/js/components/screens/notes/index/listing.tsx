@@ -3,9 +3,9 @@ import type { TNote } from "@/types/models";
 import { useNotesReorder } from "@/hooks/use-notes-reorder";
 import { useNotesStore } from "@/states/notes";
 
-import { NoteItem } from "./note-item";
+import { NoteItem } from "../note-item";
 
-const IndexListing = ({ notes }: { notes: TNote[] }) => {
+export const Listing = ({ notes }: { notes: TNote[] }) => {
     const { containerRef, slottedItems } = useNotesReorder(notes);
     const { setNote } = useNotesStore();
 
@@ -29,4 +29,3 @@ const IndexListing = ({ notes }: { notes: TNote[] }) => {
         </div>
     );
 };
-export { IndexListing };

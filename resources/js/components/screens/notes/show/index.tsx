@@ -6,12 +6,13 @@ import { useNotesStore } from "@/states/notes";
 import { AppLayout } from "@/components/layouts/app-layout";
 import { CreateNoteButton } from "@/components/screens/notes/create-note-button";
 import { NotesViewToggleButton } from "@/components/screens/notes/notes-view-toggle-button";
-import { ShowContent } from "@/components/screens/notes/show-content";
-import { ShowListing } from "@/components/screens/notes/show-listing";
-import { SidebarToggleButton } from "@/components/screens/notes/sidebar-toggle-button";
 import { Head } from "@inertiajs/react";
 
-export const Note = ({ note }: { note: TNote }) => {
+import { Content } from "./content";
+import { Listing } from "./listing";
+import { SidebarToggle } from "./sidebar-toggle";
+
+export const Show = ({ note }: { note: TNote }) => {
     const { notes, sidebarVisible } = useNotesStore();
 
     return (
@@ -19,7 +20,7 @@ export const Note = ({ note }: { note: TNote }) => {
             <Head title={`'${note.name}' Note`} />
             <div className="flex w-full justify-between pt-6">
                 <div className="flex w-(--notes-sidebar-width) items-center justify-between pr-4">
-                    <SidebarToggleButton />
+                    <SidebarToggle />
                     {sidebarVisible && <CreateNoteButton />}
                 </div>
                 <NotesViewToggleButton view="index" />
@@ -32,7 +33,7 @@ export const Note = ({ note }: { note: TNote }) => {
                                 No Notes Yet!
                             </div>
                         ) : (
-                            <ShowListing notes={notes} note={note} />
+                            <Listing notes={notes} note={note} />
                         )}
                     </div>
                 )}
@@ -42,7 +43,7 @@ export const Note = ({ note }: { note: TNote }) => {
                         sidebarVisible ? "flex-1" : "w-full",
                     )}
                 >
-                    <ShowContent note={note} />
+                    <Content note={note} />
                 </div>
             </div>
         </AppLayout>
