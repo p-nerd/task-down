@@ -76,7 +76,7 @@ class User extends Authenticatable
      */
     public function getNotesInitialSidebarVisibility(): bool
     {
-        return Option::getValue(self::NOTES_INITIAL_SIDEBAR_VISIBILITY, $this->id, true); // @phpstan-ignore-line
+        return Option::getValue(self::NOTES_INITIAL_SIDEBAR_VISIBILITY, $this->id, true);
     }
 
     /**
@@ -84,30 +84,30 @@ class User extends Authenticatable
      */
     public function setNotesInitialSidebarVisibility(int $value): Option
     {
-        return Option::set(self::NOTES_INITIAL_SIDEBAR_VISIBILITY, $value, OptionType::BOOLEAN, $this->id); // @phpstan-ignore-line
+        return Option::set(self::NOTES_INITIAL_SIDEBAR_VISIBILITY, $value, OptionType::BOOLEAN, $this->id);
     }
 
     public const IMAGES_INITIAL_VIEW_MODE = 'images_initial_view_mode';
 
     public function getImagesInitialViewMode(): string
     {
-        return Option::getValue(self::IMAGES_INITIAL_VIEW_MODE, $this->id, 'list'); // @phpstan-ignore-line
+        return Option::getValue(self::IMAGES_INITIAL_VIEW_MODE, $this->id, 'list');
     }
 
     public function setImagesInitialViewMode(string $value): Option
     {
-        return Option::set(self::IMAGES_INITIAL_VIEW_MODE, $value, OptionType::STRING, $this->id); // @phpstan-ignore-line
+        return Option::set(self::IMAGES_INITIAL_VIEW_MODE, $value, OptionType::STRING, $this->id);
     }
 
     public const NOTES_INITIAL_EDITOR_MODE = 'notes_initial_editor_mode';
 
     public function getNotesInitialEditorMode(): string
     {
-        return Option::getValue(self::NOTES_INITIAL_EDITOR_MODE, $this->id, 'rich'); // @phpstan-ignore-line
+        return Option::getValue(self::NOTES_INITIAL_EDITOR_MODE, $this->id, 'rich');
     }
 
     public function setNotesInitialEditorMode(string $value): Option
     {
-        return Option::set(self::NOTES_INITIAL_EDITOR_MODE, $value, OptionType::STRING, $this->id); // @phpstan-ignore-line
+        return Option::set(self::NOTES_INITIAL_EDITOR_MODE, $value, OptionType::STRING, $this->id);
     }
 }

@@ -3,7 +3,7 @@ import { useNotesStore } from "@/states/notes";
 import { Button } from "@/components/ui/button";
 import { PanelLeftCloseIcon, PanelLeftIcon } from "lucide-react";
 
-export const SidebarToggleButton = () => {
+export const SidebarToggle = () => {
     const { sidebarVisible, setSidebarVisible } = useNotesStore();
 
     return (

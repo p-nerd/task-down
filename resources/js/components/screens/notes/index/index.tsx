@@ -2,11 +2,12 @@ import { useNotesStore } from "@/states/notes";
 
 import { AppLayout } from "@/components/layouts/app-layout";
 import { CreateNoteButton } from "@/components/screens/notes/create-note-button";
-import { IndexListing } from "@/components/screens/notes/index-listing";
 import { NotesViewToggleButton } from "@/components/screens/notes/notes-view-toggle-button";
 import { Head } from "@inertiajs/react";
 
-export const Notes = () => {
+import { Listing } from "./listing";
+
+export const Index = () => {
     const { notes } = useNotesStore();
 
     return (
@@ -21,7 +22,7 @@ export const Notes = () => {
                     {notes.length === 0 ? (
                         <div className="text-muted-foreground pt-4 text-center">No Notes Yet!</div>
                     ) : (
-                        <IndexListing notes={notes} />
+                        <Listing />
                     )}
                 </div>
             </div>

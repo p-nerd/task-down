@@ -4,7 +4,7 @@ import { router } from "@inertiajs/react";
 import { Confirmation } from "@/components/elements/confirmation";
 import { Trash2Icon } from "lucide-react";
 
-export const DeleteNoteButton = ({ noteId }: { noteId: string }) => {
+export const Delete = ({ noteId }: { noteId: string }) => {
     const { sidebarVisible } = useNotesStore();
 
     return (
