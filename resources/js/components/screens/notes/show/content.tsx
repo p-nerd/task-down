@@ -4,15 +4,16 @@ import type { ChangeEvent } from "react";
 import { useDebounce } from "@/hooks/use-debounce";
 import { plugins } from "@/lib/plugins";
 import { time } from "@/lib/time";
+import { toast } from "@/lib/toast";
+import { error } from "@/lib/utils";
 import { useNotesStore } from "@/states/notes";
-import { router } from "@inertiajs/react";
 import { useCallback, useEffect, useState } from "react";
 
 import { MDXEditor } from "@mdxeditor/editor";
 import { Delete } from "./delete";
 
 export const Content = ({ note }: { note: TNote }) => {
-    const { editorMode } = useNotesStore();
+    const { editorMode, updateNote } = useNotesStore();
 
     const [noteName, setNoteName] = useState(note.name);
 
@@ -22,21 +23,25 @@ export const Content = ({ note }: { note: TNote }) => {
 
     const debouncedUpdateName = useDebounce((name: string) => {
         if (note.id && name !== note.name) {
-            router.patch(
-                route("notes.update", note),
-                { name },
-                { preserveScroll: true, preserveState: true },
-            );
+            updateNote({ ...note, name });
+            window.axios
+                .patch(route("notes.update", note), { name })
+                .then(() => {})
+                .catch((e) => {
+                    toast.error(error(e));
+                });
         }
-    }, 250);
+    }, 100);
 
     const debouncedUpdateContent = useDebounce((content: string) => {
         if (note.id && content !== note.content) {
-            router.patch(
-                route("notes.update", note),
-                { content },
-                { preserveScroll: true, preserveState: true },
-            );
+            updateNote({ ...note, content });
+            window.axios
+                .patch(route("notes.update", note), { content })
+                .then(() => {})
+                .catch((e) => {
+                    toast.error(error(e));
+                });
         }
     }, 250);
 

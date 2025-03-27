@@ -86,9 +86,7 @@ class NoteController extends Controller
 
         $note->save();
 
-        $request->session()->flash('notes.selected_note_id', $note->id);
-
-        return redirect()->back();
+        return response()->json(['message' => 'fine']);
     }
 
     /**
