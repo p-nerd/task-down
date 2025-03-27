@@ -1,10 +1,11 @@
 import type { TSharedData } from "@/types";
+import type { ReactNode } from "react";
 
 import { usePage } from "@inertiajs/react";
 
 import { WhenVisible } from "@inertiajs/react";
 
-export const LoadMoreNotes = () => {
+export const LoadMoreNotes = ({ loading }: { loading: ReactNode }) => {
     const { page, lastPage } = usePage<TSharedData<{ page: number; lastPage: number }>>().props;
 
     return (
@@ -17,9 +18,9 @@ export const LoadMoreNotes = () => {
                         data: { page: page + 1 },
                         only: ["notes", "page", "lastPage"],
                     }}
-                    fallback={<div>Loading...</div>}
+                    fallback={<>{loading}</>}
                 >
-                    <div>Loading 2...</div>
+                    <>{loading}</>
                 </WhenVisible>
             )}
             {page >= lastPage && (

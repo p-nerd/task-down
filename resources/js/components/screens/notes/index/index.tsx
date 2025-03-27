@@ -6,7 +6,7 @@ import { NotesViewToggleButton } from "@/components/screens/notes/notes-view-tog
 import { Head } from "@inertiajs/react";
 
 import { LoadMoreNotes } from "../load-more-notes";
-import { Listing } from "./listing";
+import { Listing, ListingLoading } from "./listing";
 
 export const Index = () => {
     const { notes } = useNotesStore();
@@ -25,7 +25,7 @@ export const Index = () => {
                     ) : (
                         <>
                             <Listing />
-                            <LoadMoreNotes />
+                            <LoadMoreNotes loading={<ListingLoading />} />
                         </>
                     )}
                 </div>
