@@ -21,27 +21,29 @@ export const Content = ({ note }: { note: TNote }) => {
         setNoteName(note.name);
     }, [note.id, note.name]);
 
-    const debouncedUpdateName = useDebounce((name: string) => {
+    const debouncedUpdateName = useDebounce(async (name: string) => {
         if (note.id && name !== note.name) {
-            updateNote({ ...note, name });
-            window.axios
-                .patch(route("notes.update", note), { name })
-                .then(() => {})
-                .catch((e) => {
-                    toast.error(error(e));
-                });
+            const oldName = note.name;
+            try {
+                updateNote({ ...note, name });
+                await window.axios.patch(route("notes.update", note), { name });
+            } catch (e) {
+                updateNote({ ...note, name: oldName });
+                toast.error(error(e));
+            }
         }
     }, 100);
 
-    const debouncedUpdateContent = useDebounce((content: string) => {
+    const debouncedUpdateContent = useDebounce(async (content: string) => {
         if (note.id && content !== note.content) {
-            updateNote({ ...note, content });
-            window.axios
-                .patch(route("notes.update", note), { content })
-                .then(() => {})
-                .catch((e) => {
-                    toast.error(error(e));
-                });
+            const oldContent = note.content;
+            try {
+                updateNote({ ...note, content });
+                await window.axios.patch(route("notes.update", note), { content });
+            } catch (e) {
+                updateNote({ ...note, content: oldContent });
+                toast.error(error(e));
+            }
         }
     }, 250);
 
