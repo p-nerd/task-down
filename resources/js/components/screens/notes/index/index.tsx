@@ -1,13 +1,13 @@
 import { useNotesStore } from "@/states/notes";
 
 import { AppLayout } from "@/components/layouts/app-layout";
-import { NotesViewToggleButton } from "@/components/screens/notes/notes-view-toggle-button";
 import { Head } from "@inertiajs/react";
 
 import { Listing, Loading } from "./listing";
 
 import { Create } from "../create";
 import { LoadMore } from "../load-more";
+import { ViewToggle } from "../view-toggle";
 
 export const Index = () => {
     const { notes } = useNotesStore();
@@ -17,7 +17,7 @@ export const Index = () => {
             <Head title="Notes" />
             <div className="flex justify-between pt-6">
                 <Create />
-                {notes.length !== 0 && <NotesViewToggleButton view="show" />}
+                {notes.length !== 0 && <ViewToggle view="show" />}
             </div>
             <div className="flex h-full w-full py-2">
                 <div className="h-(--notes-content-height) w-full overflow-y-auto">

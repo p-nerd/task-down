@@ -4,7 +4,6 @@ import { cn } from "@/lib/utils";
 import { useNotesStore } from "@/states/notes";
 
 import { AppLayout } from "@/components/layouts/app-layout";
-import { NotesViewToggleButton } from "@/components/screens/notes/notes-view-toggle-button";
 import { Head } from "@inertiajs/react";
 
 import { Content } from "./content";
@@ -13,6 +12,7 @@ import { SidebarToggle } from "./sidebar-toggle";
 
 import { Create } from "../create";
 import { LoadMore } from "../load-more";
+import { ViewToggle } from "../view-toggle";
 
 export const Show = ({ note }: { note: TNote }) => {
     const { notes, sidebarVisible } = useNotesStore();
@@ -25,7 +25,7 @@ export const Show = ({ note }: { note: TNote }) => {
                     <SidebarToggle />
                     {sidebarVisible && <Create />}
                 </div>
-                <NotesViewToggleButton view="index" />
+                <ViewToggle view="index" />
             </div>
             <div className="flex h-full w-full py-2">
                 {sidebarVisible && (

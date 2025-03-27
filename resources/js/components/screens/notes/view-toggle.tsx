@@ -3,7 +3,7 @@ import { useNotesStore } from "@/states/notes";
 import { Button } from "@/components/ui/button";
 import { LayoutGridIcon, LayoutListIcon } from "lucide-react";
 
-export const NotesViewToggleButton = ({ view }: { view: "index" | "show" }) => {
+export const ViewToggle = ({ view }: { view: "index" | "show" }) => {
     const { notes, setNote } = useNotesStore();
 
     return (
