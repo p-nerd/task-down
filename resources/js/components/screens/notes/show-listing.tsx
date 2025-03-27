@@ -12,7 +12,7 @@ const ShowListing = ({ notes, note }: { notes: TNote[]; note: TNote }) => {
     const { setNote } = useNotesStore();
 
     return (
-        <div className="flex flex-col space-y-2" ref={containerRef}>
+        <div className="flex flex-col space-y-2 pr-4" ref={containerRef}>
             {slottedItems.map(
                 ({ slotId, itemId, item }) =>
                     item && (

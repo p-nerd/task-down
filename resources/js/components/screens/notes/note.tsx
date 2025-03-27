@@ -18,7 +18,7 @@ export const Note = ({ note }: { note: TNote }) => {
         <AppLayout className="flex h-full w-full flex-col">
             <Head title={`'${note.name}' Note`} />
             <div className="flex w-full justify-between pt-6">
-                <div className="flex w-[300px] items-center justify-between">
+                <div className="flex w-(--notes-sidebar-width) items-center justify-between pr-4">
                     <SidebarToggleButton />
                     {sidebarVisible && <CreateNoteButton />}
                 </div>
@@ -26,7 +26,7 @@ export const Note = ({ note }: { note: TNote }) => {
             </div>
             <div className="flex h-full w-full py-2">
                 {sidebarVisible && (
-                    <div className="h-(--notes-content-height) w-[300px] space-y-4 overflow-y-auto transition-all duration-200">
+                    <div className="h-(--notes-content-height) w-(--notes-sidebar-width) space-y-4 overflow-y-auto transition-all duration-200">
                         {notes.length === 0 ? (
                             <div className="text-muted-foreground pt-4 text-center">
                                 No Notes Yet!
