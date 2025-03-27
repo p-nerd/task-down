@@ -94,8 +94,6 @@ class NoteController extends Controller
      */
     public function destroy(Note $note)
     {
-        abort(404, 'Hello');
-
         Gate::allowIf(fn (User $user) => $user->id === $note->user_id);
 
         $note->delete();

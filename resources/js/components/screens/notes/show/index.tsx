@@ -10,7 +10,7 @@ import { Head } from "@inertiajs/react";
 
 import { LoadMoreNotes } from "../load-more-notes";
 import { Content } from "./content";
-import { Listing, ListingLoading } from "./listing";
+import { Listing, Loading } from "./listing";
 import { SidebarToggle } from "./sidebar-toggle";
 
 export const Show = ({ note }: { note: TNote }) => {
@@ -35,8 +35,8 @@ export const Show = ({ note }: { note: TNote }) => {
                             </div>
                         ) : (
                             <>
-                                <Listing note={note} />
-                                <LoadMoreNotes loading={<ListingLoading />} />
+                                <Listing />
+                                <LoadMoreNotes loading={<Loading />} />
                             </>
                         )}
                     </div>

@@ -12,7 +12,7 @@ export const Delete = ({ note }: { note: TNote }) => {
     const { notes, setNotes, setNote } = useNotesStore();
 
     const handleDelete = async () => {
-        let orNotes = [...notes];
+        const orNotes = [...notes];
 
         try {
             const nextNote =
