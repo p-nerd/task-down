@@ -21,19 +21,6 @@ class NoteController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Request $request, Note $note)
-    {
-        Gate::allowIf(fn (User $user) => $user->id === $note->user_id);
-
-        return inertia('app/notes/show', [
-            'note' => $note,
-            'notes' => $this->fetchNotes($request),
-        ]);
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)

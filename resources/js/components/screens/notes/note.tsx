@@ -2,7 +2,6 @@ import type { TNote } from "@/types/models";
 
 import { cn } from "@/lib/utils";
 import { useNotesStore } from "@/states/notes";
-import { useEffect } from "react";
 
 import { AppLayout } from "@/components/layouts/app-layout";
 import { CreateNoteButton } from "@/components/screens/notes/create-note-button";
@@ -12,10 +11,8 @@ import { ShowListing } from "@/components/screens/notes/show-listing";
 import { SidebarToggleButton } from "@/components/screens/notes/sidebar-toggle-button";
 import { Head } from "@inertiajs/react";
 
-const Note = ({ note, ...props }: { note: TNote; notes: TNote[] }) => {
-    const { notes, setNotes, sidebarVisible } = useNotesStore();
-
-    useEffect(() => setNotes(props.notes), [props.notes]);
+export const Note = ({ note }: { note: TNote }) => {
+    const { notes, sidebarVisible } = useNotesStore();
 
     return (
         <AppLayout className="flex h-full w-full flex-col">
@@ -51,5 +48,3 @@ const Note = ({ note, ...props }: { note: TNote; notes: TNote[] }) => {
         </AppLayout>
     );
 };
-
-export default Note;
