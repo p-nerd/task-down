@@ -12,6 +12,7 @@ export const useNotesStore = create(
 
         notes: TNote[];
         setNotes: (notes: TNote[]) => void;
+        updateNote: (note: TNote) => void;
 
         sidebarVisible: boolean | null;
         setSidebarVisible: (sidebarVisible: boolean) => void;
@@ -24,6 +25,14 @@ export const useNotesStore = create(
 
         notes: [],
         setNotes: (notes) => set({ notes }),
+        updateNote: (note) => {
+            set((s) => {
+                s.notes = s.notes.map((n) => (n.id === note.id ? note : n));
+                if (s.note?.id === note.id) {
+                    s.note = note;
+                }
+            });
+        },
 
         sidebarVisible: null,
         setSidebarVisible: (sidebarVisible) => set({ sidebarVisible }),

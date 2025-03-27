@@ -4,7 +4,19 @@ import { useNotesReorder } from "@/hooks/use-notes-reorder";
 import { useScrollIntoView } from "@/hooks/use-scroll-into-view";
 import { useNotesStore } from "@/states/notes";
 
-import { NoteItem } from "../note-item";
+import { NoteItem, NoteItemLoading } from "../note-item";
+
+export const ListingLoading = () => {
+    return (
+        <div className="flex flex-col space-y-2 py-5 pr-4">
+            {Array(8)
+                .fill(0)
+                .map((_, index) => (
+                    <NoteItemLoading key={index} />
+                ))}
+        </div>
+    );
+};
 
 export const Listing = ({ notes, note }: { notes: TNote[]; note: TNote }) => {
     const { scrollIntoViewRef } = useScrollIntoView();

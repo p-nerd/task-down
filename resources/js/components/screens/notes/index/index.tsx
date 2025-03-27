@@ -5,7 +5,8 @@ import { CreateNoteButton } from "@/components/screens/notes/create-note-button"
 import { NotesViewToggleButton } from "@/components/screens/notes/notes-view-toggle-button";
 import { Head } from "@inertiajs/react";
 
-import { Listing } from "./listing";
+import { LoadMoreNotes } from "../load-more-notes";
+import { Listing, ListingLoading } from "./listing";
 
 export const Index = () => {
     const { notes } = useNotesStore();
@@ -22,7 +23,10 @@ export const Index = () => {
                     {notes.length === 0 ? (
                         <div className="text-muted-foreground pt-4 text-center">No Notes Yet!</div>
                     ) : (
-                        <Listing />
+                        <>
+                            <Listing />
+                            <LoadMoreNotes loading={<ListingLoading />} />
+                        </>
                     )}
                 </div>
             </div>

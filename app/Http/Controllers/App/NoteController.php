@@ -16,19 +16,16 @@ class NoteController extends Controller
      */
     public function index(Request $request)
     {
-        $notesPagination = $this
-            ->notesQuery($request)
-            ->paginate(perPage: 16, page: $request->input('page', 1));
+        $notesPagination = $this->notesQuery($request)->paginate(perPage: 16, page: $request->input('page', 1));
 
         $notes = $notesPagination->items();
-
-        $noteId = $request->session()->get('notes.selected_note_id');
+        $note = Note::find($request->session()->get('notes.selected_note_id') ?? $request->input('noteId'));
 
         return inertia('app/notes', [
             'notes' => Inertia::merge(fn () => $notes),
             'page' => $notesPagination->currentPage(),
             'lastPage' => $notesPagination->lastPage(),
-            'noteId' => $noteId ?? null,
+            'note' => $note ?? null,
         ]);
     }
 
@@ -64,11 +61,7 @@ class NoteController extends Controller
             $note->update(['order' => $update['order']]);
         }
 
-        if (collect($payload)->has('selected_note_id')) {
-            $request->session()->flash('notes.selected_note_id', $payload['selected_note_id']);
-        }
-
-        return redirect()->back();
+        return response()->json(['message' => 'fine']);
     }
 
     /**
@@ -93,9 +86,7 @@ class NoteController extends Controller
 
         $note->save();
 
-        $request->session()->flash('notes.selected_note_id', $note->id);
-
-        return redirect()->back();
+        return response()->json(['message' => 'fine']);
     }
 
     /**

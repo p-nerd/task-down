@@ -1,7 +1,8 @@
 import type { TNote } from "@/types/models";
 import type { SlotItemMapArray, Swapy } from "swapy";
 
-import { router } from "@inertiajs/react";
+import { toast } from "@/lib/toast";
+import { error } from "@/lib/utils";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createSwapy, utils } from "swapy";
 
@@ -37,16 +38,19 @@ export const useNotesReorder = (notes: TNote[], note: TNote | null) => {
             swapyRef.current.onSwapEnd((e) => {
                 if (!e.hasChanged) return;
 
-                router.patch(
-                    route("notes.reorder"),
-                    {
+                window.axios
+                    .patch(route("notes.reorder"), {
                         notes: e.slotItemMap.asArray.map((t, i) => ({ id: t.item, order: i })),
                         selected_note_id: note?.id || null,
-                    },
-                    {
-                        onFinish: swapyRef.current?.update,
-                    },
-                );
+                    })
+                    .then(() => {
+                        if (swapyRef.current?.update) {
+                            swapyRef.current.update();
+                        }
+                    })
+                    .catch((e) => {
+                        toast.error(error(e));
+                    });
             });
         }
         return () => {

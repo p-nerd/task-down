@@ -1,7 +1,19 @@
 import { useNotesReorder } from "@/hooks/use-notes-reorder";
 import { useNotesStore } from "@/states/notes";
 
-import { NoteItem } from "../note-item";
+import { NoteItem, NoteItemLoading } from "../note-item";
+
+export const ListingLoading = () => {
+    return (
+        <div className="grid w-full grid-cols-4 gap-3 px-10 py-5">
+            {Array(8)
+                .fill(0)
+                .map((_, index) => (
+                    <NoteItemLoading key={index} />
+                ))}
+        </div>
+    );
+};
 
 export const Listing = () => {
     const { notes, note } = useNotesStore();

@@ -8,8 +8,9 @@ import { CreateNoteButton } from "@/components/screens/notes/create-note-button"
 import { NotesViewToggleButton } from "@/components/screens/notes/notes-view-toggle-button";
 import { Head } from "@inertiajs/react";
 
+import { LoadMoreNotes } from "../load-more-notes";
 import { Content } from "./content";
-import { Listing } from "./listing";
+import { Listing, ListingLoading } from "./listing";
 import { SidebarToggle } from "./sidebar-toggle";
 
 export const Show = ({ note }: { note: TNote }) => {
@@ -33,7 +34,10 @@ export const Show = ({ note }: { note: TNote }) => {
                                 No Notes Yet!
                             </div>
                         ) : (
-                            <Listing notes={notes} note={note} />
+                            <>
+                                <Listing notes={notes} note={note} />
+                                <LoadMoreNotes loading={<ListingLoading />} />
+                            </>
                         )}
                     </div>
                 )}
