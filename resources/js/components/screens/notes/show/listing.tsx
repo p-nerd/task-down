@@ -16,9 +16,9 @@ export const Loading = () => {
 };
 
 export const Listing = () => {
-    const { scrollIntoViewRef } = useScrollIntoView();
-
     const { note, notes, setNote } = useNotesStore();
+
+    const { scrollIntoViewRef } = useScrollIntoView([notes]);
 
     return (
         <div className="flex flex-col space-y-2 pr-4">
