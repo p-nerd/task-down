@@ -56,7 +56,7 @@ class NoteController extends Controller
         }
 
         if (collect($payload)->has('selected_note_id')) {
-            $request->session()->flash('notes.selected_note_id', $payload['selected_note_id']); // @phpstan-ignore-line
+            $request->session()->flash('notes.selected_note_id', $payload['selected_note_id']);
         }
 
         return redirect()->back();
