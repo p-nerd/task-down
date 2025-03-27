@@ -7,6 +7,7 @@ use App\Models\Note;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Inertia\Inertia;
 
 class NoteController extends Controller
 {
@@ -15,10 +16,18 @@ class NoteController extends Controller
      */
     public function index(Request $request)
     {
+        $notesPagination = $this
+            ->notesQuery($request)
+            ->paginate(perPage: 16, page: $request->input('page', 1));
+
+        $notes = $notesPagination->items();
+
         $noteId = $request->session()->get('notes.selected_note_id');
 
         return inertia('app/notes', [
-            'notes' => $this->fetchNotes($request),
+            'notes' => Inertia::merge(fn () => $notes),
+            'page' => $notesPagination->currentPage(),
+            'lastPage' => $notesPagination->lastPage(),
             'noteId' => $noteId ?? null,
         ]);
     }
@@ -96,7 +105,9 @@ class NoteController extends Controller
     {
         Gate::allowIf(fn (User $user) => $user->id === $note->user_id);
 
-        $notes = $this->fetchNotes($request);
+        $notes = $this
+            ->notesQuery($request)
+            ->get();
 
         $nextNote = collect($notes)->after($note);
         if ($nextNote) {
@@ -116,13 +127,12 @@ class NoteController extends Controller
     /**
      * Fetch all notes for the authenticated user.
      */
-    private function fetchNotes(Request $request)
+    private function notesQuery(Request $request)
     {
         return $request
             ->user()
             ->notes()
             ->orderBy('order')
-            ->orderBy('created_at', 'desc')
-            ->get();
+            ->orderBy('created_at', 'desc');
     }
 }

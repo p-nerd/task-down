@@ -16,6 +16,6 @@ class NoteSeeder extends Seeder
             return;
         }
 
-        Note::factory(10)->create();
+        Note::factory(100)->create();
     }
 }
