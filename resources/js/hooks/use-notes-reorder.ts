@@ -30,11 +30,13 @@ export const useNotesReorder = (notes: TNote[]) => {
                 animation: "spring",
             });
 
-            swapyRef.current.onSwap((event) => {
-                setSlotItemMap(event.newSlotItemMap.asArray);
+            swapyRef.current.onSwap((e) => {
+                setSlotItemMap(e.newSlotItemMap.asArray);
             });
 
             swapyRef.current.onSwapEnd((e) => {
+                if (!e.hasChanged) return;
+
                 router.patch(
                     route("notes.reorder"),
                     {

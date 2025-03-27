@@ -21,7 +21,7 @@ const ShowContent = ({ note }: { note: TNote }) => {
     }, [note.id, note.name]);
 
     const debouncedUpdateName = useDebounce((name: string) => {
-        if (note.id && name) {
+        if (note.id && name !== note.name) {
             router.patch(
                 route("notes.update", note),
                 { name },
@@ -31,7 +31,7 @@ const ShowContent = ({ note }: { note: TNote }) => {
     }, 250);
 
     const debouncedUpdateContent = useDebounce((content: string) => {
-        if (note.id && content) {
+        if (note.id && content !== note.content) {
             router.patch(
                 route("notes.update", note),
                 { content },
@@ -43,7 +43,6 @@ const ShowContent = ({ note }: { note: TNote }) => {
     const handleTitleChange = useCallback(
         (e: ChangeEvent<HTMLInputElement>) => {
             const name = e.target.value;
-            console.log(name, name.length);
             setNoteName(name);
             debouncedUpdateName(name);
         },

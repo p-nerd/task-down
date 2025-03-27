@@ -15,21 +15,11 @@ class NoteController extends Controller
      */
     public function index(Request $request)
     {
+        $noteId = $request->session()->get('notes.selected_note_id');
+
         return inertia('app/notes/index', [
             'notes' => $this->fetchNotes($request),
-        ]);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Request $request, Note $note)
-    {
-        Gate::allowIf(fn (User $user) => $user->id === $note->user_id);
-
-        return inertia('app/notes/show', [
-            'note' => $note,
-            'notes' => $this->fetchNotes($request),
+            'noteId' => $noteId ?? null,
         ]);
     }
 
@@ -38,12 +28,11 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        $note = $request
-            ->user()
-            ->notes()
-            ->create(['name' => '', 'content' => '']);
+        $note = $request->user()->notes()->create(['name' => '', 'content' => '']);
 
-        return redirect()->route('notes.show', $note);
+        $request->session()->flash('notes.selected_note_id', $note->id); // @phpstan-ignore-line
+
+        return redirect()->back();
     }
 
     /**
@@ -64,6 +53,8 @@ class NoteController extends Controller
             $note->update(['order' => $update['order']]);
         }
 
+        $request->session()->flash('notes.selected_note_id', $note->id); // @phpstan-ignore-line
+
         return redirect()->back();
     }
 
@@ -74,12 +65,22 @@ class NoteController extends Controller
     {
         Gate::allowIf(fn (User $user) => $user->id === $note->user_id);
 
-        $payload = $request->validate([
-            'name' => ['sometimes', 'string', 'max:255'],
-            'content' => ['sometimes', 'string'],
-        ]);
+        $payload = collect($request->validate([
+            'name' => ['sometimes', 'string', 'max:255', 'nullable'],
+            'content' => ['sometimes', 'string', 'nullable'],
+        ]));
 
-        $note->update($payload);
+        if ($payload->has('name')) {
+            $note->name = $payload->get('name') ?? '';
+        }
+
+        if ($payload->has('content')) {
+            $note->content = $payload->get('content') ?? '';
+        }
+
+        $note->save();
+
+        $request->session()->flash('notes.selected_note_id', $note->id);
 
         return redirect()->back();
     }
@@ -91,17 +92,21 @@ class NoteController extends Controller
     {
         Gate::allowIf(fn (User $user) => $user->id === $note->user_id);
 
-        $note->delete();
+        $notes = $this->fetchNotes($request);
 
-        $validated = $request->validate(['show' => ['boolean', 'nullable']]);
-        if ($validated['show'] ?? false) {
-            $notes = $this->fetchNotes($request);
-            if ($notes->count() > 0) {
-                return redirect()->route('notes.show', $notes[0]);
+        $nextNote = collect($notes)->after($note);
+        if ($nextNote) {
+            $request->session()->flash('notes.selected_note_id', $nextNote->id);
+        } else {
+            $beforeNote = collect($notes)->before($note);
+            if ($beforeNote) {
+                $request->session()->flash('notes.selected_note_id', $beforeNote->id);
             }
         }
 
-        return redirect()->route('notes.index');
+        $note->delete();
+
+        return redirect()->back();
     }
 
     /**

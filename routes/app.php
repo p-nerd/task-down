@@ -15,7 +15,6 @@ Route::prefix('/images')->middleware(['auth', 'verified'])->group(function () {
 
 Route::prefix('/notes')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [NoteController::class, 'index'])->name('notes.index');
-    Route::get('/{note}', [NoteController::class, 'show'])->name('notes.show');
 
     Route::post('/', [NoteController::class, 'store'])->name('notes.store');
 

@@ -3,35 +3,19 @@ import type { TNote } from "@/types/models";
 import { useNotesStore } from "@/states/notes";
 import { useEffect } from "react";
 
-import { AppLayout } from "@/components/layouts/app-layout";
-import { CreateNoteButton } from "@/components/screens/notes/create-note-button";
-import { IndexListing } from "@/components/screens/notes/index-listing";
-import { NotesViewToggleButton } from "@/components/screens/notes/notes-view-toggle-button";
-import { Head } from "@inertiajs/react";
+import { Note } from "@/components/screens/notes/note";
+import { Notes } from "@/components/screens/notes/notes";
 
-const Notes = (props: { notes: TNote[] }) => {
-    const { notes, setNotes } = useNotesStore();
+const NotesPage = (props: { notes: TNote[]; noteId: string | null }) => {
+    const { note, setNote, setNotes } = useNotesStore();
 
     useEffect(() => setNotes(props.notes), [props.notes]);
-
-    return (
-        <AppLayout className="flex h-full w-full flex-col">
-            <Head title="Notes" />
-            <div className="flex justify-between pt-6">
-                <CreateNoteButton />
-                {notes.length !== 0 && <NotesViewToggleButton view="show" />}
-            </div>
-            <div className="flex h-full w-full py-2">
-                <div className="h-(--notes-content-height) w-full overflow-y-auto">
-                    {notes.length === 0 ? (
-                        <div className="text-muted-foreground pt-4 text-center">No Notes Yet!</div>
-                    ) : (
-                        <IndexListing notes={notes} />
-                    )}
-                </div>
-            </div>
-        </AppLayout>
+    useEffect(
+        () => setNote(props.notes.find((n) => n.id === props.noteId) || null),
+        [props.noteId, props.notes],
     );
+
+    return <>{note ? <Note note={note} /> : <Notes />}</>;
 };
 
-export default Notes;
+export default NotesPage;
