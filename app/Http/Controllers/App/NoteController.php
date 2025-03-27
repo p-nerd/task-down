@@ -36,9 +36,7 @@ class NoteController extends Controller
     {
         $note = $request->user()->notes()->create(['name' => '', 'content' => '']);
 
-        $request->session()->flash('notes.selected_note_id', $note->id); // @phpstan-ignore-line
-
-        return redirect()->back();
+        return response()->json($note);
     }
 
     /**
@@ -92,27 +90,13 @@ class NoteController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, Note $note)
+    public function destroy(Note $note)
     {
         Gate::allowIf(fn (User $user) => $user->id === $note->user_id);
 
-        $notes = $this
-            ->notesQuery($request)
-            ->get();
-
-        $nextNote = collect($notes)->after($note);
-        if ($nextNote) {
-            $request->session()->flash('notes.selected_note_id', $nextNote->id);
-        } else {
-            $beforeNote = collect($notes)->before($note);
-            if ($beforeNote) {
-                $request->session()->flash('notes.selected_note_id', $beforeNote->id);
-            }
-        }
-
         $note->delete();
 
-        return redirect()->back();
+        return response()->json(['message' => 'fine']);
     }
 
     /**

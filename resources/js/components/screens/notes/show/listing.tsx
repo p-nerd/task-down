@@ -1,12 +1,9 @@
-import type { TNote } from "@/types/models";
-
-import { useNotesReorder } from "@/hooks/use-notes-reorder";
 import { useScrollIntoView } from "@/hooks/use-scroll-into-view";
 import { useNotesStore } from "@/states/notes";
 
 import { NoteItem, NoteItemLoading } from "../note-item";
 
-export const ListingLoading = () => {
+export const Loading = () => {
     return (
         <div className="flex flex-col space-y-2 py-5 pr-4">
             {Array(8)
@@ -18,38 +15,23 @@ export const ListingLoading = () => {
     );
 };
 
-export const Listing = ({ notes, note }: { notes: TNote[]; note: TNote }) => {
-    const { scrollIntoViewRef } = useScrollIntoView();
+export const Listing = () => {
+    const { note, notes, setNote } = useNotesStore();
 
-    const { setNote } = useNotesStore();
-
-    const { containerRef, slottedItems } = useNotesReorder(notes, note);
+    const { scrollIntoViewRef } = useScrollIntoView([notes]);
 
     return (
-        <div className="flex flex-col space-y-2 pr-4" ref={containerRef}>
-            {slottedItems.map(
-                ({ slotId, itemId, item }) =>
-                    item && (
-                        <div
-                            ref={item.id === note.id ? scrollIntoViewRef : null}
-                            key={slotId}
-                            data-swapy-slot={slotId}
-                        >
-                            <div
-                                key={itemId}
-                                data-swapy-item={itemId}
-                                onClick={() => setNote(item)}
-                                className="h-full w-full"
-                            >
-                                <NoteItem
-                                    note={item}
-                                    active={item.id === note.id}
-                                    strikable={true}
-                                />
-                            </div>
-                        </div>
-                    ),
-            )}
+        <div className="flex flex-col space-y-2 pr-4">
+            {notes.map((n, i) => (
+                <div
+                    key={i}
+                    ref={n.id === note?.id ? scrollIntoViewRef : null}
+                    onClick={() => setNote(n)}
+                    className="h-full w-full"
+                >
+                    <NoteItem note={n} active={n.id === note?.id} strikable={true} />
+                </div>
+            ))}
         </div>
     );
 };

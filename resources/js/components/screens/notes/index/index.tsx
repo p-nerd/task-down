@@ -1,12 +1,13 @@
 import { useNotesStore } from "@/states/notes";
 
 import { AppLayout } from "@/components/layouts/app-layout";
-import { CreateNoteButton } from "@/components/screens/notes/create-note-button";
-import { NotesViewToggleButton } from "@/components/screens/notes/notes-view-toggle-button";
 import { Head } from "@inertiajs/react";
 
-import { LoadMoreNotes } from "../load-more-notes";
-import { Listing, ListingLoading } from "./listing";
+import { Listing, Loading } from "./listing";
+
+import { Create } from "../create";
+import { LoadMore } from "../load-more";
+import { ViewToggle } from "../view-toggle";
 
 export const Index = () => {
     const { notes } = useNotesStore();
@@ -15,8 +16,8 @@ export const Index = () => {
         <AppLayout className="flex h-full w-full flex-col">
             <Head title="Notes" />
             <div className="flex justify-between pt-6">
-                <CreateNoteButton />
-                {notes.length !== 0 && <NotesViewToggleButton view="show" />}
+                <Create />
+                {notes.length !== 0 && <ViewToggle view="show" />}
             </div>
             <div className="flex h-full w-full py-2">
                 <div className="h-(--notes-content-height) w-full overflow-y-auto">
@@ -25,7 +26,7 @@ export const Index = () => {
                     ) : (
                         <>
                             <Listing />
-                            <LoadMoreNotes loading={<ListingLoading />} />
+                            <LoadMore loading={<Loading />} />
                         </>
                     )}
                 </div>

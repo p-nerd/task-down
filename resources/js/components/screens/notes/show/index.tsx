@@ -4,14 +4,15 @@ import { cn } from "@/lib/utils";
 import { useNotesStore } from "@/states/notes";
 
 import { AppLayout } from "@/components/layouts/app-layout";
-import { CreateNoteButton } from "@/components/screens/notes/create-note-button";
-import { NotesViewToggleButton } from "@/components/screens/notes/notes-view-toggle-button";
 import { Head } from "@inertiajs/react";
 
-import { LoadMoreNotes } from "../load-more-notes";
 import { Content } from "./content";
-import { Listing, ListingLoading } from "./listing";
+import { Listing, Loading } from "./listing";
 import { SidebarToggle } from "./sidebar-toggle";
+
+import { Create } from "../create";
+import { LoadMore } from "../load-more";
+import { ViewToggle } from "../view-toggle";
 
 export const Show = ({ note }: { note: TNote }) => {
     const { notes, sidebarVisible } = useNotesStore();
@@ -22,9 +23,9 @@ export const Show = ({ note }: { note: TNote }) => {
             <div className="flex w-full justify-between pt-6">
                 <div className="flex w-(--notes-sidebar-width) items-center justify-between pr-4">
                     <SidebarToggle />
-                    {sidebarVisible && <CreateNoteButton />}
+                    {sidebarVisible && <Create />}
                 </div>
-                <NotesViewToggleButton view="index" />
+                <ViewToggle view="index" />
             </div>
             <div className="flex h-full w-full py-2">
                 {sidebarVisible && (
@@ -35,8 +36,8 @@ export const Show = ({ note }: { note: TNote }) => {
                             </div>
                         ) : (
                             <>
-                                <Listing notes={notes} note={note} />
-                                <LoadMoreNotes loading={<ListingLoading />} />
+                                <Listing />
+                                <LoadMore loading={<Loading />} />
                             </>
                         )}
                     </div>

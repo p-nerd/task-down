@@ -24,7 +24,10 @@ export const useNotesStore = create(
         setNote: (note) => set({ note }),
 
         notes: [],
-        setNotes: (notes) => set({ notes }),
+        setNotes: (notes) => {
+            console.log(notes);
+            set({ notes });
+        },
         updateNote: (note) => {
             set((s) => {
                 s.notes = s.notes.map((n) => (n.id === note.id ? note : n));
