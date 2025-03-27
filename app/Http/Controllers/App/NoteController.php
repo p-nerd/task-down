@@ -30,7 +30,7 @@ class NoteController extends Controller
     {
         $note = $request->user()->notes()->create(['name' => '', 'content' => '']);
 
-        $request->session()->flash('notes.selected_note_id', $note->id);
+        $request->session()->flash('notes.selected_note_id', $note->id); // @phpstan-ignore-line
 
         return redirect()->back();
     }
@@ -53,7 +53,7 @@ class NoteController extends Controller
             $note->update(['order' => $update['order']]);
         }
 
-        $request->session()->flash('notes.selected_note_id', $note->id);
+        $request->session()->flash('notes.selected_note_id', $note->id); // @phpstan-ignore-line
 
         return redirect()->back();
     }
