@@ -21,6 +21,10 @@ return new class extends Migration
             $table->text('content');
             $table->integer('order')->default(0);
 
+            $table->timestamp('pin_at')->nullable();
+            $table->timestamp('archive_at')->nullable();
+            $table->softDeletes();
+
             $table->timestamps();
 
             $table->index('order');
