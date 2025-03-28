@@ -2,7 +2,7 @@ import { useNotesReorder } from "@/hooks/use-notes-reorder";
 import { useScrollIntoView } from "@/hooks/use-scroll-into-view";
 import { useNotesStore } from "@/states/notes";
 
-import { NoteItem, NoteItemLoading } from "../note-item";
+import { NoteItem, NoteItemLoading } from "./item";
 
 export const Loading = () => {
     return (
