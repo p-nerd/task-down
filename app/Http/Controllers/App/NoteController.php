@@ -20,7 +20,7 @@ class NoteController extends Controller
 
         $notes = $notesPagination->items();
 
-        return inertia('app/notes', [
+        return inertia('app/notes/index', [
             'notes' => Inertia::merge(fn () => $notes),
             'page' => $notesPagination->currentPage(),
             'lastPage' => $notesPagination->lastPage(),
