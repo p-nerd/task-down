@@ -3,10 +3,11 @@ import type { TNote } from "@/types/models";
 import { md } from "@/lib/md";
 import { time } from "@/lib/time";
 import { cn } from "@/lib/utils";
+import { useNotesStore } from "@/states/notes";
 
 import { Skeleton } from "@/components/ui/skeleton";
 
-export const NoteItemLoading = () => {
+export const ItemLoading = () => {
     return (
         <div className="w-full">
             <div className="h-full w-full">
@@ -20,7 +21,7 @@ export const NoteItemLoading = () => {
     );
 };
 
-export const NoteItem = ({
+export const Item = ({
     note,
     active,
     strikable,
@@ -29,30 +30,38 @@ export const NoteItem = ({
     active?: boolean;
     strikable?: boolean;
 }) => {
+    const { setNote } = useNotesStore();
+
     return (
         <div
             className={cn(
                 "group bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground",
-                "w-full cursor-pointer rounded-md px-2.5 py-3 transition-colors duration-75",
+                "w-full cursor-pointer overflow-hidden rounded-md transition-colors duration-75",
                 {
                     "bg-primary text-primary-foreground": active,
                     "text-muted-foreground": !note.name,
                 },
             )}
         >
-            <h3 className="mb-1 w-full text-base font-bold">{note.name || "Untitled Title"}</h3>
-            <p
-                className={cn(
-                    "w-full overflow-hidden text-sm",
-                    strikable ? "max-h-[100px]" : "h-[100px]",
-                    "prose group-hover:prose-invert",
-                    {
-                        "prose-invert": active,
-                    },
-                )}
-                dangerouslySetInnerHTML={{ __html: md.convert(note.content) }}
-            />
-            <span className="text-xs font-light">{time.format.shortt(note.created_at)}</span>
+            <div onClick={() => setNote(note)} className="space-y-1">
+                <h3 className="border-border w-full border-b px-2.5 py-1.5 text-lg font-bold">
+                    {note.name || "Untitled Title"}
+                </h3>
+                <p
+                    className={cn(
+                        "w-full overflow-hidden px-2.5 py-1.5 text-sm",
+                        strikable ? "max-h-[200px]" : "h-[200px]",
+                        "prose group-hover:prose-invert",
+                        {
+                            "prose-invert": active,
+                        },
+                    )}
+                    dangerouslySetInnerHTML={{ __html: md.convert(note.content) }}
+                />
+            </div>
+            <div className="px-2.5 py-1.5">
+                <span className="text-xs font-light">{time.format.shortt(note.created_at)}</span>
+            </div>
         </div>
     );
 };
