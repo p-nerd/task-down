@@ -1,3 +1,4 @@
+import { useNotesReorder } from "@/hooks/use-notes-reorder";
 import { useScrollIntoView } from "@/hooks/use-scroll-into-view";
 import { useNotesStore } from "@/states/notes";
 
@@ -20,18 +21,33 @@ export const Listing = () => {
 
     const { scrollIntoViewRef } = useScrollIntoView([notes]);
 
+    const { containerRef, slottedItems } = useNotesReorder(notes, note);
+
     return (
-        <div className="flex flex-col space-y-2 pr-4">
-            {notes.map((n, i) => (
-                <div
-                    key={i}
-                    ref={n.id === note?.id ? scrollIntoViewRef : null}
-                    onClick={() => setNote(n)}
-                    className="h-full w-full"
-                >
-                    <NoteItem note={n} active={n.id === note?.id} strikable={true} />
-                </div>
-            ))}
+        <div className="flex flex-col space-y-2 pr-4" ref={containerRef}>
+            {slottedItems.map(
+                ({ slotId, itemId, item }) =>
+                    item && (
+                        <div
+                            ref={item.id === note?.id ? scrollIntoViewRef : null}
+                            key={slotId}
+                            data-swapy-slot={slotId}
+                        >
+                            <div
+                                key={itemId}
+                                data-swapy-item={itemId}
+                                onClick={() => setNote(item)}
+                                className="h-full w-full"
+                            >
+                                <NoteItem
+                                    note={item}
+                                    active={item.id === note?.id}
+                                    strikable={true}
+                                />
+                            </div>
+                        </div>
+                    ),
+            )}
         </div>
     );
 };
