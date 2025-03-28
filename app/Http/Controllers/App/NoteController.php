@@ -19,13 +19,11 @@ class NoteController extends Controller
         $notesPagination = $this->notesQuery($request)->paginate(perPage: 16, page: $request->input('page', 1));
 
         $notes = $notesPagination->items();
-        $note = Note::find($request->session()->get('notes.selected_note_id') ?? $request->input('noteId'));
 
         return inertia('app/notes', [
             'notes' => Inertia::merge(fn () => $notes),
             'page' => $notesPagination->currentPage(),
             'lastPage' => $notesPagination->lastPage(),
-            'note' => $note ?? null,
         ]);
     }
 
