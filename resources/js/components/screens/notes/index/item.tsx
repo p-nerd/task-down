@@ -10,11 +10,22 @@ import { Skeleton } from "@/components/ui/skeleton";
 export const ItemLoading = () => {
     return (
         <div className="w-full">
-            <div className="h-full w-full">
-                <div className="bg-secondary w-full rounded-md px-2.5 py-3">
-                    <Skeleton className="mb-1 h-6 w-2/3" />
-                    <Skeleton className="h-[100px] w-full" />
-                    <Skeleton className="mt-1 h-3 w-1/4" />
+            <div
+                className={cn(
+                    "bg-secondary text-secondary-foreground",
+                    "w-full overflow-hidden rounded-md",
+                )}
+            >
+                <div className="space-y-1">
+                    <div className="border-border w-full border-b px-2.5 py-1.5">
+                        <Skeleton className="h-6 w-2/3" />
+                    </div>
+                    <div className="px-2.5 py-1.5">
+                        <Skeleton className="h-[200px] w-full" />
+                    </div>
+                </div>
+                <div className="px-2.5 py-1.5">
+                    <Skeleton className="h-3 w-1/4" />
                 </div>
             </div>
         </div>
@@ -45,7 +56,7 @@ export const Item = ({
         >
             <div onClick={() => setNote(note)} className="space-y-1">
                 <h3 className="border-border w-full border-b px-2.5 py-1.5 text-lg font-bold">
-                    {note.name || "Untitled Title"}
+                    {note.name || "Title"}
                 </h3>
                 <p
                     className={cn(

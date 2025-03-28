@@ -5,7 +5,7 @@ import { Item, ItemLoading } from "./item";
 
 export const Loading = () => {
     return (
-        <div className="grid w-full grid-cols-4 gap-3 px-10 py-5">
+        <div className="grid w-full grid-cols-3 gap-3 px-10 py-5">
             {Array(8)
                 .fill(0)
                 .map((_, index) => (
