@@ -8,6 +8,7 @@ import { useNotesStore } from "@/states/notes";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Archive } from "./archive";
 import { Delete } from "./delete";
+import { Pin } from "./pin";
 
 export const ItemLoading = () => {
     return (
@@ -75,6 +76,7 @@ export const Item = ({
             <div className="flex items-center justify-between px-2.5 py-3">
                 <span className="text-sm font-light">{time.format.shortt(note.created_at)}</span>
                 <div className="flex space-x-3">
+                    <Pin note={note} />
                     <Archive note={note} />
                     <Delete note={note} />
                 </div>
