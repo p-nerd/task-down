@@ -22,6 +22,9 @@ export const useNotesStore = create(
 
         editorMode: TEditorMode | null;
         setEditorMode: (editorMode: TEditorMode | null) => void;
+
+        selectedNoteIds: string[];
+        setSelectNoteIds: (selectedNoteIds: string[]) => void;
     }>((set) => ({
         note: null,
         setNote: (note) => set({ note }),
@@ -45,5 +48,8 @@ export const useNotesStore = create(
 
         editorMode: null,
         setEditorMode: (editorMode) => set({ editorMode }),
+
+        selectedNoteIds: [],
+        setSelectNoteIds: (selectedNoteIds) => set({ selectedNoteIds }),
     })),
 );

@@ -6,9 +6,11 @@ import { cn } from "@/lib/utils";
 import { useNotesStore } from "@/states/notes";
 
 import { Skeleton } from "@/components/ui/skeleton";
+
 import { Archive } from "./archive";
 import { Delete } from "./delete";
 import { Pin } from "./pin";
+import { Select } from "./select";
 
 export const ItemLoading = () => {
     return (
@@ -44,19 +46,21 @@ export const Item = ({
     active?: boolean;
     strikable?: boolean;
 }) => {
-    const { setNote } = useNotesStore();
+    const { setNote, selectedNoteIds } = useNotesStore();
 
     return (
         <div
             className={cn(
-                "group bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground",
+                "group bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground relative",
                 "w-full overflow-hidden rounded-md transition-colors duration-75",
                 {
                     "bg-primary text-primary-foreground": active,
                     "text-muted-foreground": !note.name,
+                    "ring-2 ring-yellow-500": selectedNoteIds.find((id) => id === note.id),
                 },
             )}
         >
+            <Select note={note} />
             <div onClick={() => setNote(note)} className="cursor-pointer space-y-1">
                 <h3 className="border-border w-full border-b px-2.5 py-1.5 text-lg font-bold">
                     {note.name || "Title"}

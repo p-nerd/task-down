@@ -21,7 +21,7 @@ export const Listing = () => {
     const { containerRef, slottedItems } = useNotesReorder(notes, note);
 
     return (
-        <div className="grid w-full grid-cols-3 gap-3 px-10" ref={containerRef}>
+        <div className="grid w-full grid-cols-3 gap-5 px-10 py-2" ref={containerRef}>
             {slottedItems.map(
                 ({ slotId, itemId, item }) =>
                     item && (
