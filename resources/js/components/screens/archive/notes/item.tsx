@@ -5,12 +5,11 @@ import { time } from "@/lib/time";
 import { cn } from "@/lib/utils";
 import { useNotesStore } from "@/states/notes";
 
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ArrowLeftIcon } from "lucide-react";
 
-import { Archive } from "./archive";
 import { Delete } from "./delete";
-import { Pin } from "./pin";
-import { Select } from "./select";
 
 export const ItemLoading = () => {
     return (
@@ -37,30 +36,20 @@ export const ItemLoading = () => {
     );
 };
 
-export const Item = ({
-    note,
-    active,
-    strikable,
-}: {
-    note: TNote;
-    active?: boolean;
-    strikable?: boolean;
-}) => {
-    const { setNote, selectedNoteIds } = useNotesStore();
+export const Item = ({ note, active }: { note: TNote; active?: boolean }) => {
+    const { setNote } = useNotesStore();
 
     return (
         <div
             className={cn(
-                "group bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground relative",
+                "group bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground",
                 "w-full overflow-hidden rounded-md transition-colors duration-75",
                 {
                     "bg-primary text-primary-foreground": active,
                     "text-muted-foreground": !note.name,
-                    "ring-2 ring-yellow-500": selectedNoteIds.find((id) => id === note.id),
                 },
             )}
         >
-            <Select note={note} />
             <div onClick={() => setNote(note)} className="cursor-pointer space-y-1">
                 <h3 className="border-border w-full border-b px-2.5 py-1.5 text-lg font-bold">
                     {note.name || "Title"}
@@ -68,7 +57,7 @@ export const Item = ({
                 <p
                     className={cn(
                         "w-full overflow-hidden px-2.5 py-1.5 text-sm",
-                        strikable ? "max-h-[200px]" : "h-[200px]",
+                        "h-[200px]",
                         "prose group-hover:prose-invert",
                         {
                             "prose-invert": active,
@@ -80,11 +69,29 @@ export const Item = ({
             <div className="flex items-center justify-between px-2.5 py-3">
                 <span className="text-sm font-light">{time.format.shortt(note.created_at)}</span>
                 <div className="flex space-x-3">
-                    <Pin note={note} />
-                    <Archive note={note} />
+                    <Unarchive note={note} />
                     <Delete note={note} />
                 </div>
             </div>
         </div>
+    );
+};
+
+export const Unarchive = ({ note }: { note: TNote }) => {
+    // const { unarchiveNote, processingNotes } = useNotesStore();
+    // const isProcessing = processingNotes.includes(note.id);
+
+    console.log(note);
+
+    return (
+        <Button
+            variant="ghost"
+            size="icon"
+            className="h-7 w-7"
+            // onClick={() => unarchiveNote(note.id)}
+            // disabled={isProcessing}
+        >
+            <ArrowLeftIcon className="h-4 w-4" />
+        </Button>
     );
 };

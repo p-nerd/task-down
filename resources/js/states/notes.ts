@@ -14,11 +14,17 @@ export const useNotesStore = create(
         setNotes: (notes: TNote[]) => void;
         updateNote: (note: TNote) => void;
 
+        archiveNotes: TNote[];
+        setArchiveNotes: (archiveNotes: TNote[]) => void;
+
         sidebarVisible: boolean | null;
         setSidebarVisible: (sidebarVisible: boolean) => void;
 
         editorMode: TEditorMode | null;
         setEditorMode: (editorMode: TEditorMode | null) => void;
+
+        selectedNoteIds: string[];
+        setSelectNoteIds: (selectedNoteIds: string[]) => void;
     }>((set) => ({
         note: null,
         setNote: (note) => set({ note }),
@@ -34,10 +40,16 @@ export const useNotesStore = create(
             });
         },
 
+        archiveNotes: [],
+        setArchiveNotes: (archiveNotes) => set({ archiveNotes }),
+
         sidebarVisible: null,
         setSidebarVisible: (sidebarVisible) => set({ sidebarVisible }),
 
         editorMode: null,
         setEditorMode: (editorMode) => set({ editorMode }),
+
+        selectedNoteIds: [],
+        setSelectNoteIds: (selectedNoteIds) => set({ selectedNoteIds }),
     })),
 );
