@@ -1,17 +1,9 @@
 <?php
 
+use App\Http\Controllers\App\ArchiveController;
 use App\Http\Controllers\App\ImageController;
 use App\Http\Controllers\App\NoteController;
 use Illuminate\Support\Facades\Route;
-
-Route::prefix('/images')->middleware(['auth', 'verified'])->group(function () {
-    Route::get('/', [ImageController::class, 'index'])->name('images.index');
-
-    Route::post('/', [ImageController::class, 'store'])->name('images.store');
-
-    Route::delete('/{image}', [ImageController::class, 'destroy'])->name('images.destroy');
-    Route::delete('/', [ImageController::class, 'destroys'])->name('images.destroys');
-});
 
 Route::prefix('/notes')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [NoteController::class, 'index'])->name('notes.index');
@@ -30,4 +22,17 @@ Route::prefix('/todos')->middleware(['auth', 'verified'])->group(function () {
 
 Route::prefix('/pomodoro')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', fn () => inertia('app/pomodoro/index'))->name('pomodoro.index');
+});
+
+Route::prefix('/images')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [ImageController::class, 'index'])->name('images.index');
+
+    Route::post('/', [ImageController::class, 'store'])->name('images.store');
+
+    Route::delete('/{image}', [ImageController::class, 'destroy'])->name('images.destroy');
+    Route::delete('/', [ImageController::class, 'destroys'])->name('images.destroys');
+});
+
+Route::prefix('/archive')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [ArchiveController::class, 'index'])->name('archive.index');
 });
