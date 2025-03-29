@@ -14,7 +14,7 @@ export const Index = () => {
 
     return (
         <AppLayout className="flex h-full w-full flex-col">
-            <Head title="Notes" />
+            <Head title={`(${notes.length}) Notes`} />
             <div className="flex justify-between pt-6">
                 <Create />
                 {notes.length !== 0 && <ViewToggle view="show" />}

@@ -22,7 +22,22 @@ class Note extends Model
         'name',
         'content',
         'order',
+        'pin_at',
+        'archive_at',
     ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'pin_at' => 'datetime',
+            'archive_at' => 'datetime',
+        ];
+    }
 
     /**
      * Get the user that owns the note.

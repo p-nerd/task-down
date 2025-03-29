@@ -28,6 +28,10 @@ export type TNote = {
     content: string;
     order: number;
 
+    pin_at: string | null;
+    archive_at: string | null;
+    deleted_at: string | null;
+
     created_at: string;
     updated_at: string;
 };

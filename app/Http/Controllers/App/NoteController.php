@@ -70,6 +70,8 @@ class NoteController extends Controller
         $payload = collect($request->validate([
             'name' => ['sometimes', 'string', 'max:255', 'nullable'],
             'content' => ['sometimes', 'string', 'nullable'],
+            'pin_at' => ['sometimes', 'date', 'nullable'],
+            'archive_at' => ['sometimes', 'date', 'nullable'],
         ]));
 
         if ($payload->has('name')) {
@@ -78,6 +80,14 @@ class NoteController extends Controller
 
         if ($payload->has('content')) {
             $note->content = $payload->get('content') ?? '';
+        }
+
+        if ($payload->has('pin_at')) {
+            $note->pin_at = $payload->get('pin_at') ?? null;
+        }
+
+        if ($payload->has('archive_at')) {
+            $note->archive_at = $payload->get('archive_at') ?? null;
         }
 
         $note->save();
@@ -105,6 +115,7 @@ class NoteController extends Controller
         return $request
             ->user()
             ->notes()
+            ->where('archive_at', null)
             ->orderBy('order')
             ->orderBy('created_at', 'desc');
     }
