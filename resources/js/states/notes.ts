@@ -14,6 +14,9 @@ export const useNotesStore = create(
         setNotes: (notes: TNote[]) => void;
         updateNote: (note: TNote) => void;
 
+        archiveNotes: TNote[];
+        setArchiveNotes: (archiveNotes: TNote[]) => void;
+
         sidebarVisible: boolean | null;
         setSidebarVisible: (sidebarVisible: boolean) => void;
 
@@ -33,6 +36,9 @@ export const useNotesStore = create(
                 }
             });
         },
+
+        archiveNotes: [],
+        setArchiveNotes: (archiveNotes) => set({ archiveNotes }),
 
         sidebarVisible: null,
         setSidebarVisible: (sidebarVisible) => set({ sidebarVisible }),
