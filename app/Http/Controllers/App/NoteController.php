@@ -116,6 +116,7 @@ class NoteController extends Controller
             ->user()
             ->notes()
             ->where('archive_at', null)
+            ->orderBy('pin_at', 'desc')
             ->orderBy('order')
             ->orderBy('created_at', 'desc');
     }

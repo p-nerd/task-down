@@ -1,3 +1,5 @@
+import type { TNote } from "@/types/models";
+
 import { useNotesReorder } from "@/hooks/use-notes-reorder";
 import { useNotesStore } from "@/states/notes";
 
@@ -15,8 +17,8 @@ export const Loading = () => {
     );
 };
 
-export const Listing = () => {
-    const { notes, note } = useNotesStore();
+export const Listing = ({ notes }: { notes: TNote[] }) => {
+    const { note } = useNotesStore();
 
     const { containerRef, slottedItems } = useNotesReorder(notes, note);
 
