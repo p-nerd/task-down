@@ -37,7 +37,7 @@ export const Index = () => {
                             </div>
                             <div>
                                 {pinnedNotes.length > 0 && (
-                                    <h3 className="px-14 font-bold">Others</h3>
+                                    <h3 className="px-14 font-bold">OTHERS</h3>
                                 )}
                                 <Listing notes={othersNotes} />
                                 <LoadMore loading={<Loading />} />
