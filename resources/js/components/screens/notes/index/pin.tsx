@@ -18,7 +18,7 @@ export const Pin = ({ note }: { note: TNote }) => {
         const orNotes = [...notes];
 
         try {
-            const pin_at = time.date.now();
+            const pin_at = !note.pin_at ? time.date.now() : null;
             setNotes(notes.map((n) => (n.id === note.id ? { ...n, pin_at } : n)));
             await window.axios.patch(route("notes.update", note), { pin_at });
         } catch (e) {

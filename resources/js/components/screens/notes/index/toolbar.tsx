@@ -3,7 +3,7 @@ import { useNotesStore } from "@/states/notes";
 import { Button } from "@/components/ui/button";
 import { ArchiveIcon, CheckSquare, PinIcon, Square, Trash2, XIcon } from "lucide-react";
 
-export const SelectionToolbar = () => {
+export const Toolbar = () => {
     const { notes, selectedNoteIds, setSelectNoteIds } = useNotesStore();
 
     const allSelected = notes.length === selectedNoteIds.length;
