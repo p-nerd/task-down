@@ -7,10 +7,11 @@ import { useNotesStore } from "@/states/notes";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { Pin as PinIcon } from "lucide-react";
+import { PinIcon } from "lucide-react";
 
 export const Pin = ({ note }: { note: TNote }) => {
     const [loading, setLoading] = useState<boolean>(false);
+
     const { notes, setNotes } = useNotesStore();
 
     const handlePin = async () => {
@@ -40,6 +41,43 @@ export const Pin = ({ note }: { note: TNote }) => {
             }}
             title={note.pin_at ? "Unpin" : "Pin"}
             className={cn("cursor-pointer", note.pin_at && "text-yellow-500 hover:text-yellow-600")}
+        >
+            <PinIcon size={16} />
+        </Button>
+    );
+};
+
+export const BatchPin = () => {
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const { notes, setNotes, selectedNoteIds } = useNotesStore();
+
+    const handlePin = async () => {
+        setLoading(true);
+        const orNotes = [...notes];
+
+        try {
+            const pin_at = time.date.now();
+            setNotes(
+                notes.map((n) => (selectedNoteIds.find((d) => n.id === d) ? { ...n, pin_at } : n)),
+            );
+            await window.axios.patch(route("notes.update"), { pin_at, ids: selectedNoteIds });
+        } catch (e) {
+            setNotes(orNotes);
+            toast.error(error(e));
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <Button
+            onClick={handlePin}
+            variant="ghost"
+            size="sm"
+            disabled={loading}
+            title="Pin selected"
+            className="cursor-pointer"
         >
             <PinIcon size={16} />
         </Button>

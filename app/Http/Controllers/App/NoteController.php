@@ -16,7 +16,7 @@ class NoteController extends Controller
      */
     public function index(Request $request)
     {
-        $notesPagination = $this->notesQuery($request)->paginate(perPage: 16, page: $request->input('page', 1));
+        $notesPagination = $this->notesQuery($request)->paginate(perPage: 100, page: $request->input('page', 1));
 
         $notes = $notesPagination->items();
 
