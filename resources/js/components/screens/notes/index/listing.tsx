@@ -1,8 +1,5 @@
 import type { TNote } from "@/types/models";
 
-import { useNotesReorder } from "@/hooks/use-notes-reorder";
-import { useNotesStore } from "@/states/notes";
-
 import { Item, ItemLoading } from "./item";
 
 export const Loading = () => {
@@ -18,22 +15,11 @@ export const Loading = () => {
 };
 
 export const Listing = ({ notes }: { notes: TNote[] }) => {
-    const { note } = useNotesStore();
-
-    const { containerRef, slottedItems } = useNotesReorder(notes, note);
-
     return (
-        <div className="grid w-full grid-cols-3 gap-5 px-10 py-2" ref={containerRef}>
-            {slottedItems.map(
-                ({ slotId, itemId, item }) =>
-                    item && (
-                        <div key={slotId} data-swapy-slot={slotId}>
-                            <div key={itemId} data-swapy-item={itemId} className="h-full w-full">
-                                <Item note={item} />
-                            </div>
-                        </div>
-                    ),
-            )}
+        <div className="grid w-full grid-cols-3 gap-5 px-10 py-2">
+            {notes.map((note) => (
+                <Item key={note.id} note={note} />
+            ))}
         </div>
     );
 };
