@@ -12,6 +12,7 @@ Route::prefix('/notes')->middleware(['auth', 'verified'])->group(function () {
 
     Route::patch('/reorder', [NoteController::class, 'reorder'])->name('notes.reorder');
     Route::patch('/{note}', [NoteController::class, 'update'])->name('notes.update');
+    Route::patch('/', [NoteController::class, 'batchUpdate'])->name('notes.batch-update');
 
     Route::delete('/{note}', [NoteController::class, 'destroy'])->name('notes.destroy');
 });

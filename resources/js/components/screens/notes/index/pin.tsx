@@ -61,7 +61,7 @@ export const BatchPin = () => {
             setNotes(
                 notes.map((n) => (selectedNoteIds.find((d) => n.id === d) ? { ...n, pin_at } : n)),
             );
-            await window.axios.patch(route("notes.update"), { pin_at, ids: selectedNoteIds });
+            await window.axios.patch(route("notes.batch-update"), { pin_at, ids: selectedNoteIds });
         } catch (e) {
             setNotes(orNotes);
             toast.error(error(e));

@@ -96,6 +96,33 @@ class NoteController extends Controller
     }
 
     /**
+     * Update multiple notes in storage.
+     */
+    public function batchUpdate(Request $request)
+    {
+        $payload = $request->validate([
+            'pin_at' => ['sometimes', 'date', 'nullable'],
+            'ids' => ['required', 'array'],
+            'ids.*' => ['required', 'string', 'exists:notes,id'],
+        ]);
+
+        $notesToUpdate = Note::query()
+            ->whereIn('id', $payload['ids'])
+            ->where('user_id', $request->user()->id)
+            ->get();
+
+        if ($request->has('pin_at')) {
+            Note::query()
+                ->whereIn('id', $notesToUpdate->pluck('id'))
+                ->update(['pin_at' => $payload['pin_at'] ?? null]);
+        }
+
+        return response()->json([
+            'message' => 'Notes updated successfully',
+        ]);
+    }
+
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Note $note)
