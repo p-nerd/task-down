@@ -50,7 +50,7 @@ export const Pin = ({ note }: { note: TNote }) => {
 export const BatchPin = () => {
     const [loading, setLoading] = useState<boolean>(false);
 
-    const { notes, setNotes, selectedNoteIds } = useNotesStore();
+    const { notes, setNotes, selectedNoteIds, setSelectNoteIds } = useNotesStore();
 
     const handlePin = async () => {
         setLoading(true);
@@ -62,6 +62,7 @@ export const BatchPin = () => {
                 notes.map((n) => (selectedNoteIds.find((d) => n.id === d) ? { ...n, pin_at } : n)),
             );
             await window.axios.patch(route("notes.batch-update"), { pin_at, ids: selectedNoteIds });
+            setSelectNoteIds([]);
         } catch (e) {
             setNotes(orNotes);
             toast.error(error(e));
